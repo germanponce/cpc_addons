@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+fincamiento_reference_user,fincamiento_reference,model_fincamiento_reference,purchase.group_purchase_user,1,1,1,1
+purchase_requisition_fincamiento_order_user,purchase_requisition_fincamiento_order,model_purchase_requisition_fincamiento_order,purchase.group_purchase_user,1,1,1,1
+
+

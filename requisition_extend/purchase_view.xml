@@ -1,0 +1,245 @@
+<openerp>
+<data>
+
+        <!-- Partners -->
+        <record model="ir.ui.view" id="partner_fincamiento_automatic_form">
+            <field name="name">res.partner.fincamiento</field>
+            <field name="model">res.partner</field>
+            <field name="type">form</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="arch" type="xml">
+            <data>
+                    <field name="category_id" position="after">
+                        <field name="fincamiento_automatic" attrs="{'invisible':[('supplier','=',False)]}"/>
+                        <field name="fincamiento_reference" attrs="{'required':[('fincamiento_automatic','=',True)],}"/>
+                        <field name="authorized" />
+                    </field>
+
+                   <div name="button_box" position="inside">
+                    <button name="action_view_products_fincados"
+                        type="object"
+                        class="oe_stat_button"
+                        icon="fa-pencil-square-o"
+                        attrs="{'invisible': [('product_fincados_count', '=', 0)]}">
+                        <field name="product_fincados_count" widget="statinfo" string="# Productos F."/>
+                    </button>
+                </div>
+
+                </data>
+            </field>
+        </record>
+
+
+        <record model="ir.ui.view" id="supplierinfo_fincamiento_automatic_form">
+            <field name="name">product.supplierinfo.fincamiento</field>
+            <field name="model">product.supplierinfo</field>
+            <field name="type">form</field>
+            <field name="inherit_id" ref="product.product_supplierinfo_form_view"/>
+            <field name="arch" type="xml">
+            <data>
+                <form position="inside">
+                    <group>
+                        <group>
+                            <field name="fincamiento" readonly="1"/>
+                            <field name="authorized" readonly="1"/>
+                        </group>
+                        <group></group>
+                    </group>
+                </form>
+            </data>
+            </field>
+        </record>
+
+    <record model="ir.ui.view" id="supplierinfo_fincamiento_automatic_tree">
+            <field name="name">product.supplierinfo.fincamiento</field>
+            <field name="model">product.supplierinfo</field>
+            <field name="type">form</field>
+            <field name="inherit_id" ref="product.product_supplierinfo_tree_view"/>
+            <field name="arch" type="xml">
+            <data>
+                <field name="price" position="after">
+                    <field name="fincamiento" readonly="1"/>
+                    <field name="authorized" readonly="1" />
+                </field>
+            </data>
+            </field>
+        </record>
+
+
+        <record model="ir.ui.view" id="requisitionline_fincamiento_automatic_form">
+            <field name="name">purchase.requisition.fincamiento</field>
+            <field name="model">purchase.requisition</field>
+            <field name="type">form</field>
+            <field name="inherit_id" ref="purchase_requisition.view_purchase_requisition_form"/>
+            <field name="arch" type="xml">
+            <data>
+                <xpath expr="//field[@name='line_ids']/tree/field[@name='price_unit']" position="after">
+                    <field name="fincamiento" />
+                    <field name="authorized" />
+                </xpath>
+                <xpath expr="//field[@name='line_ids']/tree/field[@name='product_id']" position="after">
+                    <field name="supplier_id" />
+                    <field name="authorized_supplier_id" />
+                </xpath>
+            </data>
+            </field>
+        </record>
+
+    <!-- WIZARD -->
+
+        <record id="purchase_requisition_fincamiento_order_form" model="ir.ui.view">
+            <field name="name">purchase.requisition.fincamiento.order.form</field>
+            <field name="model">purchase.requisition.fincamiento.order</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Creacion de Presupuestos">
+                    <sheet>
+                        <separator string="Selecciona el tipo de Presupuestos que deseas crear." />
+                        <group>
+                            <group>
+                                <field name="make_selector" widget="radio" required="1"/>
+                            </group>
+                            <group>
+                                
+                            </group>
+                        </group>
+                        <group string="Selecciona un Proveedor para la Cotizacion sin Autorizacion ni Fincamiento" attrs="{'invisible':[('make_selector','in',('fincados','authorized'))]}">
+                            <field name="supplier_id" domain="[('supplier','=',True)]" attrs="{'required':[('make_selector','in',('no_fincados','all_products'))]}"/>
+                        </group>
+                    </sheet>
+                    
+                    <footer>
+                        <center>
+                            <button name="make_orders" string="Crear Presupuestos" type="object" class="oe_highlight" icon="fa-check-square-o"/>
+
+                            <button string="Cerrar" class="oe_highlight" special="cancel" icon="fa-window-close" />
+                        </center>
+                    </footer>
+                </form>
+                </field>
+            </record>
+
+
+        <!--============================================ACCION========================================-->
+        <act_window
+            name="Creacion de Presupuestos Fincados"
+            res_model="purchase.requisition.fincamiento.order"
+            src_model="purchase.requisition.fincamiento.order"
+            view_mode="form" target="new"
+            key2="client_action_multi"
+            id="purchase_requisition_fincamiento_order_action"/>
+
+    <record model="ir.ui.view" id="purchase_requisition_fincamiento_form">
+            <field name="name">purchase.requisition.fincamiento</field>
+            <field name="model">purchase.requisition</field>
+            <field name="type">form</field>
+            <field name="inherit_id" ref="purchase_requisition.view_purchase_requisition_form"/>
+            <field name="arch" type="xml">
+            <data>
+                <header position="replace" >
+                    <header>
+                        <button name="330" type="action" string="Nueva Cotizacion" attrs="{'invisible': ['|',('state', '!=', 'open'),('show_wizard_fincado_authorized','=',True)]}"/>
+                        <button name="330" type="action" string="Nueva Cotizacion" class="btn-primary" attrs="{'invisible': ['|',('state', '!=', 'in_progress'),('show_wizard_fincado_authorized','=',True)]}"/>
+
+                        <button name='%(purchase_requisition_fincamiento_order_action)d' type='action' string='Crear Presupuestos' icon="fa-check-square-o" attrs="{'invisible': ['|',('state', '!=', 'open'),('show_wizard_fincado_authorized','=',False)]}" class="oe_highlight"/>
+                        <button name='%(purchase_requisition_fincamiento_order_action)d' type='action' string='Crear Presupuestos' icon="fa-check-square-o" attrs="{'invisible': ['|',('state', '!=', 'in_progress'),('show_wizard_fincado_authorized','=',False)]}" class="oe_highlight"/>
+
+                        <button name="action_in_progress" states="draft" string="Confirmar" type="object" class="btn-primary"/>
+                        <button name="action_open" states="in_progress" string="Validate" type="object" class="btn-primary"/>
+                        <button name="action_done" states="open" string="Validar" type="object" class="btn-primary"/>
+                        <button name="action_draft" states="cancel" string="Reset to Draft" type="object"/>
+                        <button name="action_cancel" states="draft,in_progress" string="Cancelar Llamada" type="object"/>
+                        <field name="state" widget="statusbar" statusbar_visible="draft,in_progress,open,done"/>
+                    </header>
+                </header>
+                <field name="picking_type_id" position="after">
+                    <field name="have_fincamiento" invisible="1" />
+                    <field name="have_authorization" invisible="1" />
+                    <field name="show_wizard_fincado_authorized" invisible="1" />
+                </field>
+            </data>
+            </field>
+        </record>
+
+    <!-- Menu -->
+
+        <record model="ir.ui.view" id="purchase_fincamiento_automatic_form">
+            <field name="name">purchase.order.fincamiento</field>
+            <field name="model">purchase.order</field>
+            <field name="type">form</field>
+            <field name="inherit_id" ref="purchase.purchase_order_form"/>
+            <field name="arch" type="xml">
+            <data>
+                    <field name="date_order" position="after">
+                        <field name="fincamiento" readonly="1" />
+                        <field name="fincamiento_reference" attrs="{'required':[('fincamiento','=',True)]}"/>
+                        <field name="authorized" readonly="1"/>
+                    </field>
+                </data>
+            </field>
+        </record>
+
+
+          <record model="ir.ui.view" id="fincamiento_reference_form">
+                <field name="name">fincamiento.reference.form</field>
+                <field name="model">fincamiento.reference</field>
+                <field name="type">form</field>
+                <field name="arch" type="xml">
+                    <form string="Referencia para Fincamiento">
+                        <header>
+                            <button name="cancel_quotations_fincadas" string="Cancelar Fincamientos Pendientes" type="object" icon="fa-window-close"/>
+                        </header>
+                        <sheet>
+                        <div class="oe_title">
+                            <label class="oe_edit_only" for="name" string="Referencia Fincamiento"/>
+                            <h1><field name="name"/></h1>
+                        </div>
+
+                        </sheet>
+                    </form>
+                </field>
+            </record>
+
+        <record id="purchase_order_fincados_tree" model="ir.ui.view">
+            <field name="name">purchase.order.tree.fincados</field>
+            <field name="model">purchase.order</field>
+            <field name="arch" type="xml">
+                <tree decoration-danger="best_price_fincado_reference==True" decoration-success="best_price_date_planned_reference==True">
+                    <field name="message_unread" invisible="1"/>
+                    <field name="name" string="Referencia"/>
+                    <field name="date_order" />
+                    <field name="partner_id"/>
+                    <field name="fincamiento" invisible="1"/>
+                    <field name="fincamiento_reference"/>
+                    <field name="best_price_fincado_reference"/>
+                    <field name="best_price_date_planned_reference"/>
+                    <field name="company_id" groups="base.group_multi_company" options="{'no_create': True}"/>
+                    <field name="date_planned" />
+                    <field name="origin"/>
+                    <field name="amount_untaxed" sum="Total Untaxed amount" string="Untaxed" widget="monetary"/>
+                    <field name="amount_total" sum="Total amount" widget="monetary"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="purchase_order_fincados" model="ir.actions.act_window">
+                <field name="name">Presupuestos Fincados</field>
+                <field name="res_model">purchase.order</field>
+                <field name="view_type">form</field>
+                <field name="view_mode">tree,form</field>
+                <field name="domain">[('fincamiento','=',True),('state','in',('draft','sent','to approve'))]</field>
+                <field name="context">{'fincamiento':True}</field>
+                <field name="view_id" ref="purchase_order_fincados_tree"/>
+                <field name="help" type="html">
+                    <p class="oe_view_nocontent_create">
+                        Click en crear para un nuevo Presupuesto de Fincamiento
+                    </p>
+                        
+                </field>
+            </record>   
+
+            <menuitem id="evaluation_fincamiento_purchase" name="Evaluacion de Proveedores" parent="purchase.menu_purchase_control" sequence="50" action="purchase_order_fincados"/>
+
+</data>
+</openerp>

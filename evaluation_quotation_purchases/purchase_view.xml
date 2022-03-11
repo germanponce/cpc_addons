@@ -1,0 +1,44 @@
+<openerp>
+<data>
+
+        <record id="purchase_order_evaluation_tree" model="ir.ui.view">
+            <field name="name">purchase.order.tree.fincados</field>
+            <field name="model">purchase.order</field>
+            <field name="arch" type="xml">
+                <tree decoration-danger="best_price_evaluation_reference==True" decoration-success="best_date_planned_evaluation_reference==True">
+                    <field name="message_unread" invisible="1"/>
+                    <field name="name" string="Referencia"/>
+                    <field name="date_order" />
+                    <field name="partner_id"/>
+                    <field name="best_price_evaluation_reference"/>
+                    <field name="best_date_planned_evaluation_reference"/>
+                    <field name="company_id" groups="base.group_multi_company" options="{'no_create': True}"/>
+                    <field name="date_planned" />
+                    <field name="origin"/>
+                    <field name="amount_untaxed" sum="Total Untaxed amount" string="Untaxed" widget="monetary"/>
+                    <field name="amount_total" sum="Total amount" widget="monetary"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="purchase_order_evaluation_act" model="ir.actions.act_window">
+                <field name="name">Presupuestos Fincados</field>
+                <field name="res_model">purchase.order</field>
+                <field name="view_type">form</field>
+                <field name="view_mode">tree,form</field>
+                <field name="domain">[('fincamiento','=',False),('authorized','=',False),('state','in',('draft','sent','to approve'))]</field>
+                <field name="context">{'}</field>
+                <field name="view_id" ref="purchase_order_evaluation_tree"/>
+                <field name="help" type="html">
+                    <p class="oe_view_nocontent_create">
+                        Click en crear para un nuevo Presupuesto
+                    </p>
+                        
+                </field>
+            </record>   
+
+            <menuitem id="purchase_order_evaluation_act_menu" name="Evaluacion de Presupuestos" parent="purchase.menu_purchase_control" sequence="55" action="purchase_order_evaluation_act"/>
+
+</data>
+</openerp>

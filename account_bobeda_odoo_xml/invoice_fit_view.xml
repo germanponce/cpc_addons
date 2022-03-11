@@ -1,0 +1,170 @@
+<openerp>
+    <data noupdate="1">
+        <record id="bobeda_my_sql_data_access" model="bobeda.my.sql">
+            <field name="user">boveda_cpcsa</field>
+            <field name="password">cpcsa_secreto</field>
+            <field name="host">10.10.50.180</field>
+            <field name="db">boveda_kontender</field>
+            <field name="port">3306</field>
+        </record>
+    </data>
+
+    <data>
+        
+        <record id="invoice_fit_bobeda_form_step_1" model="ir.ui.view">
+            <field name="name">invoice.bobeda.form</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account.invoice_supplier_form"/>
+            <field name="arch" type="xml">
+                <field name="company_currency_id" position="after">
+                    <field name="fiscal_uuid" />
+                </field>
+                <field name="payment_term_id" position="after">
+                    <field name="validate_attachment_bobeda" />
+                </field>
+                
+            </field>
+        </record>
+
+
+        <record id="invoice_fit_bobeda_tree_step_1" model="ir.ui.view">
+            <field name="name">invoice.fit.tree</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account.invoice_supplier_tree"/>
+            <field name="arch" type="xml">
+                <field name="reference" position="after">
+                    <field name="fiscal_uuid" />
+                </field>
+                
+                
+            </field>
+        </record>
+
+<!-- Range to validate when Supplier Invoice Total amount has difference with XML CFDI File -->
+    <record model="ir.config_parameter" id="bobeda_tolerance_range_between_invoice_record_and_cfdi_xml_file">               
+      <field name="key">bobeda_tolerance_range_between_invoice_record_and_cfdi_xml_file</field> 
+      <field name="value">1.0</field>
+    </record>
+
+
+
+    <!-- Menu -->
+
+        <record id="bobeda_mysql_tree" model="ir.ui.view">
+            <field name="name">bobeda.my.sql</field>
+            <field name="model">bobeda.my.sql</field>
+            <field name="arch" type="xml">
+                <tree string="Configuración Base de Datos para Bobeda Fiscal" editable="bottom">
+                    <field name="user" />
+                    <field name="password" password="True"/>
+                    <field name="host" />
+                    <field name="db" />
+                    <field name="port" />
+                </tree>
+            </field>
+        </record>
+
+        <record id="bobeda_mysql_act" model="ir.actions.act_window">
+                <field name="name">Configuración Bobeda Fiscal</field>
+                <field name="res_model">bobeda.my.sql</field>
+                <field name="view_type">form</field>
+                <field name="view_mode">tree,form</field>
+                <field name="context">{}</field>
+                <field name="view_id" ref="bobeda_mysql_tree"/>
+                <field name="help" type="html">
+                    <p class="oe_view_nocontent_create">
+                        Click en crear la configuracion de acceso a la Base de Datos de Bobeda Fiscal.
+                    </p>
+                        
+                </field>
+            </record>   
+
+            <menuitem id="bobeda_mysql_act_menu" parent="account.menu_finance_payables" sequence="300" action="bobeda_mysql_act" groups="base.group_no_one"/>
+
+        <!--====== CONSULTA BOBEDA FISCAL ======-->
+
+        <record id="consult_bobeda_form" model="ir.ui.view">
+            <field name="name">consult.bobeda.fiscal.form</field>
+            <field name="model">consult.bobeda.fiscal</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Consltar Bobeda Fiscal" >
+                    <header>
+                        <field name="search_selected" invisible="1" />
+                    </header>
+                    <sheet attrs="{'invisible':[('search_selected','=',False)]}">
+                        <separator string="Resultados de la Busqueda en Bobeda Fiscal" />
+                        <group>
+                            <field name="bobeda_lines" nolabel="1" >
+                                <tree string="Resultados Bobeda Fiscal" editable="bottom" create="false">
+                                    <field name="fiscal_uuid" readonly="True" />
+                                    <field name="serie" readonly="True" />
+                                    <field name="folio" readonly="True" />
+                                    <field name="date" readonly="True" />
+                                    <field name="amount_invoice" readonly="True" />
+                                    <field name="insert" />
+                                </tree>
+                            </field>
+                        </group>
+                       
+                    </sheet>
+                    <sheet attrs="{'invisible':[('search_selected','=',True)]}">
+                        <group>
+                            <group>
+                                <field name="filter_type" />
+                            </group>
+                            <group>
+                                <field name="date_start" attrs="{'invisible':[('filter_type','!=','periodo')],'required':[('filter_type','=','periodo')]}"/>
+                                <field name="date_end" attrs="{'invisible':[('filter_type','!=','periodo')],'required':[('filter_type','=','periodo')]}"/>
+                                <field name="serie" attrs="{'invisible':[('filter_type','!=','folio_serie')]}"/>
+                                <field name="folio" attrs="{'invisible':[('filter_type','!=','folio_serie')]}"/>
+                            </group>
+                            
+                        </group>
+                         <h5><i><b>Los resultados a mostrar estan relacionados directamente con el RFC del Emisor (Proveedor) y el RFC de la Compañia.</b></i></h5>
+                    </sheet>
+                    <footer attrs="{'invisible':[('search_selected','=',True)]}">
+                        <center>
+                            
+                            <button string="Consultar con Bobeda Fiscal" class="oe_highlight" name="search_uuids" icon="fa-retweet" type="object"/>
+                            o
+                            <button string="Cerrar" special="cancel"  icon="fa-times" class="oe_highlight"/>
+
+                        </center>
+                    </footer>
+                    <footer attrs="{'invisible':[('search_selected','=',False)]}">
+                        <center>
+                            <button name="insert_uuid" string="Insertar UUID" type="object"  icon="fa-cogs" class="oe_highlight"/>
+                            o
+                            <button string="Cancelar" class="oe_highlight" special="cancel" icon="fa-times"/>
+                        </center>
+                    </footer>
+                </form>
+                </field>
+            </record>
+
+
+        <!--=================ACCION ASISTENTE==================-->
+        <act_window
+            name="Consltar Bobeda Fiscal"
+            res_model="consult.bobeda.fiscal"
+            src_model="consult.bobeda.fiscal"
+            view_mode="form" target="new"
+            key2="client_action_multi"
+            id="consult_bobeda_act"/>
+
+        <record id="invoice_fit_bobeda_button_form_step_2" model="ir.ui.view">
+            <field name="name">invoice.bobeda.form</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account.invoice_supplier_form"/>
+            <field name="arch" type="xml">
+                <field name="state" position="before">
+                    <button name='%(consult_bobeda_act)d' type='action' string='Consultar Bobeda Fiscal' icon="fa-search" states="draft"/>
+                </field>
+            </field>
+        </record>
+
+
+    </data>
+    
+</openerp>

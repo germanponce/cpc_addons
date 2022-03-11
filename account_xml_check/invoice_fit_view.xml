@@ -1,0 +1,31 @@
+<openerp>
+    
+    <data>
+        
+        <record id="invoice_fit_form" model="ir.ui.view">
+            <field name="name">invoice.fit.form</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account.invoice_supplier_form"/>
+            <field name="arch" type="xml">
+                <field name="payment_term_id" position="after">
+                    <field name="validate_attachment" />
+                    <field name="validate_attachment2" />
+                </field>
+                <field name="reference" position="attributes">
+                    <attribute name="attrs">{'required': 1}</attribute>
+                </field>
+                
+            </field>
+        </record>
+
+
+<!-- Range to validate when Supplier Invoice Total amount has difference with XML CFDI File -->
+    <record model="ir.config_parameter" id="argil_tolerance_range_between_invoice_record_and_cfdi_xml_file">               
+      <field name="key">argil_tolerance_range_between_invoice_record_and_cfdi_xml_file</field> 
+      <field name="value">1.0</field>
+    </record>
+
+
+    </data>
+    
+</openerp>

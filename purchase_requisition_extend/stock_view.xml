@@ -1,0 +1,28 @@
+<openerp>
+<data>
+<!-- 
+        <record model="ir.ui.view" id="prifles_users_rules_purchase_id">
+            <field name="name">res.users.profiles</field>
+            <field name="model">res.users</field>
+            <field name="type">form</field>
+            <field name="inherit_id" ref="base.view_users_form"/>
+            <field name="arch" type="xml">
+            <data>
+                    <notebook position="before">
+                        <group>
+                            <group string="Almacenes">
+                                <field name="warehouse_ids" nolabel="1" widget="many2many_tags"/>
+                            </group>
+                            <group string="Categorias Productos">
+                                <field name="product_category_ids" nolabel="1" widget="many2many_tags"/>
+                            </group>
+                        </group>
+                        
+                        
+                    </notebook>
+                </data>
+            </field>
+        </record>
+ -->
+</data>
+</openerp>

@@ -1,0 +1,50 @@
+<openerp>
+<data>
+
+
+        <record model="ir.ui.view" id="requisition_local_puchase_1_step">
+            <field name="name">purchase.requisition.local</field>
+            <field name="model">purchase.requisition</field>
+            <field name="type">form</field>
+            <field name="inherit_id" ref="purchase_requisition.view_purchase_requisition_form"/>
+            <field name="arch" type="xml">
+            <data>
+                    
+                    <field name="picking_type_id" position="after">
+                        <field name="local_purchase" />
+                    </field>
+                    
+            </data>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="purchase_local_puchase_1_step">
+            <field name="name">purchase.order.local</field>
+            <field name="model">purchase.order</field>
+            <field name="type">form</field>
+            <field name="inherit_id" ref="purchase.purchase_order_form"/>
+            <field name="arch" type="xml">
+            <data>
+                    <field name="currency_id" position="after">
+                        <field name="local_purchase" />
+                    </field>
+                </data>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="purchase_local_puchase_1_step_stock">
+            <field name="name">stock.picking.local</field>
+            <field name="model">stock.picking</field>
+            <field name="type">form</field>
+            <field name="inherit_id" ref="stock.view_picking_form"/>
+            <field name="arch" type="xml">
+            <data>
+                    <field name="group_id" position="after">
+                        <field name="local_purchase" />
+                    </field>
+                </data>
+            </field>
+        </record>
+
+</data>
+</openerp>

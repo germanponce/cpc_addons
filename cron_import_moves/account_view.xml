@@ -1,0 +1,70 @@
+<openerp>
+<data>
+
+        <record model="ir.ui.view" id="ir_cron_inherit_import_extend">
+            <field name="name">ir.cron.import</field>
+            <field name="model">ir.cron</field>
+            <field name="type">form</field>
+            <field name="inherit_id" ref="cron_export_moves.ir_cron_inherit_extend"/>
+            <field name="arch" type="xml">
+            <data>
+                    <field name="export_log" position="after">
+                        <field name="import_path_doc" />
+                        <field name="import_path_done_doc" />
+                    </field>
+                    <header position="inside">
+                        <button name="clean_messages" string="Eliminar Mensajes Log" type="object" icon="fa-close"/>
+                    </header>
+                </data>
+            </field>
+        </record>
+
+
+        <record model="ir.ui.view" id="account_move_cron_inherit_extend_import">
+            <field name="name">account.move.cron</field>
+            <field name="model">account.move</field>
+            <field name="type">form</field>
+            <field name="inherit_id" ref="account.view_move_form"/>
+            <field name="arch" type="xml">
+            <data>
+                    <field name="date" position="after"> 
+                        <field name="is_imported" />
+                    </field>
+                </data>
+            </field>
+        </record>
+
+
+        <record model="ir.ui.view" id="account_move_cron_inherit_extend_import_tree">
+            <field name="name">account.move.cron</field>
+            <field name="model">account.move</field>
+            <field name="type">form</field>
+            <field name="inherit_id" ref="account.view_move_tree"/>
+            <field name="arch" type="xml">
+            <data>
+                    <field name="currency_id" position="after"> 
+                        <field name="is_imported" readonly="1" />
+                    </field>
+                </data>
+            </field>
+        </record>
+
+
+</data>
+<data noupdate="1">
+
+    <record forcecreate="True" id="import_automatically_account_moves" model="ir.cron">
+           <field name="name">Importacion de Polizas de Proveedores</field>
+           <field eval="True" name="active" />
+           <field name="user_id" ref="base.user_root" />
+           <field name="interval_number">12</field>
+           <field name="interval_type">hours</field>
+           <field name="numbercall">-1</field>
+           <field eval="'account.move'" name="model" />
+           <field eval="'import_automatically_moves'" name="function" />
+           <field eval="'()'" name="args" />
+        </record>
+
+
+</data>
+</openerp>

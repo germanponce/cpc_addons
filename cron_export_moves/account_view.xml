@@ -1,0 +1,92 @@
+<openerp>
+<data>
+
+        <record model="ir.ui.view" id="ir_cron_inherit_extend">
+            <field name="name">ir.cron.fincamiento</field>
+            <field name="model">ir.cron</field>
+            <field name="type">form</field>
+            <field name="inherit_id" ref="base.ir_cron_view"/>
+            <field name="arch" type="xml">
+            <data>
+                    <field name="args" position="after">
+                        <group>
+                            <field name="path_doc" />
+                            <field name="export_log" />
+                        </group>
+                    </field>
+
+                    <sheet position="after">
+                        <div class="oe_chatter">
+                            <field name="message_follower_ids" widget="mail_followers"/>
+                            <field name="message_ids" widget="mail_thread"/>
+                        </div>
+                    </sheet>
+                </data>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="journal_export_inherit_extend">
+            <field name="name">account.journal.fincamiento</field>
+            <field name="model">account.journal</field>
+            <field name="type">form</field>
+            <field name="inherit_id" ref="account.view_account_journal_form"/>
+            <field name="arch" type="xml">
+            <data>
+                    <field name="company_id" position="after">
+                        <field name="individual_export" />
+                    </field>
+                </data>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="account_move_cron_inherit_extend">
+            <field name="name">account.move.cron</field>
+            <field name="model">account.move</field>
+            <field name="type">form</field>
+            <field name="inherit_id" ref="account.view_move_form"/>
+            <field name="arch" type="xml">
+            <data>
+                    <field name="date" position="after"> 
+                        <field name="is_exported" />
+                    </field>
+                    <field name="currency_id" position="after">
+                        <field name="omited_search" />
+                    </field>
+                </data>
+            </field>
+        </record>
+
+
+        <record model="ir.ui.view" id="account_move_cron_inherit_extend_tree">
+            <field name="name">account.move.cron</field>
+            <field name="model">account.move</field>
+            <field name="type">form</field>
+            <field name="inherit_id" ref="account.view_move_tree"/>
+            <field name="arch" type="xml">
+            <data>
+                    <field name="currency_id" position="after"> 
+                        <field name="is_exported" readonly="1" />
+                    </field>
+                </data>
+            </field>
+        </record>
+
+
+</data>
+<data noupdate="1">
+
+    <record forcecreate="True" id="export_automatically_account_moves" model="ir.cron">
+           <field name="name">Programacion de Exportacion de Polizas</field>
+           <field eval="True" name="active" />
+           <field name="user_id" ref="base.user_root" />
+           <field name="interval_number">12</field>
+           <field name="interval_type">hours</field>
+           <field name="numbercall">-1</field>
+           <field eval="'account.move'" name="model" />
+           <field eval="'export_automatically_moves'" name="function" />
+           <field eval="'()'" name="args" />
+        </record>
+
+
+</data>
+</openerp>
