@@ -1,0 +1,84 @@
+<section class="oe_container">
+    <div class="oe_row oe_spaced">
+        <h2 class="oe_slogan" style="color:#875A7B;">Descripci&oacute;n del detalle de Reglas de Reabastecimiento</h2>
+        <p class="oe_mt32">
+        El informe del detalle de Reglas de Reabastecimiento se muestra de forma tabular y en tiempo corriente de acuerdo a la estad&iacute;stica comprendida desde los 90 d&iacute;as previos a la fecha de visualizaci&oacute;n, registrada por Transferencias internas hechas hacia ubicaciones de producci&oacute;n e inventario de cada producto que se puede comprar.
+        </p>
+        <p class="oe_mt32">
+        Se integra por los siguientes datos:
+        </p>
+        <div class="oe_row oe_spaced">
+            <div class="oe_span4">
+                <div class="text-center"><b><h4 class="oe_mt16 oe_mb16">Producto</h4></b></div>
+                <p class="text-justify">Art&iacute;culo objeto de detalle.</p>
+            </div>
+            <div class="oe_span4">
+                <div class="text-center"><b><div class="text-center"><b><h4 class="oe_mt16 oe_mb16">UdM</h4></b></div>
+                <p class="text-justify">Unidad de Medida</p>
+            </div>
+            <div class="oe_span4">
+                <div class="text-center"><b><h4 class="oe_mt16 oe_mb16">Categor&iacute;a</h4></b></div>
+                <p class="text-justify">Categor&iacute;a del art&iacute;culo</p>
+            </div>
+        </div>
+        <div class="oe_row oe_spaced">
+            <div class="oe_span4">
+                <div class="text-center"><b><h4 class="oe_mt16 oe_mb16">Consumo Total</h4></b></div>
+                <p class="text-justify">Sumatoria de todos los registros encontrados bajo las condiciones de la funcionalidad</p>
+            </div>
+            <div class="oe_span4">
+                <div class="text-center"><b><h4 class="oe_mt16 oe_mb16">Consumo Promedio Diario</h4></b></div>
+                <p class="text-justify">Resultado del campo anterior (Consumo Total) entre 90 d&iacute;as</p>
+            </div>
+            <div class="oe_span4">
+                <div class="text-center"><b><h4 class="oe_mt16 oe_mb16">Proveedor</h4></b></div>
+                <p class="text-justify">Primer proveedor encontrado para el art&iacute;culo. Si alg&uacute;n art&iacute;culo no cuenta con &eacute;sta informaci&oacute;n, no se mostrar&aacute; en el listado.</p>
+            </div>
+        </div>
+        <div class="oe_row oe_spaced">
+            <div class="oe_span4">
+                <div class="text-center"><b><h4 class="oe_mt16 oe_mb16">Cant. M&iacute;nima Prov.</h4></b></div>
+                <p class="text-justify">Cantidad que el proveedor exige para acceder a venta (Lote econ&oacute;mico).</p>
+            </div>
+            <div class="oe_span4">
+                <div class="text-center"><b><h4 class="oe_mt16 oe_mb16">D&iacute;as de Entrega</h4></b></div>
+                <p class="text-justify">Periodo de tiempo en d&iacute;as que el proveedor surte.</p>
+            </div>
+            <div class="oe_span4">
+                <div class="text-center"><b><h4 class="oe_mt16 oe_mb16">D&iacute;as E. X CPD</h4></b></div>
+                <p class="text-justify">C&aacute;lculo de D&iacute;as de entrega por el Consumo Promedio Diario</p>
+            </div>
+        </div>
+        <div class="oe_row oe_spaced">
+            <div class="oe_span4">
+                <div class="text-center"><b><h4 class="oe_mt16 oe_mb16">M&iacute;nimo</h4></b></div>
+                <p class="text-justify">C&aacute;lculo que corresponde a los D&iacute;as de entrega por el Consumo Promedio Diario por 2</p>
+            </div>
+            <div class="oe_span4">
+                <div class="text-center"><b><h4 class="oe_mt16 oe_mb16">M&aacute;ximo</h4></b></div>
+                <p class="text-justify">C&aacute;lculo que corresponde al M&iacute;nimo en los art&iacute;culos con Alto Volumen. A productos con Bajo Volumen corresponde a la suma de la Cantidad M&iacute;nima del Proveedor mas el producto del Consumo Promedio Diario por D&iacute;as de Entrega.</p>
+            </div>
+            <div class="oe_span4">
+                <div class="text-center"><b><h4 class="oe_mt16 oe_mb16">Cantidad Disponible</h4></b></div>
+                <p class="text-justify">Las existencias f&iacute;sicas disponibles del art&iacute;culo.</p>
+            </div>
+        </div>
+        <div class="oe_row oe_spaced">
+            <div class="oe_span4">
+                <div class="text-center"><b><h4 class="oe_mt16 oe_mb16">Cantidad Virtual</h4></b></div>
+                <p class="text-justify">La existencia mas la cantidad por recibir menos la cantidad por utilizar</p>
+            </div>
+            <div class="oe_span4">
+                <div class="text-center"><b><h4 class="oe_mt16 oe_mb16">Cantidad por recibir</h4></b></div>
+                <p class="text-justify">El total de las mercanc&iacute;as en tr&aacute;nsito. Si la cantidad es mayor a cero, se muestra un bot&oacute;n en el que accedemos al detalle del mismo.</p>
+            </div>
+            <div class="oe_span4">
+                <div class="text-center"><b><h4 class="oe_mt16 oe_mb16">Cantidad por consumir</h4></b></div>
+                <p class="text-justify">C&aacute;lculo que corresponde a la diferencia de existencias f&iacute;sicas menos el requerido para el surtido de pedidos en firme. Si se requiere el art&iacute;culo para surtir pedidos en firme, se muestra un bot&oacute;n para acceder al detalle.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="oe_container oe_separator">
+</section>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_explode_lvl_bom_tree" model="ir.ui.view">
+            <field name="name">explode.lvl.bom.config.lines.tree</field>
+            <field name="model">explode.lvl.bom.config.lines</field>
+            <field name="arch" type="xml">
+                <tree string="Stock Leveling Detail" create="false" delete="false">
+                    <field name="product_id" />
+                    <field name="stock_offset"/>
+                    <field name="qty_available"/>
+                    <field name="qty_level" sum="Total"/>
+                </tree>
+            </field>
+        </record>
+    </data>
+</odoo>

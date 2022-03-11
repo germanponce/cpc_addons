@@ -1,0 +1,29 @@
+--- a/models/crm_temp_call.py	2018-08-15 17:12:47.045972000 -0500
++++ b/models/crm_temp_call.py	2018-08-15 17:30:53.698563984 -0500
+@@ -87,14 +87,14 @@
+     def validate_call(self):
+         for s in self:
+             opor_id = ''
+-            partner_id = ''
++            partner_id = None
+             employee_id = ''
+             check_employee = False
+ 
+             if len(s.llamado) > 4:
+                 client_obj = self.env['crm.lead'].search(
+                     [('phone', '=', s.llamado)])
+-
++                
+                 if len(client_obj) < 1:
+                     client_obj = self.env['crm.lead'].search(
+                         [('mobile', '=', s.llamado)])
+@@ -132,7 +132,8 @@
+                 'date_out': s.fin,
+                 'extension': s.extension,
+                 'telefono': s.llamado,
+-                'name': partner_id or '',
++                'name': s.name,
++                'llamadas_id': partner_id or None,
+                 'employee': employee_id or '',
+                 'opportunity_id': opor_id or '',
+                 'entidad': s.entidad,

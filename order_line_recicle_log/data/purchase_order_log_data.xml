@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<record id="mt_po_price_log" model="mail.message.subtype">
+		<field name="name">Purchase Order Price Log</field>
+		<field name="res_model">purchase.order</field>
+		<field name="default" eval="False"/>
+		<field name="description">Price modification</field>
+	</record>
+</odoo>

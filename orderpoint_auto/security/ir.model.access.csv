@@ -1,0 +1,3 @@
+"id","name","model_id:id","group_id:id","perm_read","perm_write","perm_create","perm_unlink"
+"access_purchase_category","access_purchase_category","model_purchase_category","__export__.res_groups_126",1,1,1,1
+"access_purchase_category_admin","access_purchase_category_admin","model_purchase_category","base.group_system",1,1,1,1

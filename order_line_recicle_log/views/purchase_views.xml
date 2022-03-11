@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+		<record id="purchase_order_form_plus_reason" model="ir.ui.view">
+			<field name="name">purchase.order.form plus reason</field>
+			<field name="model">purchase.order</field>
+			<field name="inherit_id" ref="purchase.purchase_order_form"/>
+			<field name="arch" type="xml">
+				 <field name="order_line" position="after">
+				 	<field name="from_done" invisible="1" />
+				 	<field name="price_need_reason" invisible="1" />
+				 	<field name="id" invisible="1" />
+				 	<group>
+					 	<field name="reason_price_chg" class="oe_inline" colspan="4" 
+							attrs="{'invisible': ['|', ('price_need_reason', '=', False), ('id','=',False)], 'required': [('price_need_reason', '=', True), ('id','!=',False)]}" />
+					</group>
+				 </field>
+				 <notebook position="inside">
+				 	<page string="Additional information">
+						<separator string="Log" />
+						<field name="log_ids">
+							<tree string="Changes Log" create="false" delete="false" edit="false">
+								<field name="date" />
+								<field name="user_id" />
+								<field name="product_id" />
+								<field name="old_value" />
+								<field name="new_value" />
+								<field name="reason" />
+							</tree>
+						</field>
+					</page>
+				 </notebook>
+			</field>
+		</record>
+	</data>
+</odoo>

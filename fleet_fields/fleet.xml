@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+	<record model="ir.ui.view" id="au_fleet_tms_inghrt">
+		<field name="name">auto.fleet.form</field>
+		<field name="model">fleet.vehicle</field>
+		<field name="type">form</field>
+		<field name="inherit_id" ref="tms.fleet_vehicle_form_inherit_tms" />
+		<field name="arch" type="xml">
+			<field name="operating_unit_id"  position="replace"></field>
+			<field name="notes" position="before">
+				<group>
+					<field name="tip_vehicle" invisible="1"/>
+				</group>
+				<separator string="Información Adicional para cada Tipo de Vehículo" attrs="{'invisible':[('tip_vehicle','=',False)]}"/>
+				<group attrs="{'invisible':[('tip_vehicle','=',False)]}">
+					<field name="status_rental_vehicle" />
+				</group>
+				<group attrs="{'invisible':[('tip_vehicle','=',False)]}">
+					<group>
+						<field name="tip" />
+					</group>
+					<group></group>
+				</group>
+				<group attrs="{'invisible':[('tip_vehicle','not in',('plat','mont','mani','tor_ilum',))]}">
+					<group>
+						<field name="num_int" />
+					</group>
+					<group>
+						<field name="num_ser_equi" />
+					</group>
+				</group>
+				<group>
+					<group attrs="{'invisible':[('tip_vehicle','not in',('plat','mani','tor_ilum',))]}">
+						<field name="num_fac" />
+					</group>
+					<group attrs="{'invisible':[('tip_vehicle','not in',('plat','mani',))]}">
+						<field name="hor" />
+					</group>
+				</group>
+				<group attrs="{'invisible':[('tip_vehicle','!=','plat')]}">
+					<group>
+						<field name="func" />
+						<field name="alt_t" />
+						<field name="alt_p" />
+					</group>
+					<group>
+						<field name="cap_car" />
+						<field name="anch" />
+						<field name="peso" />
+					</group>
+				</group>
+				<group attrs="{'invisible':[('tip_vehicle','not in',('mont', 'ofc_mov', 'sant', 'migt', ))]}">
+					<group>
+						<field name="car_max" />
+						<field name="alt_max_mas" />
+						<field name="anch_equi" />
+						<field name="larg_equi" />
+						<field name="alt_equi" />
+						<field name="larg_orq" />
+					</group>
+					<group>
+						<field name="rad_equi" />
+						<field name="tip_llan" />
+						<field name="desp_lat" />
+						<field name="pes_total" />
+						<field name="caract" />
+					</group>
+				</group>
+				<group attrs="{'invisible':[('tip_vehicle','!=','mani')]}">
+					<group>
+						<field name="max_cap_alt" />
+						<field name="alt_max_el" />
+						<field name="alt_veh" />
+					</group>
+					<group>
+						<field name="long_veh" />
+						<field name="anch_veh" />
+					</group>
+				</group>
+				<group attrs="{'invisible':[('tip_vehicle','!=','tor_ilum')]}">
+					<group>
+						<field name="ilum" />
+						<field name="alt_ret" />
+						<field name="alt_ele" />
+						<field name="longitud" />
+						<field name="ancho" />
+						<field name="pes" />
+					</group>
+					<group>
+						<field name="dia" />
+						<field name="sem" />
+						<field name="mes" />
+						<field name="mon" />
+						<field name="obser" />
+					</group>
+				</group>
+				<group attrs="{'invisible':[('tip_vehicle','not in',('plat','tor_ilum',))]}">
+					<field name="fich_tec" />
+				</group>
+			</field>
+			<!-- <field name="fleet_type" position="replace">
+			    <field name="fleet_type" invisible="1" />
+			</field> -->
+		</field>
+	</record>
+
+<record model="ir.ui.view" id="fleet_fields_category_inhrt_tree">
+        <field name="name">auto.fleet.category.tree</field>
+        <field name="model">fleet.vehicle.category</field>
+        <field name="type">tree</field>
+        <field name="inherit_id" ref="tms.view_fleet_vehicle_category_tree" />
+        <field name="arch" type="xml">
+            <field name="type" position="after">
+                <field name="tip_vehicle" />
+            </field>
+        </field>
+    </record>
+
+<record model="ir.ui.view" id="fleet_fields_category_inhrt">
+        <field name="name">auto.fleet.category.form</field>
+        <field name="model">fleet.vehicle.category</field>
+        <field name="type">form</field>
+        <field name="inherit_id" ref="tms.view_fleet_vehicle_category_form" />
+        <field name="arch" type="xml">
+            <form position="replace">
+                <form string="Tipo de Vehiculo">
+                    <sheet>
+                        <div class="oe_button_box" name="button_box">
+                            <button name="toggle_active" type="object" groups="base.group_user"
+                                    class="oe_stat_button" icon="fa-archive">
+                                <field name="active" widget="boolean_button"
+                                    options='{"terminology": "archive"}'/>
+                            </button>
+                        </div>
+                        <div class="oe_title">
+                            <label for="name" class="oe_edit_only"/>
+                            <h1><field name="name" placeholder="Tipo deVehiculo, Ejemplo: Caja con 2 Ejes"/></h1>
+                        </div>
+                        <group col="4" colspan="4">
+                            <field name="parent_id" domain="[('id','!=',id),('type','=','view')]"/>
+                            <field name="type" />                            
+                            <field name="company_id" groups="base.group_multi_company" colspan="4"/>                            
+                            
+                        </group>
+                        <group>
+                            <field name="tip_vehicle" widget="radio" />
+                        </group>
+                        <group>
+                            <separator string="Notas" colspan="4" />
+                            <field name="notes" colspan="4" nolabel="1"/>
+                        </group>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers"/>
+                        <field name="message_ids" widget="mail_thread" placeholder="Notas..."/>
+                    </div>
+                </form>
+            </form>
+            
+        </field>
+    </record>
+
+
+    </data>
+</openerp>

@@ -1,0 +1,517 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* payment_order
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 10.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2018-12-27 13:24+0000\n"
+"PO-Revision-Date: 2018-12-27 13:24+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: payment_order
+#: model:ir.ui.view,arch_db:payment_order.account_payment_order_rpt_doc
+msgid "<br/>ATN"
+msgstr ""
+
+#. module: payment_order
+#: model:ir.ui.view,arch_db:payment_order.account_payment_order_rpt_doc
+msgid "A Favor de:"
+msgstr ""
+
+#. module: payment_order
+#: model:ir.ui.view,arch_db:payment_order.account_payment_order_rpt_doc
+msgid "A T E N T A M E N T E"
+msgstr ""
+
+#. module: payment_order
+#: model:ir.model.fields,field_description:payment_order.field_account_payment_order_partner_account
+msgid "Account"
+msgstr "Cuenta"
+
+#. module: payment_order
+#: model:ir.model.fields,field_description:payment_order.field_account_payment_order_act_acct_move
+msgid "Account Move on creation"
+msgstr "Póliza al crear"
+
+#. module: payment_order
+#: model:ir.model.fields,field_description:payment_order.field_account_payment_order_pay_acct_move
+msgid "Account Move on payment"
+msgstr "Póliza al pago"
+
+#. module: payment_order
+#: model:ir.model.fields,field_description:payment_order.field_account_config_settings_po_customer_accnt
+msgid "Account for customer Payment Order"
+msgstr "Cuenta para las Órdenes de Pago de anticipos"
+
+#. module: payment_order
+#: model:ir.model.fields,field_description:payment_order.field_account_config_settings_po_supplier_accnt
+msgid "Account for supplier Payment Order"
+msgstr "Cuenta para las Órdenes de Pago de proveedores"
+
+#. module: payment_order
+#: selection:account.payment.order,state:0
+msgid "Active"
+msgstr "Activo"
+
+#. module: payment_order
+#: model:ir.model.fields,field_description:payment_order.field_account_payment_order_amount
+msgid "Amount"
+msgstr "Cantidad"
+
+#. module: payment_order
+#: model:ir.model.fields,field_description:payment_order.field_account_payment_order_amount_inv
+msgid "Amount Inv"
+msgstr "Cantidad original"
+
+#. module: payment_order
+#: model:ir.model.fields,field_description:payment_order.field_account_register_payments_po_check_amount_in_words
+msgid "Amount in Words"
+msgstr "Cantidad escrita"
+
+#. module: payment_order
+#: model:ir.model.fields,field_description:payment_order.field_account_payment_order_notes
+msgid "Annotations"
+msgstr "Notas"
+
+#. module: payment_order
+#: model:ir.ui.view,arch_db:payment_order.account_payment_order_rpt_doc
+msgid "Banco:"
+msgstr ""
+
+#. module: payment_order
+#: model:ir.model.fields,field_description:payment_order.field_account_payment_order_partner_bank
+msgid "Bank"
+msgstr "Banco"
+
+#. module: payment_order
+#: model:ir.model.fields,field_description:payment_order.field_account_payment_order_partner_bank_office
+msgid "Bank Office"
+msgstr "Sucursal"
+
+#. module: payment_order
+#: model:ir.ui.view,arch_db:payment_order.view_account_payment_order_form
+msgid "Cancel"
+msgstr "Cancelar"
+
+#. module: payment_order
+#: model:ir.ui.view,arch_db:payment_order.account_register_payments_po_form
+msgid "Cancelar"
+msgstr ""
+
+#. module: payment_order
+#: selection:account.payment.order,state:0
+msgid "Cancelled"
+msgstr "Cancelado"
+
+#. module: payment_order
+#: model:ir.model.fields,field_description:payment_order.field_account_register_payments_po_check_number
+msgid "Check Number"
+msgstr "Número de Cheque"
+
+#. module: payment_order
+#: model:ir.model.fields,help:payment_order.field_account_register_payments_po_check_manual_sequencing
+msgid "Check this option if your pre-printed checks are not numbered."
+msgstr "Señale esta opción si su cheque preimpreso no está numerado"
+
+#. module: payment_order
+#: selection:account.register.payments.po,cmpl_type:0
+msgid "Cheque"
+msgstr ""
+
+#. module: payment_order
+#: model:ir.actions.act_window,help:payment_order.action_account_payment_order
+msgid "Click to register a payment order"
+msgstr "Presione para registrar una Órden de Pago"
+
+#. module: payment_order
+#: model:ir.ui.view,arch_db:payment_order.account_payment_order_rpt_doc
+msgid "Concepto:"
+msgstr ""
+
+#. module: payment_order
+#: model:ir.model.fields,field_description:payment_order.field_account_payment_order_create_uid
+#: model:ir.model.fields,field_description:payment_order.field_account_register_payments_po_create_uid
+msgid "Created by"
+msgstr "Creado por"
+
+#. module: payment_order
+#: model:ir.model.fields,field_description:payment_order.field_account_payment_order_create_date
+#: model:ir.model.fields,field_description:payment_order.field_account_register_payments_po_create_date
+msgid "Created on"
+msgstr "Creado en"
+
+#. module: payment_order
+#: model:ir.model.fields,field_description:payment_order.field_account_register_payments_po_partner_acc_id
+msgid "Cuenta Bancaria"
+msgstr ""
+
+#. module: payment_order
+#: model:ir.ui.view,arch_db:payment_order.account_payment_order_rpt_doc
+msgid "Cuenta:"
+msgstr ""
+
+#. module: payment_order
+#: model:ir.model.fields,field_description:payment_order.field_account_payment_order_rate
+msgid "Current Rate"
+msgstr "TC Actual"
+
+#. module: payment_order
+#: model:ir.model.fields,field_description:payment_order.field_account_payment_order_partner_extras
+msgid "Custom partner"
+msgstr "Contacto Personalizado"
+
+#. module: payment_order
+#: model:ir.ui.view,arch_db:payment_order.view_account_payment_order_form
+#: model:ir.ui.view,arch_db:payment_order.view_account_payment_order_tree
+msgid "Customer"
+msgstr "Cliente"
+
+#. module: payment_order
+#: model:ir.model.fields,field_description:payment_order.field_account_payment_order_display_name
+#: model:ir.model.fields,field_description:payment_order.field_account_register_payments_po_display_name
+msgid "Display Name"
+msgstr "Nombre a mostrar"
+
+#. module: payment_order
+#: selection:account.payment.order,state:0
+msgid "Done"
+msgstr "Hecho"
+
+#. module: payment_order
+#: model:ir.ui.view,arch_db:payment_order.account_payment_order_rpt_doc
+msgid "Favor de cargar el importe de esta operación a la cuenta de cheques No"
+msgstr ""
+
+#. module: payment_order
+#: model:ir.model.fields,field_description:payment_order.field_account_payment_order_id
+#: model:ir.model.fields,field_description:payment_order.field_account_register_payments_po_id
+msgid "ID"
+msgstr ""
+
+#. module: payment_order
+#: model:ir.ui.view,arch_db:payment_order.account_payment_order_rpt_doc
+msgid "Importe al diario:"
+msgstr ""
+
+#. module: payment_order
+#: model:ir.ui.view,arch_db:payment_order.account_payment_order_rpt_doc
+msgid "Importe:"
+msgstr ""
+
+#. module: payment_order
+#: model:ir.model,name:payment_order.model_account_invoice
+msgid "Invoice"
+msgstr "Factura"
+
+#. module: payment_order
+#: model:ir.model.fields,field_description:payment_order.field_account_payment_order_invoice_hist_ids
+#: model:ir.ui.view,arch_db:payment_order.view_account_payment_order_form
+msgid "Invoices (Hist)"
+msgstr "Facturas (Hist)"
+
+#. module: payment_order
+#: model:ir.model.fields,field_description:payment_order.field_account_payment_order_invoice_ids
+#: model:ir.ui.view,arch_db:payment_order.view_account_payment_order_form
+msgid "Invoices"
+msgstr "Facturas"
+
+#. module: payment_order
+#: model:ir.model.fields,field_description:payment_order.field_account_config_settings_po_journal
+msgid "Journal for Payment Orders"
+msgstr "Diario para las Órdenes de Pago"
+
+#. module: payment_order
+#: model:ir.model.fields,field_description:payment_order.field_account_payment_order___last_update
+#: model:ir.model.fields,field_description:payment_order.field_account_register_payments_po___last_update
+msgid "Last Modified on"
+msgstr "Último Modificado en"
+
+#. module: payment_order
+#: model:ir.model.fields,field_description:payment_order.field_account_payment_order_write_uid
+#: model:ir.model.fields,field_description:payment_order.field_account_register_payments_po_write_uid
+msgid "Last Updated by"
+msgstr "Último Actualizado por"
+
+#. module: payment_order
+#: model:ir.model.fields,field_description:payment_order.field_account_payment_order_write_date
+#: model:ir.model.fields,field_description:payment_order.field_account_register_payments_po_write_date
+msgid "Last Updated on"
+msgstr "Último Actualizado en"
+
+#. module: payment_order
+#: model:ir.model.fields,field_description:payment_order.field_account_register_payments_po_check_manual_sequencing
+msgid "Manual Numbering"
+msgstr "Numeración Manual"
+
+#. module: payment_order
+#: model:ir.model.fields,field_description:payment_order.field_account_register_payments_po_other_payment
+msgid "Método de Pago SAT"
+msgstr ""
+
+#. module: payment_order
+#: model:ir.model.fields,field_description:payment_order.field_account_payment_order_name
+msgid "Name"
+msgstr "Nombre"
+
+#. module: payment_order
+#: model:ir.model.fields,help:payment_order.field_account_register_payments_po_check_number
+msgid "Number of the check corresponding to this payment. If your pre-printed check are not already numbered, you can manage the numbering in the journal configuration page."
+msgstr "Número del cheque que corresponde a este pago. Si su cheque preimpreso no está ya numerado, puede administrar la numeración en la configuración del diario."
+
+#. module: payment_order
+#: model:ir.ui.view,arch_db:payment_order.account_payment_order_rpt_doc
+msgid "Observaciones:"
+msgstr ""
+
+#. module: payment_order
+#: model:ir.model.fields,field_description:payment_order.field_account_payment_order_currency_inv_id
+msgid "Original Currency"
+msgstr "Moneda Original"
+
+#. module: payment_order
+#: selection:account.register.payments.po,cmpl_type:0
+msgid "Otro método de pago"
+msgstr ""
+
+#. module: payment_order
+#: model:ir.model.fields,field_description:payment_order.field_account_register_payments_po_partner_parent_id
+msgid "Parent Partner"
+msgstr "Contacto Padre"
+
+#. module: payment_order
+#: model:ir.model.fields,field_description:payment_order.field_account_payment_order_partner_bank_id
+msgid "Partner bank account"
+msgstr "Cuenta Bancaria del Contacto"
+
+#. module: payment_order
+#: model:ir.model.fields,field_description:payment_order.field_account_invoice_payment_ord_id
+#: model:ir.model.fields,field_description:payment_order.field_account_invoice_supplier_collection_projection_payment_ord_id
+#: model:ir.model.fields,field_description:payment_order.field_account_payment_payment_ord_id
+#: model:ir.ui.view,arch_db:payment_order.view_account_settings_inherit_po
+msgid "Payment Order"
+msgstr "Orden de Pago"
+
+#. module: payment_order
+#: model:ir.model.fields,field_description:payment_order.field_account_payment_order_date
+msgid "Payment Order Date"
+msgstr "Fecha de Orden de Pago"
+
+#. module: payment_order
+#: model:ir.actions.report.xml,name:payment_order.report_payment_order
+msgid "Payment Order Report"
+msgstr "Reporte de Orden de Pago"
+
+#. module: payment_order
+#: model:ir.model.fields,field_description:payment_order.field_account_config_settings_po_offsetting_accnt
+msgid "Payment Orders offsetting account"
+msgstr "Cuenta de ajuste de Órdenes de Pago"
+
+#. module: payment_order
+#: model:ir.model.fields,field_description:payment_order.field_account_invoice_payment_journal
+msgid "Payment journal"
+msgstr "Diario de Pago"
+
+#. module: payment_order
+#: model:ir.model.fields,field_description:payment_order.field_account_invoice_payment_ord_bank
+msgid "Payment order bank"
+msgstr "Banco OP"
+
+#. module: payment_order
+#: model:ir.model.fields,field_description:payment_order.field_account_payment_order_subject
+msgid "Payment subject"
+msgstr "Concepto"
+
+#. module: payment_order
+#: model:ir.model,name:payment_order.model_account_payment
+#: model:ir.model.fields,field_description:payment_order.field_account_payment_order_payment_ids
+#: model:ir.ui.view,arch_db:payment_order.view_account_payment_order_form
+msgid "Payments"
+msgstr "Pagos"
+
+#. module: payment_order
+#: model:ir.model.fields,field_description:payment_order.field_account_payment_order_payment_hist_ids
+#: model:ir.ui.view,arch_db:payment_order.view_account_payment_order_form
+msgid "Payments (Hist)"
+msgstr "Pagos (Hist)"
+
+#. module: payment_order
+#: model:ir.model.fields,field_description:payment_order.field_account_payment_order_payment_journal
+msgid "Payments journal"
+msgstr "Diario de Pagos"
+
+#. module: payment_order
+#: model:ir.actions.act_window,name:payment_order.action_account_payment_order
+#: model:ir.ui.menu,name:payment_order.menu_action_account_payment_order
+msgid "Payments order"
+msgstr "Órdenes de Pago"
+
+#. module: payment_order
+#: model:ir.actions.act_window,help:payment_order.action_account_payment_order
+msgid "Payments order are used to request movements on banks accounts."
+msgstr "Las órdenes de pago son utilizadas para solicitar movimientos a cuentas bancarias."
+
+#. module: payment_order
+#: model:ir.ui.view,arch_db:payment_order.account_payment_order_rpt_doc
+msgid "Por medio de la presente solicito a usted sea tan amable en realizar una transferencia bancaria con los siguientes datos:"
+msgstr ""
+
+#. module: payment_order
+#: model:ir.actions.server,name:payment_order.account_payment_print_po_srv_act
+msgid "Print Payment Order"
+msgstr "Imp. Orden de Pago"
+
+#. module: payment_order
+#: model:ir.ui.view,arch_db:payment_order.account_payment_order_rpt_doc
+msgid "Raloy Lubricantes, S.A. de C.V.<br/>Av. de Convento No 111, Parque Industrial<br/>Santiago Tianguistenco Estado de México<br/>\n"
+"					Apartado Postal 43 C.P. 52600<br/>tel: (713) 135 27 77<span style=\"padding-right: 40px\"/> Fax: (713) 135 27 78"
+msgstr ""
+
+#. module: payment_order
+#: model:ir.ui.view,arch_db:payment_order.view_account_payment_order_form
+msgid "Register Payment"
+msgstr "Registrar Pago"
+
+#. module: payment_order
+#: model:ir.model,name:payment_order.model_account_register_payments_po
+msgid "Register payments on Payment Orders"
+msgstr "Registrar pago en Orden de Pago"
+
+#. module: payment_order
+#: model:ir.ui.view,arch_db:payment_order.account_register_payments_po_form
+msgid "Registrar pago"
+msgstr ""
+
+#. module: payment_order
+#: model:ir.ui.view,arch_db:payment_order.account_payment_order_rpt_doc
+msgid "Santiago Tianguistenco Estado de México a"
+msgstr ""
+
+#. module: payment_order
+#: model:ir.ui.view,arch_db:payment_order.account_payment_order_rpt_doc
+msgid "Sin mas por el momento quedo de usted."
+msgstr ""
+
+#. module: payment_order
+#: model:ir.model.fields,field_description:payment_order.field_account_payment_order_state
+msgid "State"
+msgstr "Estado"
+
+#. module: payment_order
+#: model:ir.ui.view,arch_db:payment_order.account_payment_order_rpt_doc
+msgid "Sucursal:"
+msgstr ""
+
+#. module: payment_order
+#: model:ir.model.fields,field_description:payment_order.field_account_payment_order_partner_name
+msgid "Supplier"
+msgstr "Proveedor"
+
+#. module: payment_order
+#: model:ir.model.fields,field_description:payment_order.field_account_payment_order_partner_id
+msgid "Supplier ID"
+msgstr "ID Proveedor"
+
+#. module: payment_order
+#: model:ir.model.fields,help:payment_order.field_account_payment_order_rate
+msgid "The rate of the currency to the currency of rate 1."
+msgstr "La proporción respecto de la divisa de referencia (1)"
+
+#. module: payment_order
+#: model:ir.ui.view,arch_db:payment_order.account_payment_order_rpt_doc
+msgid "Tipo de cambio:"
+msgstr ""
+
+#. module: payment_order
+#: model:ir.model.fields,field_description:payment_order.field_account_register_payments_po_cmpl_type
+msgid "Tipo de complemento"
+msgstr ""
+
+#. module: payment_order
+#: selection:account.register.payments.po,cmpl_type:0
+msgid "Transferencia"
+msgstr ""
+
+#. module: payment_order
+#: model:ir.ui.view,arch_db:payment_order.account_register_payments_po_form
+msgid "Validar"
+msgstr ""
+
+#. module: payment_order
+#: model:ir.ui.view,arch_db:payment_order.account_payment_order_rpt_doc
+msgid "Vo Bo"
+msgstr ""
+
+#. module: payment_order
+#: code:addons/payment_order/models/account_payment.py:14
+#, python-format
+msgid "Warning !\n"
+"No records selected."
+msgstr "¡Advertencia!\n"
+"Sin registros seleccionados."
+
+#. module: payment_order
+#: code:addons/payment_order/models/account_payment.py:22
+#, python-format
+msgid "Warning!\n"
+"At least a record is not Outbound type."
+msgstr "¡Advertencia!\n"
+"Al menos un registro no es del tipo Proveedor."
+
+#. module: payment_order
+#: code:addons/payment_order/models/account_payment.py:20
+#, python-format
+msgid "Warning!\n"
+"At least a record is not on Posted state."
+msgstr "¡Advertencia!\n"
+"Al menos un registro no está en estado Validado."
+
+#. module: payment_order
+#: code:addons/payment_order/models/account_payment.py:18
+#, python-format
+msgid "Warning!\n"
+"At least a record is related to invoices."
+msgstr "¡Advertencia!\n"
+"Al menos un registro está relacionado a facturas."
+
+#. module: payment_order
+#: model:ir.ui.view,arch_db:payment_order.supplier_projection_apo_search_view
+msgid "Without PO"
+msgstr "Sin OP"
+
+#. module: payment_order
+#: model:ir.ui.view,arch_db:payment_order.supplier_projection_apo_search_view
+msgid "Without linked PO"
+msgstr "Sin Orden de Pago enlazada"
+
+#. module: payment_order
+#: model:ir.model,name:payment_order.model_account_config_settings
+msgid "account.config.settings"
+msgstr ""
+
+#. module: payment_order
+#: model:ir.model,name:payment_order.model_account_invoice_supplier_collection_projection
+msgid "account.invoice.supplier_collection_projection"
+msgstr ""
+
+#. module: payment_order
+#: model:ir.model,name:payment_order.model_account_payment_order
+msgid "account.payment.order"
+msgstr ""
+
+#. module: payment_order
+#: model:ir.model,name:payment_order.model_argil_invoice_analysis_wizard
+msgid "argil.invoice.analysis.wizard"
+msgstr ""
+
+#. module: payment_order
+#: model:ir.ui.view,arch_db:payment_order.account_payment_order_rpt_doc
+msgid "de Raloy Lubricantes, S.A. de C.V."
+msgstr ""
+

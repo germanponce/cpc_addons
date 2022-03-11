@@ -1,0 +1,192 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* sale_cron_track
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 10.0-20171030\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2018-04-18 00:14+0000\n"
+"PO-Revision-Date: 2018-04-18 00:14+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: sale_cron_track
+#: model:mail.template,body_html:sale_cron_track.mail_state_template_customer_default
+msgid " \n"
+"<div>\n"
+"<p>Dear customer:</p>\n"
+"<p>Your order ${object.name} is on ${object.state_str} state.</p>\n"
+"<p>In case of any trouble, a representative from our sales team reach you soon</p>\n"
+"<p>Thank you!</p>\n"
+"<p>${user.company_id.name}</p>\n"
+"</div>"
+msgstr ""
+
+#. module: sale_cron_track
+#: model:mail.template,body_html:sale_cron_track.mail_state_template_agent_late_default
+msgid " \n"
+"<div>\n"
+"<p>Dear sales agent:</p>\n"
+"<p>The order (${object.name}) is on ${object.state_str} state and 10 days ago since confirmation.</p>\n"
+"<p>It is necesary to check for any trouble on stages before shipment and feedback customer.</p>\n"
+"<p>Thank you!</p>\n"
+"<p>${user.company_id.name}</p>\n"
+"</div>"
+msgstr ""
+
+#. module: sale_cron_track
+#: model:mail.template,body_html:sale_cron_track.mail_state_template_agent_default
+msgid " \n"
+"<div>\n"
+"<p>Dear sales agent:</p>\n"
+"<p>The order (${object.name}) is on ${object.state_str} state and 5 days ago since confirmation.</p>\n"
+"<p>Maybe necesary to check for any trouble on stages before shipment and feedback customer.</p>\n"
+"<p>Thank you!</p>\n"
+"<p>${user.company_id.name}</p>\n"
+"</div>"
+msgstr ""
+
+#. module: sale_cron_track
+#: model:ir.ui.view,arch_db:sale_cron_track.sale_state_config_form_view
+msgid "Apply"
+msgstr ""
+
+#. module: sale_cron_track
+#: model:ir.ui.view,arch_db:sale_cron_track.sale_state_config_form_view
+msgid "Cancel"
+msgstr ""
+
+#. module: sale_cron_track
+#: model:ir.ui.view,arch_db:sale_cron_track.sale_state_config_form_view
+msgid "Configure Sale State Tracking"
+msgstr ""
+
+#. module: sale_cron_track
+#: model:ir.model.fields,field_description:sale_cron_track.field_sale_state_config_create_uid
+msgid "Created by"
+msgstr ""
+
+#. module: sale_cron_track
+#: model:ir.model.fields,field_description:sale_cron_track.field_sale_state_config_create_date
+msgid "Created on"
+msgstr ""
+
+#. module: sale_cron_track
+#: model:ir.model.fields,field_description:sale_cron_track.field_sale_state_config_customer_template
+msgid "Customer Delivery Template"
+msgstr ""
+
+#. module: sale_cron_track
+#: model:ir.model.fields,help:sale_cron_track.field_sale_state_config_days_notif
+msgid "Days before first notification sending"
+msgstr ""
+
+#. module: sale_cron_track
+#: model:ir.model.fields,help:sale_cron_track.field_sale_state_config_days_late
+msgid "Days before late notification sending"
+msgstr ""
+
+#. module: sale_cron_track
+#: code:addons/sale_cron_track/models/res_config.py:22
+#, python-format
+msgid "Days must be greather than 0"
+msgstr ""
+
+#. module: sale_cron_track
+#: model:ir.model.fields,field_description:sale_cron_track.field_sale_state_config_display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: sale_cron_track
+#: model:ir.model.fields,field_description:sale_cron_track.field_sale_state_config_days_notif
+msgid "First Notification Days"
+msgstr ""
+
+#. module: sale_cron_track
+#: model:ir.ui.view,arch_db:sale_cron_track.sale_state_config_form_view
+msgid "First Tracking Notification"
+msgstr ""
+
+#. module: sale_cron_track
+#: model:ir.model.fields,field_description:sale_cron_track.field_sale_state_config_id
+msgid "ID"
+msgstr ""
+
+#. module: sale_cron_track
+#: model:ir.model.fields,field_description:sale_cron_track.field_sale_state_config___last_update
+msgid "Last Modified on"
+msgstr ""
+
+#. module: sale_cron_track
+#: model:ir.model.fields,field_description:sale_cron_track.field_sale_state_config_write_uid
+msgid "Last Updated by"
+msgstr ""
+
+#. module: sale_cron_track
+#: model:ir.model.fields,field_description:sale_cron_track.field_sale_state_config_write_date
+msgid "Last Updated on"
+msgstr ""
+
+#. module: sale_cron_track
+#: model:ir.model.fields,field_description:sale_cron_track.field_sale_state_config_days_late
+msgid "Late Notification Days"
+msgstr ""
+
+#. module: sale_cron_track
+#: model:ir.ui.view,arch_db:sale_cron_track.sale_state_config_form_view
+msgid "Late Tracking Notification"
+msgstr ""
+
+#. module: sale_cron_track
+#: model:ir.actions.act_window,name:sale_cron_track.action_ss_config
+msgid "Sale Tracking Configuration"
+msgstr ""
+
+#. module: sale_cron_track
+#: model:ir.model.fields,field_description:sale_cron_track.field_sale_state_config_agent_late_template
+#: model:ir.model.fields,field_description:sale_cron_track.field_sale_state_config_agent_template
+msgid "Sales Agent Delivery Template"
+msgstr ""
+
+#. module: sale_cron_track
+#: model:ir.model,name:sale_cron_track.model_sale_order
+msgid "Sales Order"
+msgstr ""
+
+#. module: sale_cron_track
+#: model:ir.model.fields,help:sale_cron_track.field_sale_state_config_customer_template
+msgid "Specify Mail Template to use on customer notification."
+msgstr ""
+
+#. module: sale_cron_track
+#: model:ir.model.fields,help:sale_cron_track.field_sale_state_config_agent_late_template
+#: model:ir.model.fields,help:sale_cron_track.field_sale_state_config_agent_template
+msgid "Specify Mail Template to use on sales agent notification."
+msgstr ""
+
+#. module: sale_cron_track
+#: model:ir.ui.menu,name:sale_cron_track.menu_state_track_config
+msgid "State Tracking Configuration"
+msgstr ""
+
+#. module: sale_cron_track
+#: model:mail.template,subject:sale_cron_track.mail_state_template_agent_default
+#: model:mail.template,subject:sale_cron_track.mail_state_template_agent_late_default
+msgid "Status for Order ${object.name}"
+msgstr ""
+
+#. module: sale_cron_track
+#: model:mail.template,subject:sale_cron_track.mail_state_template_customer_default
+msgid "Status for your Order ${object.name}"
+msgstr ""
+
+#. module: sale_cron_track
+#: model:ir.model,name:sale_cron_track.model_sale_state_config
+msgid "sale.state.config"
+msgstr ""
+

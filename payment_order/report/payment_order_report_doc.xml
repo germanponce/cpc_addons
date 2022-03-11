@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<template id="account_payment_order_rpt_doc">
+		<t t-set="line" t-value="line.with_context({'lang':user.lang})" />
+		<t t-set="partner" t-value="line.partner_id.with_context({'lang':user.lang})" />
+		<div class="header">
+			<div class="row">
+				<div class="col-xs-4" style="display:inline-block;float:none">
+					<img src="/payment_order/static/src/img/raloy-w.png" height="100px" width="auto "/>
+				</div><!-- 
+				--><div class="col-xs-2 col-xs-offset-6 text-right" style="vertical-align:middle;display:inline-block;float:none">
+					<p><strong><span t-field="line.name" /></strong></p>
+				</div>
+			</div>
+		</div>
+		<div class="page">
+                        <t t-if="line.state=='cancel'">
+                            <style type="text/css">
+                                div.page {
+                                    background-image: url("/payment_order/static/src/img/cancel.svg");
+                                    background-position: center;
+                                    background-repeat: no-repeat;
+                                    background-size: contain;
+                                }
+                            </style>
+                        </t>
+			<div class="row">
+				<div class="col-xs-8 col-xs-offset-4 text-right">
+					<p>Santiago Tianguistenco Estado de México a <span t-esc="line._date_fmt()" /></p>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-xs-6 col-xs-offset-1" style="margin-bottom:30px">
+					<p><strong><span t-field="line.payment_journal" /></strong><br />ATN</p>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-xs-12" style="margin-bottom:15px">
+					<p>Por medio de la presente solicito a usted sea tan amable en realizar una transferencia bancaria con los siguientes datos:</p>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-xs-2">
+					<p>A Favor de: </p>
+				</div>
+				<div class="col-xs-10">
+					<p><strong><span t-field="line.partner_name" /></strong></p>
+				</div>
+			</div>
+            <t t-if="line.rate != 1">
+                <div class="row">
+                    <div class="col-xs-2">
+                        <p>Importe al diario: </p>
+                    </div>
+                    <div class="col-xs-2">
+                        <p><strong><span t-esc="line.amount" t-options='{"widget": "monetary", "display_currency": line.payment_journal.currency_id or res_company.currency_id}' /></strong></p>
+                    </div>
+                    <div class="col-xs-8">
+                        <p><strong><span t-esc="line._get_amount_to_text(line.amount, line.payment_journal.currency_id.name or res_company.currency_id.name)" /></strong></p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-2">
+                        <p>Tipo de cambio: </p>
+                    </div>
+                    <div class="col-xs-2">
+                        <p><strong><span t-esc="line.rate" /></strong></p>
+                    </div>
+                </div>
+            </t>
+            <t t-else="">
+                <div class="row">
+				<div class="col-xs-2">
+					<p>Importe: </p>
+				</div>
+				<div class="col-xs-2">
+					<p><strong><span t-esc="line.amount_inv" t-options='{"widget": "monetary", "display_currency": line.currency_inv_id}' /></strong></p>
+				</div>
+				<div class="col-xs-8">
+					<p><strong><span t-esc="line._get_amount_to_text(line.amount_inv, line.currency_inv_id.name)" /></strong></p>
+				</div>
+			</div>
+            </t>
+			<div class="row">
+				<div class="col-xs-2">
+					<p>Banco: </p>
+				</div>
+				<div class="col-xs-4">
+					<p><strong><span t-field="line.partner_bank" /></strong></p>
+				</div>
+				<div class="col-xs-2">
+					<p>Cuenta: </p>
+				</div>
+				<div class="col-xs-4">
+					<p><strong><span t-field="line.partner_account" /></strong></p>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-xs-2">
+					<p>Sucursal: </p>
+				</div>
+				<div class="col-xs-3">
+					<p><strong><span t-field="line.partner_bank_office" /></strong></p>
+				</div>
+			</div>
+			<t t-if="not line.partner_extras">
+				<div class="row">
+					<div class="col-xs-2 col-xs-offset-2">
+						<p><strong><span t-field="line.partner_bank_id.reference" /></strong></p>
+					</div>
+					<div class="col-xs-2 col-xs-offset-1">
+						<p><strong><span t-field="line.partner_bank_id.reference2" /></strong></p>
+					</div>
+					<div class="col-xs-4 col-xs-offset-1">
+						<p><strong><span t-field="line.partner_bank_id.notes" /></strong></p>
+					</div>
+				</div>
+			</t>
+			<div class="row">
+				<div class="col-xs-2">
+					<p>Concepto: </p>
+				</div>
+				<div class="col-xs-10">
+					<p><strong><span t-esc="line.subject" /></strong></p>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-xs-3">
+					<p>Observaciones: </p>
+				</div>
+				<div class="col-xs-9">
+					<p><span t-esc="line.notes" /></p>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-xs-12" style="margin-top:15px">
+					<p>Favor de cargar el importe de esta operación a la cuenta de cheques No <strong><span t-field="line.payment_journal.bank_acc_number" /></strong> de Raloy Lubricantes, S.A. de C.V.</p>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-xs-12">
+					<p>Sin mas por el momento quedo de usted.</p>
+				</div>
+			</div>
+			<div class="row text-center" style="margin-bottom: 120px;margin-top: 20px;">
+				<div class="col-xs-6">
+					<p>A T E N T A M E N T E</p>
+				</div>
+				<div class="col-xs-6">
+					<p>Vo Bo</p>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-xs-5 col-xs-offset-1">
+					<p>Raloy Lubricantes, S.A. de C.V.<br />Av. de Convento No 111, Parque Industrial<br />Santiago Tianguistenco Estado de México<br />
+					Apartado Postal 43 C.P. 52600<br />tel: (713) 135 27 77<span style="padding-right: 40px" ></span> Fax: (713) 135 27 78</p>
+				</div>
+				<div class="col-xs-4 col-xs-offset-1">
+					<hr style="background-color: black; margin: 0 auto; padding: 1px;" />
+				</div>
+			</div>
+		</div>
+	</template>
+	
+	<template id="account_payment_order_rpt">
+		<t t-set="data_report_dpi" t-value="300"/>
+		<t t-call="report.html_container">
+			<t t-foreach="docs" t-as="line">
+				<t t-call="payment_order.account_payment_order_rpt_doc" t-lang="user.lang"/>
+			</t>
+		</t>
+    </template>
+</odoo>

@@ -1,0 +1,244 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* account_supplier_invoice_payment_order
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 10.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-01-08 17:08+0000\n"
+"PO-Revision-Date: 2019-01-08 17:08+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: account_supplier_invoice_payment_order
+#: model:ir.model,name:account_supplier_invoice_payment_order.model_res_partner_bank
+msgid "Bank Accounts"
+msgstr "Cuentas bancarias"
+
+#. module: account_supplier_invoice_payment_order
+#: model:ir.ui.view,arch_db:account_supplier_invoice_payment_order.account_supplier_invoice_payment_order_wizard
+msgid "Cancel"
+msgstr "Cancelar"
+
+#. module: account_supplier_invoice_payment_order
+#: model:ir.ui.view,arch_db:account_supplier_invoice_payment_order.account_supplier_invoice_payment_order_wizard
+msgid "Close"
+msgstr "Cerrar"
+
+#. module: account_supplier_invoice_payment_order
+#: model:ir.model.fields,field_description:account_supplier_invoice_payment_order.field_account_invoice_payment_order_wizard_line_concept
+msgid "Concepto de Pago"
+msgstr ""
+
+#. module: account_supplier_invoice_payment_order
+#: model:ir.model.fields,field_description:account_supplier_invoice_payment_order.field_account_invoice_payment_order_wizard_create_uid
+#: model:ir.model.fields,field_description:account_supplier_invoice_payment_order.field_account_invoice_payment_order_wizard_line_create_uid
+#: model:ir.model.fields,field_description:account_supplier_invoice_payment_order.field_journal_payment_create_uid
+msgid "Created by"
+msgstr "Creado por"
+
+#. module: account_supplier_invoice_payment_order
+#: model:ir.model.fields,field_description:account_supplier_invoice_payment_order.field_account_invoice_payment_order_wizard_create_date
+#: model:ir.model.fields,field_description:account_supplier_invoice_payment_order.field_account_invoice_payment_order_wizard_line_create_date
+#: model:ir.model.fields,field_description:account_supplier_invoice_payment_order.field_journal_payment_create_date
+msgid "Created on"
+msgstr "Creado el"
+
+#. module: account_supplier_invoice_payment_order
+#: model:ir.model.fields,field_description:account_supplier_invoice_payment_order.field_journal_payment_currency_id
+msgid "Currency"
+msgstr "Moneda"
+
+#. module: account_supplier_invoice_payment_order
+#: model:ir.model.fields,field_description:account_supplier_invoice_payment_order.field_account_invoice_payment_order_wizard_line_rate
+msgid "Current Rate"
+msgstr "TC Actual"
+
+#. module: account_supplier_invoice_payment_order
+#: model:ir.model.fields,field_description:account_supplier_invoice_payment_order.field_account_invoice_payment_order_wizard_display_name
+#: model:ir.model.fields,field_description:account_supplier_invoice_payment_order.field_account_invoice_payment_order_wizard_line_display_name
+#: model:ir.model.fields,field_description:account_supplier_invoice_payment_order.field_journal_payment_display_name
+msgid "Display Name"
+msgstr "Nombre a mostrar"
+
+#. module: account_supplier_invoice_payment_order
+#: model:ir.ui.view,arch_db:account_supplier_invoice_payment_order.account_supplier_invoice_payment_order_wizard
+msgid "Este asistente le permite mandar a imprimir las Ordenes de Pago según Facturas de proveedor haya seleccionado"
+msgstr ""
+
+#. module: account_supplier_invoice_payment_order
+#: model:ir.model.fields,field_description:account_supplier_invoice_payment_order.field_account_invoice_payment_order_wizard_id
+#: model:ir.model.fields,field_description:account_supplier_invoice_payment_order.field_account_invoice_payment_order_wizard_line_id
+#: model:ir.model.fields,field_description:account_supplier_invoice_payment_order.field_journal_payment_id
+msgid "ID"
+msgstr ""
+
+#. module: account_supplier_invoice_payment_order
+#: model:ir.model.fields,field_description:account_supplier_invoice_payment_order.field_account_invoice_payment_order_wizard_line_amount_inv
+msgid "Importe"
+msgstr ""
+
+#. module: account_supplier_invoice_payment_order
+#: model:ir.ui.view,arch_db:account_supplier_invoice_payment_order.account_supplier_invoice_payment_order_wizard
+msgid "Imprimir"
+msgstr ""
+
+#. module: account_supplier_invoice_payment_order
+#: model:ir.model.fields,field_description:account_supplier_invoice_payment_order.field_account_invoice_payment_order_wizard_line_invoice_ids
+msgid "Invoice ids"
+msgstr "Líneas de factura"
+
+#. module: account_supplier_invoice_payment_order
+#: model:ir.model.fields,field_description:account_supplier_invoice_payment_order.field_account_invoice_payment_order_wizard___last_update
+#: model:ir.model.fields,field_description:account_supplier_invoice_payment_order.field_account_invoice_payment_order_wizard_line___last_update
+#: model:ir.model.fields,field_description:account_supplier_invoice_payment_order.field_journal_payment___last_update
+msgid "Last Modified on"
+msgstr "Última modificación en"
+
+#. module: account_supplier_invoice_payment_order
+#: model:ir.model.fields,field_description:account_supplier_invoice_payment_order.field_account_invoice_payment_order_wizard_line_write_uid
+#: model:ir.model.fields,field_description:account_supplier_invoice_payment_order.field_account_invoice_payment_order_wizard_write_uid
+#: model:ir.model.fields,field_description:account_supplier_invoice_payment_order.field_journal_payment_write_uid
+msgid "Last Updated by"
+msgstr "Última actualización por"
+
+#. module: account_supplier_invoice_payment_order
+#: model:ir.model.fields,field_description:account_supplier_invoice_payment_order.field_account_invoice_payment_order_wizard_line_write_date
+#: model:ir.model.fields,field_description:account_supplier_invoice_payment_order.field_account_invoice_payment_order_wizard_write_date
+#: model:ir.model.fields,field_description:account_supplier_invoice_payment_order.field_journal_payment_write_date
+msgid "Last Updated on"
+msgstr "Última actualización el"
+
+#. module: account_supplier_invoice_payment_order
+#: model:ir.model.fields,field_description:account_supplier_invoice_payment_order.field_account_invoice_payment_order_wizard_lines
+msgid "Líneas"
+msgstr ""
+
+#. module: account_supplier_invoice_payment_order
+#: model:ir.model.fields,field_description:account_supplier_invoice_payment_order.field_account_invoice_payment_order_wizard_line_currency_id
+msgid "Moneda"
+msgstr ""
+
+#. module: account_supplier_invoice_payment_order
+#: model:ir.model.fields,field_description:account_supplier_invoice_payment_order.field_res_partner_bank_notes
+msgid "Notes"
+msgstr "Notas"
+
+#. module: account_supplier_invoice_payment_order
+#: model:ir.model.fields,field_description:account_supplier_invoice_payment_order.field_journal_payment_bank_acc_number
+msgid "Número de Cuenta"
+msgstr ""
+
+#. module: account_supplier_invoice_payment_order
+#: model:ir.model.fields,field_description:account_supplier_invoice_payment_order.field_account_invoice_payment_order_wizard_line_notes
+msgid "Observaciones"
+msgstr ""
+
+#. module: account_supplier_invoice_payment_order
+#: model:ir.model.fields,field_description:account_supplier_invoice_payment_order.field_res_partner_bank_office
+msgid "Office"
+msgstr "Sucursal"
+
+#. module: account_supplier_invoice_payment_order
+#: model:ir.ui.view,arch_db:account_supplier_invoice_payment_order.account_supplier_invoice_payment_order_wizard
+msgid "Ordenes de Pago"
+msgstr ""
+
+#. module: account_supplier_invoice_payment_order
+#: model:ir.model,name:account_supplier_invoice_payment_order.model_res_partner
+#: model:ir.model.fields,field_description:account_supplier_invoice_payment_order.field_journal_payment_partner_id
+msgid "Partner"
+msgstr "Proveedor"
+
+#. module: account_supplier_invoice_payment_order
+#: model:ir.model.fields,field_description:account_supplier_invoice_payment_order.field_account_invoice_payment_order_wizard_line_supplier_bank_id
+msgid "Partner bank account"
+msgstr "Cuenta bancaria"
+
+#. module: account_supplier_invoice_payment_order
+#: model:ir.model.fields,field_description:account_supplier_invoice_payment_order.field_account_invoice_payment_order_wizard_line_payment_ord_id
+msgid "Payment ord id"
+msgstr "Órden de Pago"
+
+#. module: account_supplier_invoice_payment_order
+#: model:ir.model,name:account_supplier_invoice_payment_order.model_account_payment
+msgid "Payments"
+msgstr "Pagos"
+
+#. module: account_supplier_invoice_payment_order
+#: model:ir.model.fields,field_description:account_supplier_invoice_payment_order.field_res_partner_journal_ids
+#: model:ir.model.fields,field_description:account_supplier_invoice_payment_order.field_res_users_journal_ids
+msgid "Payments Journal"
+msgstr "Diario de Pagos"
+
+#. module: account_supplier_invoice_payment_order
+#: model:ir.model.fields,field_description:account_supplier_invoice_payment_order.field_res_partner_payment_journal
+#: model:ir.model.fields,field_description:account_supplier_invoice_payment_order.field_res_users_payment_journal
+msgid "Payments account"
+msgstr "Cuenta de pago"
+
+#. module: account_supplier_invoice_payment_order
+#: model:ir.model.fields,field_description:account_supplier_invoice_payment_order.field_account_invoice_payment_order_wizard_line_payment_journal
+msgid "Payments journal"
+msgstr "Diario de Pagos"
+
+#. module: account_supplier_invoice_payment_order
+#: model:ir.model.fields,field_description:account_supplier_invoice_payment_order.field_account_invoice_payment_order_wizard_line_partner_id
+msgid "Proveedor"
+msgstr ""
+
+#. module: account_supplier_invoice_payment_order
+#: model:ir.model.fields,field_description:account_supplier_invoice_payment_order.field_res_partner_bank_reference2
+msgid "Reference 2"
+msgstr "Referencia 2"
+
+#. module: account_supplier_invoice_payment_order
+#: model:ir.model,name:account_supplier_invoice_payment_order.model_account_register_payments
+msgid "Register payments on multiple invoices"
+msgstr "Registrar pagos en múltiples facturas"
+
+#. module: account_supplier_invoice_payment_order
+#: model:ir.actions.act_window,name:account_supplier_invoice_payment_order.action_account_supplier_payment_order_wizard
+msgid "Reporte de Orden de Pago"
+msgstr ""
+
+#. module: account_supplier_invoice_payment_order
+#: model:ir.model.fields,help:account_supplier_invoice_payment_order.field_account_invoice_payment_order_wizard_line_rate
+msgid "The rate of the currency to the currency of rate 1."
+msgstr "La proporción respecto de la divisa de referencia (1)"
+
+#. module: account_supplier_invoice_payment_order
+#: model:ir.model.fields,field_description:account_supplier_invoice_payment_order.field_account_invoice_payment_order_wizard_line_amount
+msgid "Total"
+msgstr ""
+
+#. module: account_supplier_invoice_payment_order
+#: model:ir.model.fields,field_description:account_supplier_invoice_payment_order.field_account_invoice_payment_order_wizard_line_wizard_id
+msgid "Wizard id"
+msgstr "ID Asistente"
+
+#. module: account_supplier_invoice_payment_order
+#: model:ir.model,name:account_supplier_invoice_payment_order.model_account_invoice_payment_order_wizard
+msgid "account.invoice.payment_order.wizard"
+msgstr ""
+
+#. module: account_supplier_invoice_payment_order
+#: model:ir.model,name:account_supplier_invoice_payment_order.model_account_invoice_payment_order_wizard_line
+msgid "account.invoice.payment_order.wizard.line"
+msgstr ""
+
+#. module: account_supplier_invoice_payment_order
+#: model:ir.model,name:account_supplier_invoice_payment_order.model_journal_payment
+msgid "journal.payment"
+msgstr ""
+
+#. module: account_supplier_invoice_payment_order
+#: model:ir.ui.view,arch_db:account_supplier_invoice_payment_order.account_supplier_invoice_payment_order_wizard
+msgid "or"
+msgstr "o"
+

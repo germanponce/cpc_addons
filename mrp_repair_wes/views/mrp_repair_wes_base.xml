@@ -1,0 +1,306 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+		<menuitem action="mrp_repair.action_repair_order_tree" id="repair_orders" name="Repair Orders" parent="mrp_repair.menu_repair_order" sequence="5" />
+		<menuitem name="Products" parent="mrp_repair.menu_repair_order" id="menu_products" sequence="10" />
+		<menuitem name="Roles" parent="mrp_repair.menu_repair_order" id="menu_roles" sequence="15" />
+		<menuitem name="Process" parent="mrp_repair.menu_repair_order" id="menu_process" sequence="20" />
+		<menuitem name="Contacts" parent="mrp_repair.menu_repair_order" id="menu_contacts" sequence="25" />
+		<menuitem name="Settings" parent="mrp_repair.menu_repair_order" id="menu_settings" sequence="30" />
+		
+		<record id='repairing_causes_action' model='ir.actions.act_window'>
+			<field name="name">Causes for Repairing</field>
+			<field name="res_model">mrp.repair.wes.cause</field>
+			<field name="view_mode">tree,form</field>
+			<field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                Click to create a Cause for Repairing.
+              </p><p>
+                Causes for repairing helps to customize repairing information.
+              </p>
+			</field>
+		</record>
+		
+		<record id='hddcheckin_action' model='ir.actions.act_window'>
+			<field name="name">HDD CheckIn Codes</field>
+			<field name="res_model">mrp.repair.wes.hddcheckin</field>
+			<field name="view_mode">tree,form</field>
+			<field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                Click to create a HDD CheckIn code.
+              </p><p>
+                HDD CheckIn codes helps to customize repairing information.
+              </p>
+			</field>
+		</record>
+		
+		<record id='failcodes_action' model='ir.actions.act_window'>
+			<field name="name">Failure Codes</field>
+			<field name="res_model">mrp.repair.wes.failcode</field>
+			<field name="view_mode">tree,form</field>
+			<field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                Click to create a Failure code.
+              </p><p>
+                Failure codes helps to customize repairing information.
+              </p>
+			</field>
+		</record>
+		
+		<record id='scrapcodes_action' model='ir.actions.act_window'>
+			<field name="name">Scrap Codes</field>
+			<field name="res_model">mrp.repair.wes.scrap</field>
+			<field name="view_mode">tree,form</field>
+			<field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                Click to create a Scrap code.
+              </p><p>
+                Scrap codes helps to customize repairing information.
+              </p>
+			</field>
+		</record>
+		
+		<record id='brands_action' model='ir.actions.act_window'>
+			<field name="name">Brands</field>
+			<field name="res_model">mrp.repair.wes.brand</field>
+			<field name="view_mode">tree,form</field>
+			<field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                Click to create a Brand.
+              </p><p>
+                Brands enhace repairing information.
+              </p>
+			</field>
+		</record>
+		
+		<record id='nonrepreason_action' model='ir.actions.act_window'>
+			<field name="name">Non-Repairing reasons</field>
+			<field name="res_model">mrp.repair.wes.nonrepreason</field>
+			<field name="view_mode">tree,form</field>
+			<field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                Click to create a Non-Repairing Reason.
+              </p><p>
+                Non-Repairing reasons enhace repairing information.
+              </p>
+			</field>
+		</record>
+		
+		<record id='repairtype_action' model='ir.actions.act_window'>
+			<field name="name">Repairing Type</field>
+			<field name="res_model">mrp.repair.wes.type</field>
+			<field name="view_mode">tree,form</field>
+			<field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                Click to create a Type of Repairing.
+              </p><p>
+                Repairing Types enhace repairing information.
+              </p>
+			</field>
+		</record>
+		
+		<menuitem name="Catalogs" parent="menu_settings" id="menu_settings_catalogs" sequence="5" />
+		
+		<menuitem name="Causes for repairing" action="repairing_causes_action" parent="menu_settings_catalogs" id="menu_settings_catalogs_causes" sequence="1" />
+		<menuitem name="HDD CheckIn codes" action="hddcheckin_action" parent="menu_settings_catalogs" id="menu_settings_catalogs_hddcheckin" sequence="2" />
+		<menuitem name="Failure codes" action="failcodes_action" parent="menu_settings_catalogs" id="menu_settings_catalogs_failure" sequence="3" />
+		<menuitem name="Scrap codes" action="scrapcodes_action" parent="menu_settings_catalogs" id="menu_settings_catalogs_scrap" sequence="4" />
+		<menuitem name="Brands" action="brands_action" parent="menu_settings_catalogs" id="menu_settings_catalogs_brands" sequence="5" />
+		<menuitem name="Non Repairing reasons" action="nonrepreason_action" parent="menu_settings_catalogs" id="menu_settings_catalogs_nonrepreas" sequence="6" />
+		<menuitem name="Repairing Type" action="repairtype_action" parent="menu_settings_catalogs" id="menu_settings_catalogs_reptype" sequence="7" />
+		
+		<record id='tags_action' model='ir.actions.act_window'>
+			<field name="name">Tags</field>
+			<field name="res_model">mrp.repair.wes.tags</field>
+			<field name="view_mode">tree,form</field>
+			<field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                Click to create a Tag.
+              </p><p>
+                Tags enhace repairing information.
+              </p>
+			</field>
+		</record>
+		
+		<menuitem name="Tags" action="tags_action" parent="menu_settings" id="menu_settings_tags" sequence="10" />
+		
+		<record id='repairable_action' model='ir.actions.act_window'>
+			<field name="name">Repairable Products</field>
+			<field name="res_model">product.product</field>
+			<field name="view_mode">tree,form</field>
+			<field name="domain">[('categ_id.repairable_prod','=',True)]</field>
+			<field name="context">{'from_repair_rep': True}</field>
+			<field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                Click to create a Repairable product.
+              </p><p>
+                Repairable products are essential for repairing information.
+              </p>
+			</field>
+		</record>
+		
+		<record id='spareparts_action' model='ir.actions.act_window'>
+			<field name="name">Spare Parts Products</field>
+			<field name="res_model">product.product</field>
+			<field name="view_mode">tree,form</field>
+			<field name="domain">[('categ_id.part_prod','=',True)]</field>
+			<field name="context">{'from_repair_part': True}</field>
+			<field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                Click to create a Spare Part Product.
+              </p><p>
+                Spare Part products are essential for repairing information.
+              </p>
+			</field>
+		</record>
+		
+		<record id='partnumber_action' model='ir.actions.act_window'>
+			<field name="name">Parts Number</field>
+			<field name="res_model">mrp.repair.wes.partnum</field>
+			<field name="view_mode">tree,form</field>
+			<field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                Click to create a Part Number.
+              </p><p>
+                Part numbers are essential for repairing information.
+              </p>
+			</field>
+		</record>
+		
+		<record id='parttype_action' model='ir.actions.act_window'>
+			<field name="name">Parts Type</field>
+			<field name="res_model">mrp.repair.wes.parttype</field>
+			<field name="view_mode">tree,form</field>
+			<field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                Click to create a Part Type.
+              </p><p>
+                Part types are essential for Parts Number information.
+              </p>
+			</field>
+		</record>
+		
+		<record id='partsubtype_action' model='ir.actions.act_window'>
+			<field name="name">Parts SubType</field>
+			<field name="res_model">mrp.repair.wes.partsubtype</field>
+			<field name="view_mode">tree,form</field>
+			<field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                Click to create a Part SubType.
+              </p><p>
+                Part SubTypes are essential for Parts Number information.
+              </p>
+			</field>
+		</record>
+		
+		<menuitem name="Repairable products" action="repairable_action" parent="menu_products" id="menu_products_repairable" sequence="1" />
+		<menuitem name="Spare Parts" action="spareparts_action" parent="menu_products" id="menu_products_spare" sequence="2" />
+		<menuitem name="Part Number" action="partnumber_action" parent="menu_products" id="menu_products_partno" sequence="3" />
+		<menuitem name="Part Type" action="parttype_action" parent="menu_products" id="menu_products_parttype" sequence="4" />
+		<menuitem name="Part SubType" action="partsubtype_action" parent="menu_products" id="menu_products_partsub" sequence="5" />
+		
+		<record id='roles_action' model='ir.actions.act_window'>
+			<field name="name">User Roles</field>
+			<field name="res_model">mrp.repair.wes.roles</field>
+			<field name="view_mode">tree,form</field>
+			<field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                Click to create a User Role.
+              </p><p>
+                User Roles are essential for repairing information.
+              </p>
+			</field>
+		</record>
+		
+		<menuitem name="User Roles" action="roles_action" parent="menu_roles" id="menu_roles_users" sequence="1" />
+		
+		<record id='partlist_action' model='ir.actions.act_window'>
+			<field name="name">Parts List</field>
+			<field name="res_model">mrp.repair.wes.partslist</field>
+			<field name="view_mode">tree,form</field>
+			<field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                Click to create a Parts List.
+              </p><p>
+                Parts List enhace repairing information.
+              </p>
+			</field>
+		</record>
+		
+		<!-- Verificar si se quita rutas o lista de actividades -->
+		<record id='routes_action' model='ir.actions.act_window'>
+			<field name="name">Repairing Routes</field>
+			<field name="res_model">mrp.repair.wes.route</field>
+			<field name="view_mode">tree,form</field>
+			<field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                Click to create a Repairing Route.
+              </p><p>
+                Repairing Routes enhace repairing information.
+              </p>
+			</field>
+		</record>
+		
+		<record id='stages_action' model='ir.actions.act_window'>
+			<field name="name">Repairing Stages</field>
+			<field name="res_model">mrp.repair.wes.stages</field>
+			<field name="view_mode">tree</field>
+			<field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                Click to create a Repairing Process Stage.
+              </p><p>
+                Repairing Process Stages enhace repairing information.
+              </p>
+			</field>
+		</record>
+		
+		<record id='status_action' model='ir.actions.act_window'>
+			<field name="name">Repairing Status</field>
+			<field name="res_model">mrp.repair.wes.state</field>
+			<field name="view_mode">tree</field>
+			<field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                Click to create a Process Status.
+              </p><p>
+                Process Status enhace repairing information.
+              </p>
+			</field>
+		</record>
+		
+		<record id='actslist_action' model='ir.actions.act_window'>
+			<field name="name">Activities</field>
+			<field name="res_model">mrp.repair.wes.activity</field>
+			<field name="view_mode">tree,form</field>
+			<field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                Click to create an Activities List.
+              </p><p>
+                Activities are integral part of repairing routes.
+              </p>
+			</field>
+		</record>
+		
+		<menuitem name="Parts List" action="partlist_action" parent="menu_process" id="menu_process_partslist" sequence="1" />
+		<menuitem name="Repairing Routes" action="routes_action" parent="menu_process" id="menu_process_routes" sequence="2" />
+		<menuitem name="Rapairing Process Stages" action="stages_action" parent="menu_process" id="menu_process_stages" sequence="3" />
+		<menuitem name="Process Status" action="status_action" parent="menu_process" id="menu_process_status" sequence="4" />
+		<menuitem name="Activities" action="actslist_action" parent="menu_process" id="menu_process_actslist" sequence="5" />
+		
+		<record id='contacts_action' model='ir.actions.act_window'>
+			<field name="name">Repairing Contacts</field>
+			<field name="res_model">res.partner</field>
+			<field name="view_mode">tree,form</field>
+			<field name="domain">[('repair_partner','=',True)]</field>
+			<field name="context">{'default_repair_partner': True}</field>
+			<field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                Click to create a Contact.
+              </p><p>
+                Contacts enhace repairing information.
+              </p>
+			</field>
+		</record>
+		
+		<menuitem name="Contacts" action="contacts_action" parent="menu_contacts" id="menu_contacts_contacts" sequence="1" />
+	</data>
+</odoo>

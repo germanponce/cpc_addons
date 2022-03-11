@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<template id="supplier_payment_order_rpt_doc">
+		<t t-set="doc" t-value="doc.with_context({'lang':user.lang})" />
+		<t t-set="partner" t-value="partner.with_context({'lang':user.lang})" />
+		<div class="header">
+			<div class="row">
+				<div class="col-xs-4">
+					<img t-if="res_company.logo" t-att-src="'data:image/png;base64,%s' % res_company.logo" height="120px" width="auto "/>
+				</div>
+			</div>
+		</div>
+		<div class="page">
+			<div class="row">
+				<div class="col-xs-12" />
+			</div>
+			<div class="row">
+				<div class="col-xs-1 col-xs-offset-9 ">
+					<p><strong><em>OP</em></strong></p>
+				</div>
+				<div class="col-xs-2 text-right">
+					<p><span t-esc="doc.env.ref('invoice_balance_analysis_supplier_report.supplier_payment_seq_no').next_by_id()" /></p>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-xs-7 col-xs-offset-5 text-right">
+					<p>Santiago Tianguistenco Estado de México a <span t-esc="doc._now()" /></p>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-xs-6 col-xs-offset-1" style="margin-bottom:30px">
+					<p><strong><span t-field="partner.payment_journal.name" /></strong><br />ATN</p>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-xs-12" style="margin-bottom:30px">
+					<p>Por medio de la presente solicito a usted sea tan amable en realizar una transferencia bancaria con los siguientes datos:</p>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-xs-2">
+					<p>A Favor de: </p>
+				</div>
+				<div class="col-xs-10">
+					<p><strong><span t-field="partner.name" /></strong></p>
+				</div>
+			</div>
+			<t t-set="concept" t-value="''" />
+			<t t-set="total" t-value="0" />
+			<t t-set="sep" t-value="''" />
+			<t t-foreach="doc" t-as="elem">
+				<t t-set="concept" t-value="concept+sep+(elem.invoice_id.reference or '')" />
+				<t t-set="sep" t-value="', '" />
+				<t t-set="total" t-value="total+elem.total" />
+			</t>
+			<div class="row">
+				<div class="col-xs-2">
+					<p>Importe: </p>
+				</div>
+				<div class="col-xs-3">
+					<p><strong><span t-esc="total" t-options='{"widget": "monetary", "display_currency": res_company.currency_id}' /></strong></p>
+				</div>
+				<div class="col-xs-7">
+					<p><strong><span t-esc="doc.get_amount_to_text(total, doc[0].currency_id.name)" /></strong></p>
+				</div>
+			</div>
+			<t t-if="partner.bank_ids">
+				<t t-set="accnt" t-value="partner.bank_ids[0]" />
+				<div class="row">
+					<div class="col-xs-2">
+						<p>Banco: </p>
+					</div>
+					<div class="col-xs-3">
+						<p><strong><span t-field="accnt.bank_name" /></strong></p>
+					</div>
+					<div class="col-xs-2">
+						<p>Sucursal: </p>
+					</div>
+					<div class="col-xs-2">
+						<p><strong><span t-field="accnt.office" /></strong></p>
+					</div>
+					<div class="col-xs-1">
+						<p>Cuenta: </p>
+					</div>
+					<div class="col-xs-2">
+						<p><strong><span t-field="accnt.acc_number" /></strong></p>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-xs-2 col-xs-offset-2">
+						<p><strong><span t-field="accnt.reference" /></strong></p>
+					</div>
+					<div class="col-xs-2 col-xs-offset-1">
+						<p><strong><span t-field="accnt.reference2" /></strong></p>
+					</div>
+					<div class="col-xs-4 col-xs-offset-1">
+						<p><strong><span t-field="accnt.notes" /></strong></p>
+					</div>
+				</div>
+			</t>
+			<t t-else="">
+				<div class="row">
+					<div class="col-xs-6 col-xs-offset-3">
+						<p class="text-center text-warning"><strong>¡El proveedor no tiene al menos una cuenta bancaria definida!</strong></p>
+					</div>
+				</div>
+			</t>
+			<div class="row">
+				<div class="col-xs-2">
+					<p>Concepto: </p>
+				</div>
+				<div class="col-xs-10">
+					<p><strong>Para pago factura <span t-esc="concept" /></strong></p>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-xs-12" style="margin-top:30px">
+					<t t-if="partner.payment_journal">
+						<p>Favor de cargar el importe de esta operación a la cuenta de cheques No <strong><span t-field="partner.payment_journal.bank_acc_number" /></strong> de Raloy Lubricantes, S.A. de C.V.</p>
+					</t>
+					<t t-else="">
+						<p class="text-center text-warning"><strong>¡Al proveedor no se le ha definido desde que cuenta se cubrirá su pago!</strong></p>
+					</t>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-xs-12">
+					<p>Sin mas por el momento quedo de usted.</p>
+				</div>
+			</div>
+			<div class="row text-center" style="margin-bottom: 120px;margin-top: 60px;">
+				<div class="col-xs-6">
+					<p>A T E N T A M E N T E</p>
+				</div>
+				<div class="col-xs-6">
+					<p>Vo Bo</p>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-xs-5 col-xs-offset-1">
+					<p>Raloy Lubricantes, S.A. de C.V.<br />Av. de Convento No 111, Parque Industrial<br />Santiago Tianguistenco Estado de México<br />
+					Apartado Postal 43 C.P. 52600<br />tel: (713) 135 27 77 <span style="padding-right: 40px" > </span> Fax: (713) 135 27 78</p>
+				</div>
+				<div class="col-xs-4 col-xs-offset-1">
+					<hr style="background-color: black; margin: 0 auto; padding: 1px;" />
+				</div>
+			</div>
+		</div>
+	</template>
+	
+	<template id="supplier_payment_order_rpt">
+		<t t-set="data_report_dpi" t-value="90"/>
+		<t t-set="regs" t-value="docs._get_invoices_per_partner(doc_ids)" />
+		<t t-call="report.html_container">
+			<t t-foreach="regs" t-as="reg">
+				<t t-set="partner" t-value="docs.env['res.partner'].browse(reg[0])" />
+				<t t-set="doc" t-value="docs.browse(reg[1])" />
+				<t t-call="invoice_balance_analysis_supplier_report.supplier_payment_order_rpt_doc" t-lang="user.lang"/>
+			</t>
+		</t>
+    </template>
+</odoo>

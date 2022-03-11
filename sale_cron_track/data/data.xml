@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="mail_state_template_customer_default" model="mail.template">
+            <field name="name">Order State Email - Customer</field>
+            <field name="subject">Status for your Order ${object.name}</field>
+            <field name="model_id" ref="sale.model_sale_order"/>
+            <field name="auto_delete" eval="False"/>
+            <field name="body_html"><![CDATA[ 
+<div>
+<p>Dear customer:</p>
+<p>Your order ${object.name} is on ${object.state_str} state.</p>
+<p>In case of any trouble, a representative from our sales team reach you soon</p>
+<p>Thank you!</p>
+<p>${user.company_id.name}</p>
+</div>]]></field>
+        </record>
+        
+        <record id="mail_state_template_agent_default" model="mail.template">
+            <field name="name">Order State Email - Agent</field>
+            <field name="subject">Status for Order ${object.name}</field>
+            <field name="model_id" ref="sale.model_sale_order"/>
+            <field name="auto_delete" eval="False"/>
+            <field name="body_html"><![CDATA[ 
+<div>
+<p>Dear sales agent:</p>
+<p>The order (${object.name}) is on ${object.state_str} state and 5 days ago since confirmation.</p>
+<p>Maybe necesary to check for any trouble on stages before shipment and feedback customer.</p>
+<p>Thank you!</p>
+<p>${user.company_id.name}</p>
+</div>]]></field>
+        </record>
+        
+        <record id="mail_state_template_agent_late_default" model="mail.template">
+            <field name="name">Order Late Email - Agent</field>
+            <field name="subject">Status for Order ${object.name}</field>
+            <field name="model_id" ref="sale.model_sale_order"/>
+            <field name="auto_delete" eval="False"/>
+            <field name="body_html"><![CDATA[ 
+<div>
+<p>Dear sales agent:</p>
+<p>The order (${object.name}) is on ${object.state_str} state and 10 days ago since confirmation.</p>
+<p>It is necesary to check for any trouble on stages before shipment and feedback customer.</p>
+<p>Thank you!</p>
+<p>${user.company_id.name}</p>
+</div>]]></field>
+        </record>
+        
+        <record model="ir.cron" id="state_check">
+            <field name='name'>Check days on order since confirmation</field>
+            <field name='interval_number'>1</field>
+            <field name='interval_type'>days</field>
+            <field name="numbercall">-1</field>
+            <field name="active">True</field>
+            <field name="model">sale.order</field>
+            <field name="function">track_pending</field>
+            <field name="args">()</field>
+        </record>
+    </data>
+</odoo>

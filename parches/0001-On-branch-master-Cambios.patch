@@ -1,0 +1,982 @@
+From 1472caa9beaae00bc0189d6d4774a59ac5a96d1d Mon Sep 17 00:00:00 2001
+From: esteban <stevanlg@gmail.com>
+Date: Wed, 27 Mar 2019 17:07:11 -0600
+Subject: [PATCH]  On branch master: Separación de recursos estáticos.
+
+---
+ .../argil_mx_accounting_reports_consol/__init__.py | 468 ++++++++++++++++++++-
+ .../__manifest__.py                                |   2 +
+ .../argil_mx_accounting_reports_consol/metodos.py  | 468 +--------------------
+ 3 files changed, 471 insertions(+), 467 deletions(-)
+
+diff --git a/argil_mx_accounting_reports_consol/__init__.py b/argil_mx_accounting_reports_consol/__init__.py
+index c579bfa..a4bc1d4 100644
+--- a/argil_mx_accounting_reports_consol/__init__.py
++++ b/argil_mx_accounting_reports_consol/__init__.py
+@@ -5,4 +5,470 @@
+ #    Coded by: Israel Cruz Argil (israel.cruz@argil.mx)
+ 
+ from . import account_mx_reports
+-from . import metodos
+\ No newline at end of file
++from . import metodos
++
++def push_db_assets(cr,registry):
++    sql = """
++-- Funcion que devuelve los IDs de las cuentas hijo de la cuenta especificada
++CREATE OR REPLACE FUNCTION f_account_child_ids(account_id integer)
++RETURNS TABLE(id integer) AS
++$$
++
++WITH RECURSIVE account_ids(id) AS (
++    SELECT id FROM account_account WHERE parent_id = $1
++  UNION ALL
++    SELECT cuentas.id FROM account_ids, account_account cuentas
++    WHERE cuentas.parent_id = account_ids.id
++    )
++SELECT id FROM account_ids 
++union
++select $1 id
++order by id;
++$$ LANGUAGE 'sql';
++
++
++-- Funcion que devuelve los IDs de las cuentas hijo de la cuenta de consolidacion
++CREATE OR REPLACE FUNCTION f_account_child_consol_ids(x_account_id integer)
++RETURNS TABLE(id integer) AS
++$BODY$
++DECLARE
++    _cursor CURSOR FOR 
++	    SELECT parent_id from account_account_consol_rel where child_id in (select f_account_child_ids(x_account_id));
++    _result record;
++BEGIN
++	drop table if exists hesatec_consol_ids;
++	create table hesatec_consol_ids(f_account_child_ids integer);
++
++	FOR _record IN _cursor
++	LOOP
++		insert into hesatec_consol_ids
++		select f_account_child_ids(_record.parent_id);
++	END LOOP;
++
++	return query
++	select * from hesatec_consol_ids;
++END
++$BODY$
++LANGUAGE 'plpgsql' ;
++
++-------------------------------------------------------
++---- Funcion para obtener los datos base de la balanza
++-------------------------------------------------------
++drop function if exists f_get_mx_account_monthly_balance_base
++(x_period_id integer);
++
++drop function if exists f_get_mx_account_monthly_balance_base
++(x_account_id integer, x_period_id integer);
++
++drop function if exists f_get_mx_account_monthly_balance_base
++(x_account_id integer, x_period_id integer, x_partner_breakdown boolean);
++
++drop function if exists f_get_mx_account_monthly_balance_base
++(x_account_id integer, x_period_id integer, x_partner_breakdown boolean, x_uid integer);
++
++drop function if exists f_get_mx_account_monthly_balance
++(x_account_id integer, x_period_id integer, x_partner_breakdown boolean, x_uid integer);
++
++
++CREATE OR REPLACE FUNCTION f_get_mx_account_monthly_balance
++(x_account_id integer, x_period_id integer, x_partner_breakdown boolean, x_uid integer)
++RETURNS boolean
++AS
++$BODY$
++DECLARE
++	_cursor2 CURSOR FOR 
++		SELECT 	id, create_uid, create_date, account_id, account_code, 
++			order_code, account_name, account_level, account_type, parent_id,
++			account_user_type, partner_breakdown
++		from balanza_mensual
++		where account_type='consolidation'
++		order by order_code;
++	_result2 record;
++
++
++	_cursor3 CURSOR FOR 
++		SELECT 	id, create_uid, create_date, account_id, account_code, 
++			order_code, account_name, account_level, account_type,
++			account_user_type, partner_breakdown
++		from balanza_mensual
++		where account_type not in ('view','consolidation')
++		order by order_code;
++	_result3 record;
++
++	_cursor4 CURSOR FOR 
++		SELECT 	id, create_uid, create_date, account_id, account_code, account_sign, period_name, period_id,
++			order_code, account_name, account_level, account_type, create_date, 
++			account_user_type, partner_breakdown, company_name
++		from balanza_mensual
++		where partner_breakdown and not (initial_balance=0.0 and debit=0.0 and credit=0.0)
++		order by order_code;
++	_result4 record;
++
++	_cursor5 CURSOR FOR 
++		SELECT 	id, account_id, account_code, account_name
++		from balanza_mensual
++		where account_type in ('view','consolidation') and partner_id is null
++		order by account_level desc;
++	_result5 record;
++
++	_period_name varchar(20);
++	_period_flag_00 boolean;
++	_period_month integer;
++	_period_fiscalyear varchar(20);
++
++BEGIN
++	--RAISE NOTICE 'Inicio del Script...';
++	select date_part('month', period.date_start) into _period_month from account_period period where period.id=x_period_id;
++	--RAISE NOTICE 'Period Month: %', _period_month;
++	select period.name into _period_name from account_period period where period.id=x_period_id;
++    
++	drop table if exists period_ids;
++	create table period_ids as
++	select ap.id  from account_period ap 
++    inner join account_fiscalyear afy on afy.id=ap.fiscalyear_id
++    where ap.name=_period_name;
++    
++    drop table if exists period_ids2;
++    create table period_ids2 as
++    select ap.id
++    from account_period ap 
++    where date_stop = (select date_start from account_period where id=x_period_id)
++    union all
++    select ap.id
++    from account_period ap 
++    where date_stop < (select date_start from account_period where id=x_period_id)
++    ;
++    --and ap.fiscalyear_id in (select af1.id from account_fiscalyear af1 where af1.name in 
++    --                (select af2.name from account_fiscalyear af2 where af2.id=(select ap2.fiscalyear_id from account_period ap2 where ap2.name=_period_name limit 1)))
++    --                ;
++
++
++	--RAISE NOTICE 'Period Name: %', _period_name;
++	select ((select count(id) from account_period 
++			where id in 
++			(select id from account_period where fiscalyear_id=(select fiscalyear_id from account_period where id=x_period_id))
++			and name ilike '00%') > 0) into _period_flag_00;
++
++	--RAISE NOTICE 'Period Flag 00: %', _period_flag_00;
++	select name into _period_fiscalyear  from account_fiscalyear where id in (select fiscalyear_id from account_period period where period.id=x_period_id);
++	--RAISE NOTICE 'Period Fiscalyear ID: %', _period_fiscalyear;
++
++	drop table if exists balanza_mensual;
++	-- Creamos el plan contable de la holding
++	create table balanza_mensual as
++	select 	account.id, x_uid::integer create_uid, account.create_date, account.id account_id, account.code account_code, 
++		account.code::varchar(1000) order_code, 
++		account.name account_name, account.level account_level,
++		account.internal_type account_type,
++		acc_type.name account_user_type, account.partner_breakdown, false moves, _period_name as period_name,
++		0.0::float initial_balance, 0.0::float debit,
++		0.0::float credit, 0.0::float balance, 0.0::float ending_balance,
++		company.name company_name, account.parent_id,
++        --'Acreedora'::varchar(10) account_nature, 
++        case account.sign
++            when 1 then 'Deudora'
++            else 'Acreedora'
++        end::varchar(10) account_nature,        
++        False::boolean from_partner_breakdown, null::varchar(250) partner_name, null::integer partner_id, account.sign account_sign,
++        x_period_id::integer period_id
++	from account_account account
++		inner join res_company company on company.id = account.company_id
++		inner join account_account_type acc_type on acc_type.id=account.user_type_id
++	where account.id in (select id from f_account_child_ids(x_account_id));-- union all select id from f_account_child_consol_ids(x_account_id));
++
++
++	-- Agregamos las cuentas consolidadas con sus hijos
++	FOR _record2 IN _cursor2
++	LOOP
++		
++		insert into balanza_mensual
++		(id, create_uid, create_date, account_id, account_code, 
++			order_code, account_name, account_level, account_type, account_user_type, 
++			partner_breakdown, moves, period_name,
++			initial_balance, debit, credit, balance, ending_balance,
++			company_name, parent_id, account_sign, account_nature, from_partner_breakdown, period_id)
++		select 	account.id, x_uid::integer create_uid, account.create_date, account.id account_id, account.code account_code, 
++		(_record2.account_code || ' - ' || account.code)::varchar(1000) order_code,
++		account.name account_name, _record2.account_level + 1,
++		account.internal_type account_type, 
++		acc_type.name account_user_type, account.partner_breakdown, false moves, _period_name as period_name,
++		0.0::float initial_balance, 0.0::float debit,
++		0.0::float credit, 0.0::float balance, 0.0::float ending_balance,
++		company.name company_name, _record2.parent_id, account.sign account_sign, 
++        case account.sign
++            when 1 then 'Deudora'
++            else 'Acreedora'
++        end::varchar(10) account_nature, False::boolean from_partner_breakdown,
++        period.id period_id
++		from account_account account
++			inner join res_company company on company.id = account.company_id
++			inner join account_account_type acc_type on acc_type.id=account.user_type_id
++            inner join account_period period on account.company_id=period.company_id and period.name=_period_name
++		where account.id in (select id from f_account_child_ids(_record2.id) union all select id from f_account_child_consol_ids(_record2.id))
++        and account.id != _record2.id;
++			
++		
++	END LOOP;
++
++    --- Copiamos la tabla account_move_line con los movimientos del periodo de la balanza.
++    drop table if exists argil_account_move_line;
++    
++    create table argil_account_move_line as
++    select ml.id, ml.account_id, ml.period_id, ml.journal_id, ml.partner_id, ml.debit, ml.credit
++    from account_move_line ml
++        inner join account_move am on am.id=ml.move_id and am.state='posted'
++    where ml.period_id in (select id from period_ids union all select pp2.id from period_ids2 pp2);
++    
++    create index argil_account_move_line_index2 on argil_account_move_line(account_id, period_id, partner_id);
++    ---
++
++
++    -- Obtenemos los saldos de las cuentas
++	FOR _record3 IN _cursor3
++	LOOP
++		--RAISE NOTICE 'Account: % => %', _record3.account_code,_record3.account_name;
++		
++		update balanza_mensual
++		set 
++		    initial_balance =
++			(
++			select COALESCE(sum(line.debit), 0.00) -  COALESCE(sum(line.credit), 0.00)
++			from argil_account_move_line line
++				inner join account_journal journal on line.journal_id=journal.id --and 
++				--(CASE WHEN _period_month = 1 and not _period_flag_00 THEN journal.type <> 'situation' ELSE 1=1 END)
++			where --line.state='valid' and
++			    line.account_id = _record3.id -- in (select f_account_child_ids(_record3.id) union all select f_account_child_consol_ids(_record3.id))
++			and line.period_id in (select pp2.id from period_ids2 pp2)
++                             --    in 
++			                 --   (select xperiodo.id from account_period xperiodo 
++			                 --   where xperiodo.fiscalyear_id in (select id from account_fiscalyear where name = _period_fiscalyear)
++			                 --   and xperiodo.name < _period_name
++			                 --   )
++			)::float,
++			
++		debit = (select COALESCE(sum(line.debit), 0.00) 
++			from argil_account_move_line line
++				inner join account_journal journal on line.journal_id=journal.id --and  journal.type <> 'situation'
++			where --line.state='valid' and
++			    line.account_id = _record3.id --  in (select f_account_child_ids(_record3.id) union all select f_account_child_consol_ids(_record3.id))
++			and line.period_id in (select id from period_ids)
++                                -- in (select id from account_period where name = _period_name)
++                                )::float,
++		credit = (select COALESCE(sum(line.credit), 0.00) 
++			from argil_account_move_line line
++				inner join account_journal journal on line.journal_id=journal.id --and  journal.type <> 'situation'
++			where --line.state='valid' and
++			    line.account_id = _record3.id --  in (select f_account_child_ids(_record3.id) union all select f_account_child_consol_ids(_record3.id))
++			and line.period_id in (select id from period_ids)
++                                --in (select id from account_period where name = _period_name)
++                                )::float/*,
++		period_id = (select distinct line.period_id
++                from argil_account_move_line line
++				inner join account_journal journal on line.journal_id=journal.id --and  journal.type <> 'situation'
++			     where --line.state='valid'  and
++			         line.account_id = _record3.id --  in (select f_account_child_ids(_record3.id) union all select f_account_child_consol_ids(_record3.id))
++			     and line.period_id in (select id from period_ids)
++                                    --in (select id from account_period where name = _period_name)
++                 limit 1)
++		*/
++		
++		where balanza_mensual.id=_record3.id;
++
++        END LOOP;
++
++
++	IF x_partner_breakdown THEN
++		-----------------------------------------------------
++		-- Obtenemos los saldos de las cuentas desglosadas por empresa
++		FOR _record4 IN _cursor4
++		LOOP
++
++			--RAISE NOTICE 'Account: % => %', _record4.account_code,_record4.account_name;
++
++
++			insert into balanza_mensual
++			(id, create_uid, create_date, account_id, account_code, period_id,
++				order_code, account_name, account_level, account_type, account_user_type, 
++				account_sign, partner_breakdown, period_name, company_name, partner_id, from_partner_breakdown,
++				initial_balance, debit, credit
++				)
++			
++			select 
++			(_record4.id * 10000 + line.partner_id) id, x_uid::integer, _record4.create_date, _record4.id, _record4.account_code, _record4.period_id,
++			_record4.order_code, _record4.account_name, _record4.account_level + 1, _record4.account_type, _record4.account_user_type, 
++			_record4.account_sign, _record4.partner_breakdown, _record4.period_name, _record4.company_name, line.partner_id, True,
++			
++			    --initial_balance =
++				(
++				select COALESCE(sum(xline.debit), 0.00) -  COALESCE(sum(xline.credit), 0.00)
++				from argil_account_move_line xline
++					inner join account_journal xjournal on xline.journal_id=xjournal.id --and 
++					--(CASE WHEN _period_month = 1 and not _period_flag_00 THEN xjournal.type <> 'situation' ELSE 1=1 END)
++				where --xline.state='valid' and
++				    xline.account_id = _record4.id
++                and xline.partner_id=line.partner_id
++				and xline.period_id in (select pp2.id from period_ids2 pp2)
++						    --(select xperiodo.id from account_period xperiodo 
++						    --where xperiodo.fiscalyear_id in (select id from account_fiscalyear where name = _period_fiscalyear)
++						    --and xperiodo.name < _period_name
++						    --)
++				)::float,
++				
++				COALESCE(sum(line.debit), 0.00)::float,
++				COALESCE(sum(line.credit), 0.00)::float
++				from argil_account_move_line line
++					inner join account_journal journal on line.journal_id=journal.id --and  journal.type <> 'situation'
++				where --line.state='valid' and
++				    line.account_id = _record4.id
++                    and line.partner_id is not null
++				and line.period_id in (select id from period_ids) --(select id from account_period where name = _period_name)
++				group by _record4.id, _record4.account_code, _record4.order_code,
++                _record4.account_name, _record4.account_level + 1, _record4.account_type, _record4.account_user_type,
++                _record4.partner_breakdown, _record4.period_name, _record4.company_name, line.partner_id;
++
++
++		------------
++		------------
++		
++			insert into balanza_mensual
++			(id, create_uid, create_date, account_id, account_code, period_id,
++				order_code, account_name, account_level, account_type, account_user_type, 
++				account_sign, partner_breakdown, period_name, company_name, debit, credit, 
++				partner_id, from_partner_breakdown, initial_balance
++				)
++			
++			select 
++			(_record4.id * 10000 + xline.partner_id) id, x_uid::integer, _record4.create_date, _record4.id, _record4.account_code, _record4.period_id,
++			_record4.order_code, _record4.account_name, _record4.account_level + 1, _record4.account_type, _record4.account_user_type, 
++			_record4.account_sign, _record4.partner_breakdown, _record4.period_name, _record4.company_name, 0.0, 0.0,
++			
++			xline.partner_id, True,
++            (COALESCE(sum(xline.debit), 0.00) -  COALESCE(sum(xline.credit), 0.00))::float
++			from argil_account_move_line xline
++				inner join account_journal xjournal on xline.journal_id=xjournal.id --and 
++				--(CASE WHEN _period_month = 1 and not _period_flag_00 THEN xjournal.type <> 'situation' ELSE 1=1 END)
++			where --xline.state='valid' and
++			    xline.account_id = _record4.id
++			and xline.partner_id not in 
++				(select distinct line.partner_id
++				from argil_account_move_line line
++					inner join account_journal journal on line.journal_id=journal.id --and journal.type <> 'situation'
++				where --line.state='valid' and 
++                line.partner_id is not null
++				and line.account_id = _record4.id
++				and line.period_id in (select id from period_ids) --(select id from account_period where name = _period_name)
++				)					
++			and xline.period_id in (select pp2.id from period_ids2 pp2) 
++					    --(select xperiodo.id from account_period xperiodo 
++					    --where xperiodo.fiscalyear_id in (select id from account_fiscalyear where name = _period_fiscalyear)
++					    --and xperiodo.name < _period_name
++					    --)				
++			group by xline.partner_id
++            having (COALESCE(sum(xline.debit), 0.00) -  COALESCE(sum(xline.credit), 0.00)) <> 0.0;
++
++		------------
++		------------
++        ------------
++		
++			insert into balanza_mensual
++			(id, create_uid, create_date, account_id, account_code, period_id,
++				order_code, account_name, account_level, account_type, account_user_type, 
++				account_sign, partner_breakdown, period_name, company_name, debit, credit, 
++				partner_id, from_partner_breakdown, initial_balance
++				)
++			
++			select 
++			(_record4.id * 10000 + xline.partner_id) id, x_uid::integer, _record4.create_date, _record4.id, _record4.account_code, _record4.period_id,
++			_record4.order_code, _record4.account_name, _record4.account_level + 1, _record4.account_type, _record4.account_user_type, 
++			_record4.account_sign, _record4.partner_breakdown, _record4.period_name, _record4.company_name, 0.0, 0.0,
++			
++			xline.partner_id, True,
++            (COALESCE(sum(xline.debit), 0.00) -  COALESCE(sum(xline.credit), 0.00))::float
++			from argil_account_move_line xline
++				inner join account_journal xjournal on xline.journal_id=xjournal.id --and 
++				--(CASE WHEN _period_month = 1 and not _period_flag_00 THEN xjournal.type <> 'situation' ELSE 1=1 END)
++			where --xline.state='valid' and
++			    xline.account_id = _record4.id
++			and xline.partner_id is null	
++			and xline.period_id in (select pp2.id from period_ids2 pp2)
++					    --(select xperiodo.id from account_period xperiodo 
++					    --where xperiodo.fiscalyear_id in (select id from account_fiscalyear where name = _period_fiscalyear)
++					    --and xperiodo.name < _period_name
++					    --)				
++			group by xline.partner_id
++            having (COALESCE(sum(xline.debit), 0.00) -  COALESCE(sum(xline.credit), 0.00)) <> 0.0;
++
++
++		END LOOP;
++
++	END IF;
++
++
++	FOR _record5 IN _cursor5
++	LOOP
++		--RAISE NOTICE 'Account: % => %', _record5.account_code,_record5.account_name;
++		
++		update balanza_mensual
++		set 
++			initial_balance=(select COALESCE(sum(bm.initial_balance), 0.00) from balanza_mensual bm where not bm.from_partner_breakdown and bm.account_id in (select f_account_child_ids(_record5.account_id) union all select f_account_child_consol_ids(_record5.account_id)) and bm.account_type not in ('view','consolidation')), -- bm.parent_id = _record5.account_id),
++			debit=(select COALESCE(sum(bm.debit), 0.00) from balanza_mensual bm where not bm.from_partner_breakdown and bm.account_id in (select f_account_child_ids(_record5.account_id) union all select f_account_child_consol_ids(_record5.account_id)) and bm.account_type not in ('view','consolidation')),
++			credit=(select COALESCE(sum(bm.credit), 0.00) from balanza_mensual bm where not bm.from_partner_breakdown and bm.account_id in (select f_account_child_ids(_record5.account_id) union all select f_account_child_consol_ids(_record5.account_id)) and bm.account_type not in ('view','consolidation'))
++		where balanza_mensual.id=_record5.id;
++
++    END LOOP;
++        
++    update balanza_mensual
++	set 
++		initial_balance = initial_balance *  account_sign,
++		balance = (debit-credit) * account_sign,
++		ending_balance = (initial_balance + debit - credit) * account_sign,
++		moves = not (initial_balance = 0.0 and debit = 0.0 and credit = 0.0);
++
++    delete from account_monthly_balance_header where create_uid = x_uid;
++    insert into account_monthly_balance_header 
++    (id, create_uid,  create_date, write_date, write_uid, period_name, date)
++    values
++    (x_uid, x_uid, LOCALTIMESTAMP, LOCALTIMESTAMP, x_uid, _period_name, LOCALTIMESTAMP);		
++	
++	
++	delete from account_monthly_balance where create_uid = x_uid;
++	
++	insert into account_monthly_balance
++	(create_uid, create_date, write_date, write_uid, company_name, period_name, header_id,
++	--fiscalyear_id, period_id, 
++	account_id, account_code, account_name, account_level, account_type, account_internal_type, account_nature, account_sign,
++	initial_balance, debit, credit, balance, ending_balance, moves, partner_id, partner_name, order_code, period_id)
++	select 
++		x_uid as create_uid, LOCALTIMESTAMP as create_date, LOCALTIMESTAMP as write_date, x_uid as write_uid, balanza_mensual.company_name, period_name, x_uid,
++		account_id, account_code, account_name, account_level, account_type, account_user_type, account_nature, account_sign,
++		initial_balance, debit, credit, balance, ending_balance,
++		moves, partner.id, 
++        case
++        when acc.partner_breakdown and balanza_mensual.from_partner_breakdown then
++            case when balanza_mensual.partner_id is null then ' Sin Empresa' else partner.name end
++        else null
++        end, order_code, period_id
++	from balanza_mensual
++        left join res_partner partner on partner.id=balanza_mensual.partner_id
++        inner join account_account acc on acc.id=balanza_mensual.account_id;
++	
++	return true;
++
++/*
++select * from f_get_mx_account_monthly_balance(23601, 10, true, 1);
++select company_name, order_code, account_code, account_name, account_level, * from account_monthly_balance 
++where partner_id is not null order by order_code;
++
++*/
++END
++$BODY$
++LANGUAGE 'plpgsql';
++	"""
++    cr.execute(sql);
++    
++def purge_db_assets(cr,registry):
++    sql="""
++drop function if exists f_get_mx_account_monthly_balance
++(x_account_id integer, x_period_id integer, x_partner_breakdown boolean, x_uid integer);
++    """
++    cr.execute(sql)
+diff --git a/argil_mx_accounting_reports_consol/__manifest__.py b/argil_mx_accounting_reports_consol/__manifest__.py
+index 91f6164..93d25d7 100644
+--- a/argil_mx_accounting_reports_consol/__manifest__.py
++++ b/argil_mx_accounting_reports_consol/__manifest__.py
+@@ -76,5 +76,7 @@ Este modulo esta enfocado cuando se maneja multicompany y permite consolidar cue
+               "security/ir.model.access.csv",
+              ],
+     "installable" : True,
++    'post_init_hook':'push_db_assets',
++    'uninstall_hook':'purge_db_assets',
+     #"active" : False,
+ }
+diff --git a/argil_mx_accounting_reports_consol/metodos.py b/argil_mx_accounting_reports_consol/metodos.py
+index 5009fc0..36977fe 100644
+--- a/argil_mx_accounting_reports_consol/metodos.py
++++ b/argil_mx_accounting_reports_consol/metodos.py
+@@ -49,472 +49,8 @@ class AccountMonthlyBalanceWizard(models.TransientModel):
+             #print "uid: ", uid
+             #print "params: %s, %s, %s, %s" % (params.chart_account_id.id, params.period_id.id, 'True' if params.partner_breakdown else 'False', uid) 
+ 
+-            sql1 = """
+--- Funcion que devuelve los IDs de las cuentas hijo de la cuenta especificada
+-CREATE OR REPLACE FUNCTION f_account_child_ids(account_id integer)
+-RETURNS TABLE(id integer) AS
+-$$
+-
+-WITH RECURSIVE account_ids(id) AS (
+-    SELECT id FROM account_account WHERE parent_id = $1
+-  UNION ALL
+-    SELECT cuentas.id FROM account_ids, account_account cuentas
+-    WHERE cuentas.parent_id = account_ids.id
+-    )
+-SELECT id FROM account_ids 
+-union
+-select $1 id
+-order by id;
+-$$ LANGUAGE 'sql';
+-
+-
+--- Funcion que devuelve los IDs de las cuentas hijo de la cuenta de consolidacion
+-CREATE OR REPLACE FUNCTION f_account_child_consol_ids(x_account_id integer)
+-RETURNS TABLE(id integer) AS
+-$BODY$
+-DECLARE
+-    _cursor CURSOR FOR 
+-	    SELECT parent_id from account_account_consol_rel where child_id in (select f_account_child_ids(x_account_id));
+-    _result record;
+-BEGIN
+-	drop table if exists hesatec_consol_ids;
+-	create table hesatec_consol_ids(f_account_child_ids integer);
+-
+-	FOR _record IN _cursor
+-	LOOP
+-		insert into hesatec_consol_ids
+-		select f_account_child_ids(_record.parent_id);
+-	END LOOP;
+-
+-	return query
+-	select * from hesatec_consol_ids;
+-END
+-$BODY$
+-LANGUAGE 'plpgsql' ;
+-
+--------------------------------------------------------
+----- Funcion para obtener los datos base de la balanza
+--------------------------------------------------------
+-drop function if exists f_get_mx_account_monthly_balance_base
+-(x_period_id integer);
+-
+-drop function if exists f_get_mx_account_monthly_balance_base
+-(x_account_id integer, x_period_id integer);
+-
+-drop function if exists f_get_mx_account_monthly_balance_base
+-(x_account_id integer, x_period_id integer, x_partner_breakdown boolean);
+-
+-drop function if exists f_get_mx_account_monthly_balance_base
+-(x_account_id integer, x_period_id integer, x_partner_breakdown boolean, x_uid integer);
+-
+-drop function if exists f_get_mx_account_monthly_balance
+-(x_account_id integer, x_period_id integer, x_partner_breakdown boolean, x_uid integer);
+-
+-
+-CREATE OR REPLACE FUNCTION f_get_mx_account_monthly_balance
+-(x_account_id integer, x_period_id integer, x_partner_breakdown boolean, x_uid integer)
+-RETURNS boolean
+-AS
+-$BODY$
+-DECLARE
+-	_cursor2 CURSOR FOR 
+-		SELECT 	id, create_uid, create_date, account_id, account_code, 
+-			order_code, account_name, account_level, account_type, parent_id,
+-			account_user_type, partner_breakdown
+-		from balanza_mensual
+-		where account_type='consolidation'
+-		order by order_code;
+-	_result2 record;
+-
+-
+-	_cursor3 CURSOR FOR 
+-		SELECT 	id, create_uid, create_date, account_id, account_code, 
+-			order_code, account_name, account_level, account_type,
+-			account_user_type, partner_breakdown
+-		from balanza_mensual
+-		where account_type not in ('view','consolidation')
+-		order by order_code;
+-	_result3 record;
+-
+-	_cursor4 CURSOR FOR 
+-		SELECT 	id, create_uid, create_date, account_id, account_code, account_sign, period_name, period_id,
+-			order_code, account_name, account_level, account_type, create_date, 
+-			account_user_type, partner_breakdown, company_name
+-		from balanza_mensual
+-		where partner_breakdown and not (initial_balance=0.0 and debit=0.0 and credit=0.0)
+-		order by order_code;
+-	_result4 record;
+-
+-	_cursor5 CURSOR FOR 
+-		SELECT 	id, account_id, account_code, account_name
+-		from balanza_mensual
+-		where account_type in ('view','consolidation') and partner_id is null
+-		order by account_level desc;
+-	_result5 record;
+-
+-	_period_name varchar(20);
+-	_period_flag_00 boolean;
+-	_period_month integer;
+-	_period_fiscalyear varchar(20);
+-
+-BEGIN
+-	--RAISE NOTICE 'Inicio del Script...';
+-	select date_part('month', period.date_start) into _period_month from account_period period where period.id=x_period_id;
+-	--RAISE NOTICE 'Period Month: %', _period_month;
+-	select period.name into _period_name from account_period period where period.id=x_period_id;
+-    
+-	drop table if exists period_ids;
+-	create table period_ids as
+-	select ap.id  from account_period ap 
+-    inner join account_fiscalyear afy on afy.id=ap.fiscalyear_id
+-    where ap.name=_period_name;
+-    
+-    drop table if exists period_ids2;
+-    create table period_ids2 as
+-    select ap.id
+-    from account_period ap 
+-    where date_stop = (select date_start from account_period where id=x_period_id)
+-    union all
+-    select ap.id
+-    from account_period ap 
+-    where date_stop < (select date_start from account_period where id=x_period_id)
+-    ;
+-    --and ap.fiscalyear_id in (select af1.id from account_fiscalyear af1 where af1.name in 
+-    --                (select af2.name from account_fiscalyear af2 where af2.id=(select ap2.fiscalyear_id from account_period ap2 where ap2.name=_period_name limit 1)))
+-    --                ;
+-
+-
+-	--RAISE NOTICE 'Period Name: %', _period_name;
+-	select ((select count(id) from account_period 
+-			where id in 
+-			(select id from account_period where fiscalyear_id=(select fiscalyear_id from account_period where id=x_period_id))
+-			and name ilike '00%') > 0) into _period_flag_00;
+-
+-	--RAISE NOTICE 'Period Flag 00: %', _period_flag_00;
+-	select name into _period_fiscalyear  from account_fiscalyear where id in (select fiscalyear_id from account_period period where period.id=x_period_id);
+-	--RAISE NOTICE 'Period Fiscalyear ID: %', _period_fiscalyear;
+-
+-	drop table if exists balanza_mensual;
+-	-- Creamos el plan contable de la holding
+-	create table balanza_mensual as
+-	select 	account.id, x_uid::integer create_uid, account.create_date, account.id account_id, account.code account_code, 
+-		account.code::varchar(1000) order_code, 
+-		account.name account_name, account.level account_level,
+-		account.internal_type account_type,
+-		acc_type.name account_user_type, account.partner_breakdown, false moves, _period_name as period_name,
+-		0.0::float initial_balance, 0.0::float debit,
+-		0.0::float credit, 0.0::float balance, 0.0::float ending_balance,
+-		company.name company_name, account.parent_id,
+-        --'Acreedora'::varchar(10) account_nature, 
+-        case account.sign
+-            when 1 then 'Deudora'
+-            else 'Acreedora'
+-        end::varchar(10) account_nature,        
+-        False::boolean from_partner_breakdown, null::varchar(250) partner_name, null::integer partner_id, account.sign account_sign,
+-        x_period_id::integer period_id
+-	from account_account account
+-		inner join res_company company on company.id = account.company_id
+-		inner join account_account_type acc_type on acc_type.id=account.user_type_id
+-	where account.id in (select id from f_account_child_ids(x_account_id));-- union all select id from f_account_child_consol_ids(x_account_id));
+-
+-
+-	-- Agregamos las cuentas consolidadas con sus hijos
+-	FOR _record2 IN _cursor2
+-	LOOP
+-		
+-		insert into balanza_mensual
+-		(id, create_uid, create_date, account_id, account_code, 
+-			order_code, account_name, account_level, account_type, account_user_type, 
+-			partner_breakdown, moves, period_name,
+-			initial_balance, debit, credit, balance, ending_balance,
+-			company_name, parent_id, account_sign, account_nature, from_partner_breakdown, period_id)
+-		select 	account.id, x_uid::integer create_uid, account.create_date, account.id account_id, account.code account_code, 
+-		(_record2.account_code || ' - ' || account.code)::varchar(1000) order_code,
+-		account.name account_name, _record2.account_level + 1,
+-		account.internal_type account_type, 
+-		acc_type.name account_user_type, account.partner_breakdown, false moves, _period_name as period_name,
+-		0.0::float initial_balance, 0.0::float debit,
+-		0.0::float credit, 0.0::float balance, 0.0::float ending_balance,
+-		company.name company_name, _record2.parent_id, account.sign account_sign, 
+-        case account.sign
+-            when 1 then 'Deudora'
+-            else 'Acreedora'
+-        end::varchar(10) account_nature, False::boolean from_partner_breakdown,
+-        period.id period_id
+-		from account_account account
+-			inner join res_company company on company.id = account.company_id
+-			inner join account_account_type acc_type on acc_type.id=account.user_type_id
+-            inner join account_period period on account.company_id=period.company_id and period.name=_period_name
+-		where account.id in (select id from f_account_child_ids(_record2.id) union all select id from f_account_child_consol_ids(_record2.id))
+-        and account.id != _record2.id;
+-			
+-		
+-	END LOOP;
+-
+-    --- Copiamos la tabla account_move_line con los movimientos del periodo de la balanza.
+-    drop table if exists argil_account_move_line;
+-    
+-    create table argil_account_move_line as
+-    select ml.id, ml.account_id, ml.period_id, ml.journal_id, ml.partner_id, ml.debit, ml.credit
+-    from account_move_line ml
+-        inner join account_move am on am.id=ml.move_id and am.state='posted'
+-    where ml.period_id in (select id from period_ids union all select pp2.id from period_ids2 pp2);
+-    
+-    create index argil_account_move_line_index2 on argil_account_move_line(account_id, period_id, partner_id);
+-    ---
+-
+-
+-    -- Obtenemos los saldos de las cuentas
+-	FOR _record3 IN _cursor3
+-	LOOP
+-		--RAISE NOTICE 'Account: % => %', _record3.account_code,_record3.account_name;
+-		
+-		update balanza_mensual
+-		set 
+-		    initial_balance =
+-			(
+-			select COALESCE(sum(line.debit), 0.00) -  COALESCE(sum(line.credit), 0.00)
+-			from argil_account_move_line line
+-				inner join account_journal journal on line.journal_id=journal.id --and 
+-				--(CASE WHEN _period_month = 1 and not _period_flag_00 THEN journal.type <> 'situation' ELSE 1=1 END)
+-			where --line.state='valid' and
+-			    line.account_id = _record3.id -- in (select f_account_child_ids(_record3.id) union all select f_account_child_consol_ids(_record3.id))
+-			and line.period_id in (select pp2.id from period_ids2 pp2)
+-                             --    in 
+-			                 --   (select xperiodo.id from account_period xperiodo 
+-			                 --   where xperiodo.fiscalyear_id in (select id from account_fiscalyear where name = _period_fiscalyear)
+-			                 --   and xperiodo.name < _period_name
+-			                 --   )
+-			)::float,
+-			
+-		debit = (select COALESCE(sum(line.debit), 0.00) 
+-			from argil_account_move_line line
+-				inner join account_journal journal on line.journal_id=journal.id --and  journal.type <> 'situation'
+-			where --line.state='valid' and
+-			    line.account_id = _record3.id --  in (select f_account_child_ids(_record3.id) union all select f_account_child_consol_ids(_record3.id))
+-			and line.period_id in (select id from period_ids)
+-                                -- in (select id from account_period where name = _period_name)
+-                                )::float,
+-		credit = (select COALESCE(sum(line.credit), 0.00) 
+-			from argil_account_move_line line
+-				inner join account_journal journal on line.journal_id=journal.id --and  journal.type <> 'situation'
+-			where --line.state='valid' and
+-			    line.account_id = _record3.id --  in (select f_account_child_ids(_record3.id) union all select f_account_child_consol_ids(_record3.id))
+-			and line.period_id in (select id from period_ids)
+-                                --in (select id from account_period where name = _period_name)
+-                                )::float/*,
+-		period_id = (select distinct line.period_id
+-                from argil_account_move_line line
+-				inner join account_journal journal on line.journal_id=journal.id --and  journal.type <> 'situation'
+-			     where --line.state='valid'  and
+-			         line.account_id = _record3.id --  in (select f_account_child_ids(_record3.id) union all select f_account_child_consol_ids(_record3.id))
+-			     and line.period_id in (select id from period_ids)
+-                                    --in (select id from account_period where name = _period_name)
+-                 limit 1)
+-		*/
+-		
+-		where balanza_mensual.id=_record3.id;
+-
+-        END LOOP;
+-
+-
+-	IF x_partner_breakdown THEN
+-		-----------------------------------------------------
+-		-- Obtenemos los saldos de las cuentas desglosadas por empresa
+-		FOR _record4 IN _cursor4
+-		LOOP
+-
+-			--RAISE NOTICE 'Account: % => %', _record4.account_code,_record4.account_name;
+-
+-
+-			insert into balanza_mensual
+-			(id, create_uid, create_date, account_id, account_code, period_id,
+-				order_code, account_name, account_level, account_type, account_user_type, 
+-				account_sign, partner_breakdown, period_name, company_name, partner_id, from_partner_breakdown,
+-				initial_balance, debit, credit
+-				)
+-			
+-			select 
+-			(_record4.id * 10000 + line.partner_id) id, x_uid::integer, _record4.create_date, _record4.id, _record4.account_code, _record4.period_id,
+-			_record4.order_code, _record4.account_name, _record4.account_level + 1, _record4.account_type, _record4.account_user_type, 
+-			_record4.account_sign, _record4.partner_breakdown, _record4.period_name, _record4.company_name, line.partner_id, True,
+-			
+-			    --initial_balance =
+-				(
+-				select COALESCE(sum(xline.debit), 0.00) -  COALESCE(sum(xline.credit), 0.00)
+-				from argil_account_move_line xline
+-					inner join account_journal xjournal on xline.journal_id=xjournal.id --and 
+-					--(CASE WHEN _period_month = 1 and not _period_flag_00 THEN xjournal.type <> 'situation' ELSE 1=1 END)
+-				where --xline.state='valid' and
+-				    xline.account_id = _record4.id
+-                and xline.partner_id=line.partner_id
+-				and xline.period_id in (select pp2.id from period_ids2 pp2)
+-						    --(select xperiodo.id from account_period xperiodo 
+-						    --where xperiodo.fiscalyear_id in (select id from account_fiscalyear where name = _period_fiscalyear)
+-						    --and xperiodo.name < _period_name
+-						    --)
+-				)::float,
+-				
+-				COALESCE(sum(line.debit), 0.00)::float,
+-				COALESCE(sum(line.credit), 0.00)::float
+-				from argil_account_move_line line
+-					inner join account_journal journal on line.journal_id=journal.id --and  journal.type <> 'situation'
+-				where --line.state='valid' and
+-				    line.account_id = _record4.id
+-                    and line.partner_id is not null
+-				and line.period_id in (select id from period_ids) --(select id from account_period where name = _period_name)
+-				group by _record4.id, _record4.account_code, _record4.order_code,
+-                _record4.account_name, _record4.account_level + 1, _record4.account_type, _record4.account_user_type,
+-                _record4.partner_breakdown, _record4.period_name, _record4.company_name, line.partner_id;
+-
+-
+-		------------
+-		------------
+-		
+-			insert into balanza_mensual
+-			(id, create_uid, create_date, account_id, account_code, period_id,
+-				order_code, account_name, account_level, account_type, account_user_type, 
+-				account_sign, partner_breakdown, period_name, company_name, debit, credit, 
+-				partner_id, from_partner_breakdown, initial_balance
+-				)
+-			
+-			select 
+-			(_record4.id * 10000 + xline.partner_id) id, x_uid::integer, _record4.create_date, _record4.id, _record4.account_code, _record4.period_id,
+-			_record4.order_code, _record4.account_name, _record4.account_level + 1, _record4.account_type, _record4.account_user_type, 
+-			_record4.account_sign, _record4.partner_breakdown, _record4.period_name, _record4.company_name, 0.0, 0.0,
+-			
+-			xline.partner_id, True,
+-            (COALESCE(sum(xline.debit), 0.00) -  COALESCE(sum(xline.credit), 0.00))::float
+-			from argil_account_move_line xline
+-				inner join account_journal xjournal on xline.journal_id=xjournal.id --and 
+-				--(CASE WHEN _period_month = 1 and not _period_flag_00 THEN xjournal.type <> 'situation' ELSE 1=1 END)
+-			where --xline.state='valid' and
+-			    xline.account_id = _record4.id
+-			and xline.partner_id not in 
+-				(select distinct line.partner_id
+-				from argil_account_move_line line
+-					inner join account_journal journal on line.journal_id=journal.id --and journal.type <> 'situation'
+-				where --line.state='valid' and 
+-                line.partner_id is not null
+-				and line.account_id = _record4.id
+-				and line.period_id in (select id from period_ids) --(select id from account_period where name = _period_name)
+-				)					
+-			and xline.period_id in (select pp2.id from period_ids2 pp2) 
+-					    --(select xperiodo.id from account_period xperiodo 
+-					    --where xperiodo.fiscalyear_id in (select id from account_fiscalyear where name = _period_fiscalyear)
+-					    --and xperiodo.name < _period_name
+-					    --)				
+-			group by xline.partner_id
+-            having (COALESCE(sum(xline.debit), 0.00) -  COALESCE(sum(xline.credit), 0.00)) <> 0.0;
+-
+-		------------
+-		------------
+-        ------------
+-		
+-			insert into balanza_mensual
+-			(id, create_uid, create_date, account_id, account_code, period_id,
+-				order_code, account_name, account_level, account_type, account_user_type, 
+-				account_sign, partner_breakdown, period_name, company_name, debit, credit, 
+-				partner_id, from_partner_breakdown, initial_balance
+-				)
+-			
+-			select 
+-			(_record4.id * 10000 + xline.partner_id) id, x_uid::integer, _record4.create_date, _record4.id, _record4.account_code, _record4.period_id,
+-			_record4.order_code, _record4.account_name, _record4.account_level + 1, _record4.account_type, _record4.account_user_type, 
+-			_record4.account_sign, _record4.partner_breakdown, _record4.period_name, _record4.company_name, 0.0, 0.0,
+-			
+-			xline.partner_id, True,
+-            (COALESCE(sum(xline.debit), 0.00) -  COALESCE(sum(xline.credit), 0.00))::float
+-			from argil_account_move_line xline
+-				inner join account_journal xjournal on xline.journal_id=xjournal.id --and 
+-				--(CASE WHEN _period_month = 1 and not _period_flag_00 THEN xjournal.type <> 'situation' ELSE 1=1 END)
+-			where --xline.state='valid' and
+-			    xline.account_id = _record4.id
+-			and xline.partner_id is null	
+-			and xline.period_id in (select pp2.id from period_ids2 pp2)
+-					    --(select xperiodo.id from account_period xperiodo 
+-					    --where xperiodo.fiscalyear_id in (select id from account_fiscalyear where name = _period_fiscalyear)
+-					    --and xperiodo.name < _period_name
+-					    --)				
+-			group by xline.partner_id
+-            having (COALESCE(sum(xline.debit), 0.00) -  COALESCE(sum(xline.credit), 0.00)) <> 0.0;
+-
+-
+-		END LOOP;
+-
+-	END IF;
+-
+-
+-	FOR _record5 IN _cursor5
+-	LOOP
+-		--RAISE NOTICE 'Account: % => %', _record5.account_code,_record5.account_name;
+-		
+-		update balanza_mensual
+-		set 
+-			initial_balance=(select COALESCE(sum(bm.initial_balance), 0.00) from balanza_mensual bm where not bm.from_partner_breakdown and bm.account_id in (select f_account_child_ids(_record5.account_id) union all select f_account_child_consol_ids(_record5.account_id)) and bm.account_type not in ('view','consolidation')), -- bm.parent_id = _record5.account_id),
+-			debit=(select COALESCE(sum(bm.debit), 0.00) from balanza_mensual bm where not bm.from_partner_breakdown and bm.account_id in (select f_account_child_ids(_record5.account_id) union all select f_account_child_consol_ids(_record5.account_id)) and bm.account_type not in ('view','consolidation')),
+-			credit=(select COALESCE(sum(bm.credit), 0.00) from balanza_mensual bm where not bm.from_partner_breakdown and bm.account_id in (select f_account_child_ids(_record5.account_id) union all select f_account_child_consol_ids(_record5.account_id)) and bm.account_type not in ('view','consolidation'))
+-		where balanza_mensual.id=_record5.id;
+-
+-        END LOOP;
+-
+-	"""
+-
+-            sql4 = """
+-
+-	
+-	update balanza_mensual
+-	set 
+-		initial_balance = initial_balance *  account_sign,
+-		balance = (debit-credit) * account_sign,
+-		ending_balance = (initial_balance + debit - credit) * account_sign,
+-		moves = not (initial_balance = 0.0 and debit = 0.0 and credit = 0.0);
+-
+-    delete from account_monthly_balance_header where create_uid = x_uid;
+-    insert into account_monthly_balance_header 
+-    (id, create_uid,  create_date, write_date, write_uid, period_name, date)
+-    values
+-    (x_uid, x_uid, LOCALTIMESTAMP, LOCALTIMESTAMP, x_uid, _period_name, LOCALTIMESTAMP);		
+-	
+-	
+-	delete from account_monthly_balance where create_uid = x_uid;
+-	
+-	insert into account_monthly_balance
+-	(create_uid, create_date, write_date, write_uid, company_name, period_name, header_id,
+-	--fiscalyear_id, period_id, 
+-	account_id, account_code, account_name, account_level, account_type, account_internal_type, account_nature, account_sign,
+-	initial_balance, debit, credit, balance, ending_balance, moves, partner_id, partner_name, order_code, period_id)
+-	select 
+-		x_uid as create_uid, LOCALTIMESTAMP as create_date, LOCALTIMESTAMP as write_date, x_uid as write_uid, balanza_mensual.company_name, period_name, x_uid,
+-		account_id, account_code, account_name, account_level, account_type, account_user_type, account_nature, account_sign,
+-		initial_balance, debit, credit, balance, ending_balance,
+-		moves, partner.id, 
+-        case
+-        when acc.partner_breakdown and balanza_mensual.from_partner_breakdown then
+-            case when balanza_mensual.partner_id is null then ' Sin Empresa' else partner.name end
+-        else null
+-        end, order_code, period_id
+-	from balanza_mensual
+-        left join res_partner partner on partner.id=balanza_mensual.partner_id
+-        inner join account_account acc on acc.id=balanza_mensual.account_id;
+-	
+-	return true;
+-
+-/*
+-select * from f_get_mx_account_monthly_balance(23601, 10, true, 1);
+-select company_name, order_code, account_code, account_name, account_level, * from account_monthly_balance 
+-where partner_id is not null order by order_code;
+-
+-*/
+-END
+-$BODY$
+-LANGUAGE 'plpgsql';
+-
+-                select * from f_get_mx_account_monthly_balance(%s, %s, %s, %s);      
+-                """ % (self.chart_account_id.id, self.period_id.id, 'True' if self.partner_breakdown else 'False', self._uid)
+-            #print "sql4: ", sql4
+-            sql = sql1 + sql4
+-            print "sql: \n ", sql
++            sql = "select * from f_get_mx_account_monthly_balance(%s, %s, %s, %s);" % 
++                (self.chart_account_id.id, self.period_id.id, 'True' if self.partner_breakdown else 'False', self._uid)
+             self._cr.execute(sql)
+             data = filter(None, map(lambda x:x[0], self._cr.fetchall()))
+             if not data[0]:
+-- 
+2.11.0
+

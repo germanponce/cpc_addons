@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<record id="mt_price_log" model="mail.message.subtype">
+		<field name="name">Product Supplier Information Log</field>
+		<field name="res_model">product.supplierinfo</field>
+		<field name="default" eval="False"/>
+		<field name="description">Price modification</field>
+	</record>
+</odoo>

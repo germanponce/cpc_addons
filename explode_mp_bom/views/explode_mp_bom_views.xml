@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>    
+         <record id="production_order_explode_srv_action" model="ir.actions.server">
+            <field name="name">Project material needs</field>
+            <field name="model_id" ref="mrp.model_mrp_production"/>
+            <field name="state">code</field>
+            <field name="code">action = records.project_bom()</field>
+         </record>
+         
+        <record id="run_procurement_order_explode_action" model="ir.values">
+            <field name="model_id" ref="mrp.model_mrp_production" />
+            <field name="name">Project material needs</field>
+            <field name="key2">client_action_multi</field>
+            <field name="key">action</field>
+            <field name="model">mrp.production</field>
+            <field name="value" eval="'ir.actions.server,' + str(ref('production_order_explode_srv_action'))" />
+        </record>
+            
+        <record model="ir.ui.view" id="view_explode_mp_bom_search">
+            <field name="name">explode.mp.bom.search</field>
+             <field name="model">explode.mp.bom</field>
+             <field name="type">search</field>
+             <field name="arch" type="xml">
+                <search string="Material Needs Projection Search" >
+                    <field name="product_id"/>
+                    <field name="categ_id"/>
+                    <field name="uom_id"/>
+                    <field name="qty"/>
+                    <group expand="0" string="Group By...">
+                        <filter string="Category" domain="[]" name="groupby_categ_id" context="{'group_by':'categ_id'}"/>
+                    </group>
+                </search>
+             </field>
+        </record>
+            
+        <record model="ir.ui.view" id="view_explode_mp_bom_tree">
+            <field name="name">explode.mp.bom.tree</field>
+             <field name="model">explode.mp.bom</field>
+             <field name="type">tree</field>
+             <field name="arch" type="xml">
+                <tree create="false" delete="false" string="Material Needs Projection" colors="red:qty_diff &lt;= 0;orange:qty_diff_vrt &lt;= 0;">
+                    <field name="product_id"/>
+                    <field name="categ_id"/>
+                    <field name="uom_id"/>
+                    <field name="qty"/>
+                    <field name="qty_available"/>
+                    <field name="qty_virtual"/>
+                    <field name="qty_in"/>
+                    <field name="qty_out"/>
+                    <field name="qty_diff"/>
+                    <field name="qty_diff_vrt"/>
+                </tree>
+             </field>
+        </record>
+        
+    </data>
+</odoo>

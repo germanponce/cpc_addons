@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+		<record model="ir.ui.view" id="view_argil_invoice_analysis_wizard_form">
+			<field name="name">argil.invoice.analysis.wizard</field>
+			<field name="model">argil.invoice.analysis.wizard</field>
+			<field name="arch" type="xml">
+				<form>
+					<header>
+                        <field name="datas_fname" invisible="1" />
+                        <field name="download_file" invisible="1" />
+                    </header>
+
+					<sheet attrs="{'invisible':[('download_file','=',True)]}">
+						<group>
+							<field name="days_limit_projection" />
+						</group>
+					</sheet>
+					<sheet attrs="{'invisible':[('download_file','=',False)]}">
+                        <div >
+                            <h2>Generacion Completa</h2>
+                            <p>Descarga el Documento: <field name="file" readonly="1" filename="datas_fname"/></p>
+                            <p> Documento Generado en Formato <strong>Microsoft Excel 2007/2010</strong> y Codificado en <strong>Unicode/UTF-8</strong></p> 
+                        </div>
+                    </sheet>
+                    <footer attrs="{'invisible':[('download_file','=',False)]}">
+                        <center>
+                            
+                            <button string="Cerrar" special="cancel"  icon="fa-times" class="oe_highlight"/>
+                            o
+                            <button string="Mostrar en Vista" class="oe_link" name="show_analysis" icon="fa-retweet" type="object"/>
+                        </center>
+                    </footer>
+					<footer attrs="{'invisible':[('download_file','=',True)]}">
+						<button type="object" name="show_analysis" string="Vista Lista" class="oe_highlight" />
+						<button type="object" name="export_xlsx" string="XLS Export" class="oe_highlight" />
+						<button special="cancel" string="Cancel"/>
+					</footer>
+				</form>
+			</field>
+		</record>
+
+		<!-- Proyeccion -->
+
+		<act_window id="argil_invoice_analysis_wizard" 
+			name="Analisis de Proyeccion de Cobranza Clientes" 
+			res_model="argil.invoice.analysis.wizard" 
+			view_mode="form" 
+			context="{'for_customer_menu': True}" 
+			target="new" />
+			
+		<act_window id="argil_supplier_invoice_analysis_wizard" 
+			name="Analisis de Proyeccion de Cobranza Proveedores" 
+			res_model="argil.invoice.analysis.wizard" 
+			view_mode="form" 
+			context="{'for_supplier_menu': True}" 
+			target="new" />
+
+		<!-- Saldos Vencidos -->
+		<act_window id="argil_invoice_analysis_wizard_overdue" 
+			name="Analisis Saldos Vencidos Clientes" 
+			res_model="argil.invoice.analysis.wizard" 
+			view_mode="form" 
+			context="{'for_customer_menu': True, 'for_overdue': True}" 
+			target="new" />
+			
+		<act_window id="argil_supplier_invoice_analysis_wizard_overdue" 
+			name="Analisis Saldos Vencidos Proveedores" 
+			res_model="argil.invoice.analysis.wizard" 
+			view_mode="form" 
+			context="{'for_supplier_menu': True, 'for_overdue': True}" 
+			target="new" />
+
+		<!-- Proyeccion -->
+
+		<record model="ir.ui.menu" id="argil_invoice_balance_analysis.menu_account_invoice_customer_collection_projection">
+			<field name="action" ref="argil_invoice_balance_analysis_multi.argil_invoice_analysis_wizard" />
+		</record>
+
+		<record model="ir.ui.menu" id="argil_invoice_balance_analysis.menu_account_invoice_supplier_collection_projection">
+			<field name="action" ref="argil_invoice_balance_analysis_multi.argil_supplier_invoice_analysis_wizard" />
+		</record>
+
+		<!-- Saldos Vencidos -->
+		<record model="ir.ui.menu" id="argil_invoice_balance_analysis.menu_account_invoice_customer_balance_due">
+			<field name="action" ref="argil_invoice_balance_analysis_multi.argil_invoice_analysis_wizard_overdue" />
+		</record>
+
+		<record model="ir.ui.menu" id="argil_invoice_balance_analysis.menu_account_invoice_supplier_balance_due">
+			<field name="action" ref="argil_invoice_balance_analysis_multi.argil_supplier_invoice_analysis_wizard_overdue" />
+		</record>
+
+
+	</data>
+</odoo>

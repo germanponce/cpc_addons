@@ -1,0 +1,159 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* invoice_balance_analysis_supplier_report
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 10.0-20170508\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-12-08 16:23+0000\n"
+"PO-Revision-Date: 2017-12-08 10:28-0600\n"
+"Last-Translator: Esteban Luna Guzmán <stevanlg@gmail.com>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: \n"
+"X-Generator: Poedit 1.5.4\n"
+
+#. module: invoice_balance_analysis_supplier_report
+#: model:ir.ui.view,arch_db:invoice_balance_analysis_supplier_report.supplier_payment_order_rpt_doc
+msgid "#VSGTN"
+msgstr ""
+
+#. module: invoice_balance_analysis_supplier_report
+#: model:ir.ui.view,arch_db:invoice_balance_analysis_supplier_report.supplier_payment_order_rpt_doc
+msgid "<br/>ATN"
+msgstr ""
+
+#. module: invoice_balance_analysis_supplier_report
+#: model:ir.ui.view,arch_db:invoice_balance_analysis_supplier_report.supplier_payment_order_rpt_doc
+msgid "<strong>#VSGTN</strong>"
+msgstr ""
+
+#. module: invoice_balance_analysis_supplier_report
+#: model:ir.ui.view,arch_db:invoice_balance_analysis_supplier_report.supplier_payment_order_rpt_doc
+msgid "<strong><em>OP</em></strong>"
+msgstr ""
+
+#. module: invoice_balance_analysis_supplier_report
+#: model:ir.ui.view,arch_db:invoice_balance_analysis_supplier_report.supplier_payment_order_rpt_doc
+msgid "A Favor de:"
+msgstr ""
+
+#. module: invoice_balance_analysis_supplier_report
+#: model:ir.ui.view,arch_db:invoice_balance_analysis_supplier_report.supplier_payment_order_rpt_doc
+msgid "A T E N T A M E N T E"
+msgstr ""
+
+#. module: invoice_balance_analysis_supplier_report
+#: model:ir.ui.view,arch_db:invoice_balance_analysis_supplier_report.supplier_payment_order_rpt_doc
+msgid "Banco:"
+msgstr ""
+
+#. module: invoice_balance_analysis_supplier_report
+#: model:ir.model,name:invoice_balance_analysis_supplier_report.model_res_partner_bank
+msgid "Bank Accounts"
+msgstr "Cuentas Bancarias"
+
+#. module: invoice_balance_analysis_supplier_report
+#: model:ir.ui.view,arch_db:invoice_balance_analysis_supplier_report.supplier_payment_order_rpt_doc
+msgid "Concepto:"
+msgstr ""
+
+#. module: invoice_balance_analysis_supplier_report
+#: model:ir.ui.view,arch_db:invoice_balance_analysis_supplier_report.supplier_payment_order_rpt_doc
+msgid "Cuenta:"
+msgstr ""
+
+#. module: invoice_balance_analysis_supplier_report
+#: model:ir.ui.view,arch_db:invoice_balance_analysis_supplier_report.supplier_payment_order_rpt_doc
+msgid "Favor de cargar el importe de esta operación a la cuenta de cheques No"
+msgstr ""
+
+#. module: invoice_balance_analysis_supplier_report
+#: model:ir.ui.view,arch_db:invoice_balance_analysis_supplier_report.supplier_payment_order_rpt_doc
+msgid "Importe:"
+msgstr ""
+
+#. module: invoice_balance_analysis_supplier_report
+#: model:ir.model.fields,field_description:invoice_balance_analysis_supplier_report.field_res_partner_bank_notes
+msgid "Notes"
+msgstr "Notas"
+
+#. module: invoice_balance_analysis_supplier_report
+#: model:ir.model.fields,field_description:invoice_balance_analysis_supplier_report.field_res_partner_bank_office
+msgid "Office"
+msgstr "Sucursal"
+
+#. module: invoice_balance_analysis_supplier_report
+#: model:ir.ui.view,arch_db:invoice_balance_analysis_supplier_report.supplier_payment_order_rpt_doc
+msgid "Para pago factura"
+msgstr ""
+
+#. module: invoice_balance_analysis_supplier_report
+#: model:ir.model,name:invoice_balance_analysis_supplier_report.model_res_partner
+msgid "Partner"
+msgstr "Colaborador"
+
+#. module: invoice_balance_analysis_supplier_report
+#: model:ir.model.fields,field_description:invoice_balance_analysis_supplier_report.field_res_partner_payment_journal
+#: model:ir.model.fields,field_description:invoice_balance_analysis_supplier_report.field_res_users_payment_journal
+msgid "Payments account"
+msgstr "Cuenta de pagos"
+
+#. module: invoice_balance_analysis_supplier_report
+#: model:ir.ui.view,arch_db:invoice_balance_analysis_supplier_report.supplier_payment_order_rpt_doc
+msgid ""
+"Por medio de la presente solicito a usted sea tan amable en realizar una "
+"transferencia bancaria con los siguientes datos:"
+msgstr ""
+
+#. module: invoice_balance_analysis_supplier_report
+#: model:ir.ui.view,arch_db:invoice_balance_analysis_supplier_report.supplier_payment_order_rpt_doc
+msgid ""
+"Raloy Lubricantes, S.A. de C.V.<br/>Av. de Convento No 111, Parque "
+"Industrial<br/>Santiago Tianguistenco Estado de México<br/>\n"
+"\t\t\t\t\tApartado Postal 43 C.P. 52600<br/>tel: (713) 135 27 77 <span style="
+"\"padding-right: 40px\"> </span> Fax: (713) 135 27 78"
+msgstr ""
+
+#. module: invoice_balance_analysis_supplier_report
+#: model:ir.model.fields,field_description:invoice_balance_analysis_supplier_report.field_res_partner_bank_reference2
+msgid "Reference 2"
+msgstr "Referencia 2"
+
+#. module: invoice_balance_analysis_supplier_report
+#: model:ir.ui.view,arch_db:invoice_balance_analysis_supplier_report.supplier_payment_order_rpt_doc
+msgid "Santiago Tianguistenco Estado de México a"
+msgstr ""
+
+#. module: invoice_balance_analysis_supplier_report
+#: model:ir.ui.view,arch_db:invoice_balance_analysis_supplier_report.supplier_payment_order_rpt_doc
+msgid "Sin mas por el momento quedo de usted."
+msgstr ""
+
+#. module: invoice_balance_analysis_supplier_report
+#: model:ir.ui.view,arch_db:invoice_balance_analysis_supplier_report.supplier_payment_order_rpt_doc
+msgid "Sucursal:"
+msgstr ""
+
+#. module: invoice_balance_analysis_supplier_report
+#: model:ir.actions.report.xml,name:invoice_balance_analysis_supplier_report.report_supplier_payment_order
+msgid "Supplier Payment Order Report"
+msgstr "Reporte de Órden de Pago a Proveedor"
+
+#. module: invoice_balance_analysis_supplier_report
+#: model:ir.ui.view,arch_db:invoice_balance_analysis_supplier_report.supplier_payment_order_rpt_doc
+msgid "Vo Bo"
+msgstr ""
+
+#. module: invoice_balance_analysis_supplier_report
+#: model:ir.model,name:invoice_balance_analysis_supplier_report.model_account_invoice_supplier_collection_projection
+msgid "account.invoice.supplier_collection_projection"
+msgstr ""
+
+#. module: invoice_balance_analysis_supplier_report
+#: model:ir.ui.view,arch_db:invoice_balance_analysis_supplier_report.supplier_payment_order_rpt_doc
+msgid "de Raloy Lubricantes, S.A. de C.V."
+msgstr ""

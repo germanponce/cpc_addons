@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="js_assets" name="project assets" inherit_id="web.assets_backend">
+        <xpath expr="." position="inside">
+            <script type="text/javascript" src="/context_list/static/src/js/util.js"></script>
+        </xpath>
+    </template>
+</odoo>

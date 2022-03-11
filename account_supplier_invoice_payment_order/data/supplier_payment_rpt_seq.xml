@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+		<record id="supplier_payment_seq_no" model="ir.sequence">
+			<field name="name">Supplier Payment Report Sequence</field>
+			<field name="padding" eval="0" />
+			<field name="implementation">standard</field>
+			<field name="number_increment" eval="1" />
+		</record>
+	</data>
+</odoo>

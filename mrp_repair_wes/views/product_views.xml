@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+		<record id="product_category_form_view_inherit" model="ir.ui.view">
+			<field name="name">product.category.form.wes.inherit</field>
+			<field name="model">product.category</field>
+			<field name="inherit_id" ref="product.product_category_form_view"/>
+			<field name="arch" type="xml">
+				<group name="first" position="after">
+					<group name="repair_data" col="4" string="Repairing">
+						<field name="repairable_prod" />
+						<field name="part_prod" />
+					</group>
+				</group>
+			</field>
+		</record>
+		
+		<record id="view_template_property_form_inherit" model="ir.ui.view">
+			<field name="name">view.template.property.form.inherit</field>
+			<field name="model">product.template</field>
+			<field name="inherit_id" ref="stock.view_template_property_form"/>
+			<field name="arch" type="xml">
+				<div name="volume" position="after">
+					<field name="is_repairable" invisible="1" />
+					<label for="is_hdd" attrs="{'invisible':[('is_repairable','=',False)]}" />
+					<div class="o_row" name="repair_data" attrs="{'invisible':[('is_repairable','=',False)]}">
+						<field name="is_hdd" />
+					</div> 
+				</div>
+			</field>
+		</record>
+	</data>
+</odoo>

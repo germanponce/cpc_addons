@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <report 
+            id="report_prescription_order_half" 
+            string="Medical Prescription Order (Half Letter)" 
+            model="medical.prescription.order" 
+            report_type="qweb-pdf" 
+            attachment_use="True" 
+            name="hospital_management_prescription_sel.prescription_order_half_tmpt"
+        />
+        
+        <record id="paperformat_prescription_order_half" model="report.paperformat">
+            <field name="name">Medical Prescription Order (Half Letter)</field>
+            <field name="format">custom</field>
+            <field name="margin_top">35.00</field>
+            <field name="margin_bottom">15.00</field>
+            <field name="margin_left">5.00</field>
+            <field name="margin_right">5.00</field>
+            <field name="header_spacing">30</field>
+            <field name="orientation">Portrait</field>
+            <field name="page_height">139</field>
+            <field name="page_width">215</field>
+        </record>
+        
+        <record model="ir.actions.report.xml" id="report_prescription_order_half">
+            <field name="paperformat_id" ref="paperformat_prescription_order_half"/>
+        </record>
+        
+        <report 
+            id="report_prescription_order_letter" 
+            string="Medical Prescription Order (Letter)" 
+            model="medical.prescription.order" 
+            report_type="qweb-pdf" 
+            attachment_use="True" 
+            name="hospital_management_prescription_sel.prescription_order_letter_tmpt"
+        />
+        
+        <record id="paperformat_prescription_order_letter" model="report.paperformat">
+            <field name="name">Medical Prescription Order (Letter)</field>
+            <field name="format">Letter</field>
+            <field name="margin_top">45.00</field>
+            <field name="margin_bottom">30.00</field>
+            <field name="margin_left">10.00</field>
+            <field name="margin_right">10.00</field>
+            <field name="header_spacing">30</field>
+            <field name="orientation">Portrait</field>
+        </record>
+        
+        <record model="ir.actions.report.xml" id="report_prescription_order_letter">
+            <field name="paperformat_id" ref="paperformat_prescription_order_letter"/>
+        </record>
+    </data>
+</odoo>

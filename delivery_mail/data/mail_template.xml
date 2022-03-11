@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="mail_delivery_template_customer_default" model="mail.template">
+            <field name="name">Notification Delivery Email - Customer</field>
+            <field name="subject">Your Order ${object.sale_id.name} has been shipped</field>
+            <field name="model_id" ref="stock.model_stock_picking"/>
+            <field name="auto_delete" eval="False"/>
+            <field name="body_html"><![CDATA[ 
+<div>
+<p>Dear customer:</p>
+<p>Your order ${object.sale_id.name} has been shipped${object.partial_msg}.</p>
+<p>Here are shipment details:</p>
+<p>Carrier: ${object.carrier_id.name}</p>
+<p>Tracking number: ${object.carrier_tracking_ref}</p>
+<p>Products:</p>
+<table cellspacing="0" cellpadding="0" border="0" style="width: 600px; margin-top: 5px;">
+<div>${object.products_table | safe}</div>
+<p>Thank you!</p>
+<p>${user.company_id.name}</p>
+</div>]]></field>
+        </record>
+        
+        <record id="mail_delivery_template_agent_default" model="mail.template">
+            <field name="name">Notification Delivery Email - Agent</field>
+            <field name="subject">Order ${object.sale_id.name} has been shipped</field>
+            <field name="model_id" ref="stock.model_stock_picking"/>
+            <field name="auto_delete" eval="False"/>
+            <field name="body_html"><![CDATA[ 
+<div>
+<p>Hi ${object.sale_id.user_id.name}:</p>
+<p>Order ${object.sale_id.name} has been shipped${object.partial_msg}.</p>
+<p>Here are shipment details:</p>
+<p>Carrier: ${object.carrier_id.name}</p>
+<p>Tracking number: ${object.carrier_tracking_ref}</p>
+<p>Products:</p>
+<div>${object.products_table | safe}</div>
+<p>Thank you!</p>
+<p>${user.company_id.name}</p>
+</div>]]></field>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+		<report 
+		    id="report_payment_order"
+		    string="Payment Order Report"
+		    model="account.payment.order" 
+                    attachment_use="True" 
+                    attachment="object.name+'-'+object.create_date.split(' ')[0].replace('-','')+'.pdf'"
+		    report_type="qweb-pdf"
+		    name="payment_order.account_payment_order_rpt" 
+		/>
+
+		<record id="paperformat_payment_order" model="report.paperformat">
+			<field name="name">Payment Order Report</field>
+			<field name="format">Letter</field>
+			<field name="margin_top">50.00</field>
+			<field name="margin_bottom">0.00</field>
+			<field name="header_spacing">40</field>
+			<field name="orientation">Portrait</field>
+		</record>
+
+		<record model="ir.actions.report.xml" id="report_payment_order">
+			<field name="paperformat_id" ref="paperformat_payment_order"/>
+		</record>
+	</data>
+</odoo>

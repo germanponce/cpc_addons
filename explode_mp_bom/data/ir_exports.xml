@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="explode_mp_bom_export" model="ir.exports">
+            <field name="name">Report</field>
+            <field name="resource">explode.mp.bom</field>
+        </record>
+        
+        <record id="explode_mp_bom_export_name" model="ir.exports.line">
+            <field name="name">product_id/name</field>
+            <field name="export_id" ref="explode_mp_bom_export" />
+        </record>
+        
+        <record id="explode_mp_bom_export_categ" model="ir.exports.line">
+            <field name="name">categ_id/name</field>
+            <field name="export_id" ref="explode_mp_bom_export" />
+        </record>
+        
+        <record id="explode_mp_bom_export_uom" model="ir.exports.line">
+            <field name="name">uom_id/name</field>
+            <field name="export_id" ref="explode_mp_bom_export" />
+        </record>
+        
+        <record id="explode_mp_bom_export_qty" model="ir.exports.line">
+            <field name="name">qty</field>
+            <field name="export_id" ref="explode_mp_bom_export" />
+        </record>
+        
+        <record id="explode_mp_bom_export_qty_avail" model="ir.exports.line">
+            <field name="name">qty_available</field>
+            <field name="export_id" ref="explode_mp_bom_export" />
+        </record>
+        
+        <record id="explode_mp_bom_export_qty_virt" model="ir.exports.line">
+            <field name="name">qty_virtual</field>
+            <field name="export_id" ref="explode_mp_bom_export" />
+        </record>
+        
+        <record id="explode_mp_bom_export_qty_in" model="ir.exports.line">
+            <field name="name">qty_in</field>
+            <field name="export_id" ref="explode_mp_bom_export" />
+        </record>
+        
+        <record id="explode_mp_bom_export_qty_out" model="ir.exports.line">
+            <field name="name">qty_out</field>
+            <field name="export_id" ref="explode_mp_bom_export" />
+        </record>
+        
+        <record id="explode_mp_bom_export_qty_diff" model="ir.exports.line">
+            <field name="name">qty_diff</field>
+            <field name="export_id" ref="explode_mp_bom_export" />
+        </record>
+        
+        <record id="explode_mp_bom_export_qty_diff_vrt" model="ir.exports.line">
+            <field name="name">qty_diff_vrt</field>
+            <field name="export_id" ref="explode_mp_bom_export" />
+        </record>
+    </data>
+</odoo>

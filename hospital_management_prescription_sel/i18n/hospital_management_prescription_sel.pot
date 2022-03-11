@@ -1,0 +1,213 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* hospital_management_prescription_sel
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 10.0-20171030\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2018-07-11 23:26+0000\n"
+"PO-Revision-Date: 2018-07-11 23:26+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: hospital_management_prescription_sel
+#: model:ir.ui.view,arch_db:hospital_management_prescription_sel.report_prescription_doc
+msgid ", during"
+msgstr ""
+
+#. module: hospital_management_prescription_sel
+#: model:ir.ui.view,arch_db:hospital_management_prescription_sel.report_prescription_doc
+msgid ", take"
+msgstr ""
+
+#. module: hospital_management_prescription_sel
+#: model:ir.ui.view,arch_db:hospital_management_prescription_sel.report_prescription_doc
+msgid ", until"
+msgstr ""
+
+#. module: hospital_management_prescription_sel
+#: model:ir.ui.view,arch_db:hospital_management_prescription_sel.report_prescription_doc
+msgid ". ZIP"
+msgstr ""
+
+#. module: hospital_management_prescription_sel
+#: model:ir.ui.view,arch_db:hospital_management_prescription_sel.report_prescription_doc
+msgid "<strong>Date:</strong>"
+msgstr ""
+
+#. module: hospital_management_prescription_sel
+#: model:ir.ui.view,arch_db:hospital_management_prescription_sel.report_prescription_doc
+msgid "<strong>Notes:</strong>"
+msgstr ""
+
+#. module: hospital_management_prescription_sel
+#: model:ir.ui.view,arch_db:hospital_management_prescription_sel.report_prescription_doc
+msgid "<strong>Patient:</strong>"
+msgstr ""
+
+#. module: hospital_management_prescription_sel
+#: model:ir.ui.view,arch_db:hospital_management_prescription_sel.report_prescription_doc
+msgid "<strong>Presc. ID:</strong>"
+msgstr ""
+
+#. module: hospital_management_prescription_sel
+#: model:ir.ui.view,arch_db:hospital_management_prescription_sel.report_prescription_doc
+msgid "<strong>This medicament can be substituted</strong>"
+msgstr ""
+
+#. module: hospital_management_prescription_sel
+#: model:ir.ui.view,arch_db:hospital_management_prescription_sel.report_prescription_doc
+msgid "About this:"
+msgstr ""
+
+#. module: hospital_management_prescription_sel
+#: model:ir.ui.view,arch_db:hospital_management_prescription_sel.wizard_prescription_select_form
+msgid "Cancel"
+msgstr ""
+
+#. module: hospital_management_prescription_sel
+#: model:ir.model.fields,field_description:hospital_management_prescription_sel.field_medical_prescription_select_create_uid
+msgid "Created by"
+msgstr ""
+
+#. module: hospital_management_prescription_sel
+#: model:ir.model.fields,field_description:hospital_management_prescription_sel.field_medical_prescription_select_create_date
+msgid "Created on"
+msgstr ""
+
+#. module: hospital_management_prescription_sel
+#: model:ir.model.fields,field_description:hospital_management_prescription_sel.field_medical_prescription_select_display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: hospital_management_prescription_sel
+#: model:ir.ui.view,arch_db:hospital_management_prescription_sel.report_prescription_doc
+msgid "From"
+msgstr ""
+
+#. module: hospital_management_prescription_sel
+#: model:ir.ui.view,arch_db:hospital_management_prescription_sel.wizard_prescription_select_form
+msgid "Half Letter"
+msgstr ""
+
+#. module: hospital_management_prescription_sel
+#: model:ir.model.fields,field_description:hospital_management_prescription_sel.field_medical_prescription_select_id
+msgid "ID"
+msgstr ""
+
+#. module: hospital_management_prescription_sel
+#: model:ir.ui.view,arch_db:hospital_management_prescription_sel.report_prescription_doc
+msgid "Indicated on"
+msgstr ""
+
+#. module: hospital_management_prescription_sel
+#: model:ir.ui.view,arch_db:hospital_management_prescription_sel.report_prescription_doc
+msgid "It must refill on"
+msgstr ""
+
+#. module: hospital_management_prescription_sel
+#: model:ir.ui.view,arch_db:hospital_management_prescription_sel.report_prescription_doc
+msgid "It must reviewed on"
+msgstr ""
+
+#. module: hospital_management_prescription_sel
+#: model:ir.model.fields,field_description:hospital_management_prescription_sel.field_medical_prescription_select___last_update
+msgid "Last Modified on"
+msgstr ""
+
+#. module: hospital_management_prescription_sel
+#: model:ir.model.fields,field_description:hospital_management_prescription_sel.field_medical_prescription_select_write_uid
+msgid "Last Updated by"
+msgstr ""
+
+#. module: hospital_management_prescription_sel
+#: model:ir.model.fields,field_description:hospital_management_prescription_sel.field_medical_prescription_select_write_date
+msgid "Last Updated on"
+msgstr ""
+
+#. module: hospital_management_prescription_sel
+#: model:ir.ui.view,arch_db:hospital_management_prescription_sel.wizard_prescription_select_form
+msgid "Letter"
+msgstr ""
+
+#. module: hospital_management_prescription_sel
+#: model:ir.actions.report.xml,name:hospital_management_prescription_sel.report_prescription_order_half
+msgid "Medical Prescription Order (Half Letter)"
+msgstr ""
+
+#. module: hospital_management_prescription_sel
+#: model:ir.actions.report.xml,name:hospital_management_prescription_sel.report_prescription_order_letter
+msgid "Medical Prescription Order (Letter)"
+msgstr ""
+
+#. module: hospital_management_prescription_sel
+#: model:ir.actions.act_window,name:hospital_management_prescription_sel.action_view_prescription_select
+msgid "Medical Prescription select"
+msgstr ""
+
+#. module: hospital_management_prescription_sel
+#: model:ir.ui.view,arch_db:hospital_management_prescription_sel.wizard_prescription_select_form
+msgid "Medical prescription Select"
+msgstr ""
+
+#. module: hospital_management_prescription_sel
+#: model:ir.ui.view,arch_db:hospital_management_prescription_sel.wizard_prescription_select_form
+msgid "Please choose report size"
+msgstr ""
+
+#. module: hospital_management_prescription_sel
+#: model:ir.ui.view,arch_db:hospital_management_prescription_sel.report_prescription_doc
+msgid "Prescription Details"
+msgstr ""
+
+#. module: hospital_management_prescription_sel
+#: model:ir.model,name:hospital_management_prescription_sel.model_medical_prescription_select
+msgid "Prescription report selection"
+msgstr ""
+
+#. module: hospital_management_prescription_sel
+#: model:ir.ui.view,arch_db:hospital_management_prescription_sel.report_prescription_doc
+msgid "Professional ID"
+msgstr ""
+
+#. module: hospital_management_prescription_sel
+#: model:ir.ui.view,arch_db:hospital_management_prescription_sel.report_prescription_doc
+msgid "Speciality"
+msgstr ""
+
+#. module: hospital_management_prescription_sel
+#: code:addons/hospital_management_prescription_sel/wizard/create_prescription_invoice_wizard.py:56
+#, python-format
+msgid "There is no income account defined for this product: \"%s\". You may have to install a chart of account from Accounting app, settings menu."
+msgstr ""
+
+#. module: hospital_management_prescription_sel
+#: model:ir.model,name:hospital_management_prescription_sel.model_create_prescription_invoice
+msgid "create.prescription.invoice"
+msgstr ""
+
+#. module: hospital_management_prescription_sel
+#: model:ir.ui.view,arch_db:hospital_management_prescription_sel.report_prescription_doc
+msgid "every"
+msgstr ""
+
+#. module: hospital_management_prescription_sel
+#: model:ir.model,name:hospital_management_prescription_sel.model_medical_prescription_order
+msgid "medical.prescription.order"
+msgstr ""
+
+#. module: hospital_management_prescription_sel
+#: model:ir.ui.view,arch_db:hospital_management_prescription_sel.report_prescription_doc
+msgid "times"
+msgstr ""
+
+#. module: hospital_management_prescription_sel
+#: model:ir.ui.view,arch_db:hospital_management_prescription_sel.report_prescription_doc
+msgid "via"
+msgstr ""
+

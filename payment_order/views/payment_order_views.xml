@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="account_payment_print_po_srv_act" model="ir.actions.server">
+            <field name="name">Print Payment Order</field>
+            <field name="model_id" ref="account.model_account_payment"/>
+            <field name="state">code</field>
+            <field name="code">action = records.print_po_srv()</field>
+        </record>
+         
+        <record id="ap_print_po_action" model="ir.values">
+            <field name="model_id" ref="account.model_account_payment" />
+            <field name="name">Print Payment Order</field>
+            <field name="key2">client_print_multi</field>
+            <field name="key">action</field>
+            <field name="model">account.payment</field>
+            <field name="value" eval="'ir.actions.server,' + str(ref('account_payment_print_po_srv_act'))" />
+        </record>
+        
+        <record id="action_account_payment_order" model="ir.actions.act_window">
+            <field name="name">Payments order</field>
+            <field name="res_model">account.payment.order</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                  Click to register a payment order
+                </p><p>
+                  Payments order are used to request movements on banks accounts.
+                </p>
+            </field>
+        </record>
+    
+        <menuitem action="action_account_payment_order" id="menu_action_account_payment_order" parent="account.menu_finance_payables" sequence="20" groups="account.group_account_user"/>
+        
+        <record id="view_account_payment_order_tree" model="ir.ui.view">
+            <field name="name">account.payment.order.tree</field>
+            <field name="model">account.payment.order</field>
+            <field name="arch" type="xml">
+                <tree create="false" edit="false" delete="false">
+                    <field name="date"/>
+                    <field name="name"/>
+                    <field name="partner_name"/>
+                    <field name="partner_account"/>
+                    <field name="partner_bank" string="Customer"/>
+                    <field name="partner_bank_office"/>
+                    <field name="subject"/>
+                    <field name="amount"/>
+                    <field name="currency_inv_id"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_account_payment_order_form" model="ir.ui.view">
+            <field name="name">account.payment.order.form</field>
+            <field name="model">account.payment.order</field>
+            <field name="arch" type="xml">
+                <form create="false" edit="false" delete="false">
+                    <header>
+                        <button type="object" class="oe_highlight" string="Cancel" name="btn_cancel" attrs="{'invisible':[('state','in',('cancel','done'))]}" /> 
+                        <button name="button_payment_register" type="object" states="active" string="Register Payment" groups="account.group_account_invoice" class="oe_highlight"/>
+                        <field name="state" widget="statusbar" />
+                    </header>
+                    <sheet>
+                        <div>
+                            <label for="name" />
+                            <h1 class="mt0">
+                                <field name="name" class="oe_inline" />
+                            </h1>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="partner_name"/>
+                                <field name="partner_account"/>
+                                <field name="partner_bank" string="Customer"/>
+                                <field name="partner_bank_office"/>
+                                <field name="payment_journal" />
+                            </group>
+                            <group>
+                                <field name="date"/>
+                                <field name="subject"/>
+                                <field name="amount"/>
+                                <field name="notes"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Invoices" attrs="{'invisible': [('state', '=', 'cancel')] }">
+                                 <field name="invoice_ids"/>
+                            </page>
+                            <page string="Payments" attrs="{'invisible': [('state', '=', 'cancel')] }">
+                                 <field name="payment_ids"/>
+                            </page>
+                            <page string="Invoices (Hist)" attrs="{'invisible': [('state', '!=', 'cancel')] }">
+                                 <field name="invoice_hist_ids"/>
+                            </page>
+                            <page string="Payments (Hist)" attrs="{'invisible': [('state', '!=', 'cancel')] }">
+                                <field name="payment_hist_ids"/>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="invoice_supplier_tree_inherits_po" model="ir.ui.view">
+            <field name="name">account.invoice.supplier.tree plus PO</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account.invoice_supplier_tree"/>
+            <field name="arch" type="xml">
+                <field name="origin" position="after">
+                    <field name="payment_ord_id" />
+                    <field name="payment_ord_bank" />
+                    <field name="payment_journal" />
+                </field>
+            </field>
+        </record>
+
+        <record id="invoice_supplier_form_inherits_po" model="ir.ui.view">
+            <field name="name">account.invoice.supplier.form plus PO</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account.invoice_supplier_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="(//page/group/group/field)[last()]" position="after">
+                    <field name="payment_ord_id" readonly="1" />
+                    <field name="payment_ord_bank" readonly="1" />
+                    <field name="payment_journal" readonly="1" />
+                </xpath>
+            </field>
+        </record>
+        
+        <record id="account_register_payments_po_form" model="ir.ui.view">
+            <field name="name">account.register.payments.po.view.form</field>
+            <field name="model">account.register.payments.po</field>
+            <field name="arch" type="xml">
+                <form string="Registrar pago" >
+                    <field name="payment_type" invisible="1" />
+                    <field name="partner_type" invisible="1" />
+                    <field name="partner_id" invisible="1"/>
+                    <group>
+                        <group>
+                            <field name="journal_id" widget="selection" />
+                            <field name="partner_parent_id" invisible="1"/>
+                            <field name="cmpl_type" modifiers="{}"/>
+                            <field name="other_payment" attrs="{'readonly' : [('cmpl_type', '!=', 'payment')], 'required' : [('cmpl_type','=', 'payment')], 'invisible': [('cmpl_type','!=', 'payment')],}" />
+                            <field name="partner_acc_id" widget="selection" domain="['|',('partner_id', '=', partner_id),('partner_id', '=', partner_parent_id)]" attrs="{'readonly' : [('cmpl_type', 'not in', ['transfer', 'check'])], 'required' : [('payment_type','in',['outbound','inbound']),('cmpl_type', '=', 'transfer')]}" />
+                            <field name="hide_payment_method" invisible="1" />
+                            <field name="payment_method_id" widget="radio" attrs="{'invisible': [('hide_payment_method', '=', True)]}" />
+                            <field name="payment_method_code" invisible="1" />
+                            <field name="amount" />
+                            <field name="check_amount_in_words" attrs="{'invisible': [('payment_method_code', '!=', 'check_printing')]}" groups="base.group_no_one"/>
+                            <field name="currency_id" />
+                        </group>
+                        <group>
+                            <field name="payment_date" />
+                            <field name="communication" />
+                            <field name="check_manual_sequencing" invisible="1"/>
+                            <field name="check_number" attrs="{'invisible': ['|', ('payment_method_code', '!=', 'check_printing'), ('check_manual_sequencing', '=', False)]}" />
+                        </group>
+                    </group>
+                    <footer>
+                        <button string="Validar" name="create_payment" type="object" class="btn-primary" />
+                        <button string="Cancelar" class="btn-default" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+    </data>
+</odoo>

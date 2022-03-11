@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <template id="report_prescription_doc">
+            <t t-set="doc" t-value="doc.with_context({'lang':doc.doctor_id.partner_id.lang})" />
+            <t t-set="company" t-value="doc.doctor_id.partner_id.company_id" />
+            <div class="header">
+                <style type="text/css">
+                    .no-inter {
+                        margin: 0px
+                    }
+                </style>
+                <div class="row">
+                    <div class="col-xs-2">
+                        <img t-if="company.logo" t-att-src="'data:image/png;base64,%s' % company.logo" style="max-height: 90px;height: auto;"/>
+                    </div>
+                    <div class="col-xs-8 text-center">
+                        <p class="no-inter" t-field="doc.doctor_id.partner_id.name"/>
+                        <p class="no-inter" t-field="company.phone" />
+                        <p class="no-inter">Professional ID <strong><span t-field="doc.doctor_id.code" /></strong></p>
+                        <t t-foreach="doc.doctor_id.speciality_id" t-as="speciality">
+                            <p class="no-inter">Speciality <span t-field="speciality.name" /> - <span t-field="speciality.code" /></p>
+                        </t>
+                    </div>
+                    <div class="col-xs-2">
+                        
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12">
+                        <hr style="border-top:thick double #8c8b8b" />
+                    </div>
+                </div>
+            </div>
+            <div class="page">
+                <style type="text/css">
+                    div.page {
+                        background-image: url("/hospital_management_prescription_sel/static/src/img/esculapio.svg");
+                        background-position: center;
+                        background-repeat: no-repeat;
+                        background-size: contain;
+                    }
+                    .no-inter {
+                        margin: 0px
+                    }
+                </style>
+                <div class="row">
+                    <div class="col-xs-2">
+                        <p><strong>Date:</strong></p>
+                    </div>
+                    <div class="col-xs-3">
+                        <p t-field="doc.prescription_date" />
+                    </div>
+                    <div class="col-xs-2 col-xs-offset-2">
+                        <p><strong>Presc. ID:</strong></p>
+                    </div>
+                    <div class="col-xs-3">
+                        <p t-field="doc.name" />
+                    </div>
+                </div>
+                
+                <div class="row">
+                    <div class="col-xs-2">
+                        <p><strong>Patient:</strong></p>
+                    </div>
+                    <div class="col-xs-4">
+                        <p t-field="doc.patient_id"/>
+                    </div>
+                </div>
+                
+                <div class="row text-center">
+                    <p>Prescription Details</p>
+                </div>
+                
+                <t t-set="line_no" t-value="1" />
+                <t t-foreach="doc.prescription_line_ids" t-as="test">
+                    <div class="row" style="margin-top:10px">
+                        <div class="col-xs-1"><p t-esc="line_no" /></div>
+                        <div class="col-xs-11">
+                            <p>
+                                <t t-if="test.start_treatment">From 
+                                <span t-field="test.start_treatment" />, </t>
+                                <span t-field="test.medicament_id" />, take
+                                <span t-field="test.qty" /> 
+                                <span t-field="test.dose_unit_id" />
+                                <t t-if="test.form"> via 
+                                <span t-field="test.form" /></t>
+                                <t t-if="test.frequency and test.frequency_unit"> every
+                                <span t-field="test.frequency" /> 
+                                <span t-field="test.frequency_unit" /></t>
+                                <t t-if="test.duration and test.duration_period">, during 
+                                <span t-field="test.duration"/>
+                                <span t-field="test.duration_period"/></t>
+                                <t t-if="test.end_treatment">, until 
+                                <span t-field="test.end_treatment" /></t>
+                            </p>
+                            <p class="no-inter" t-if="test.allow_substitution"><strong>This medicament can be substituted</strong></p>
+                            <p class="no-inter" t-if="test.indication">Indicated on <span t-field="test.indication"/></p>
+                            <p class="no-inter" t-if="test.short_comment">About this: <span t-field="test.short_comment" /></p>
+                            <p class="no-inter" t-if="test.review">It must reviewed on <span t-field="test.review" /></p>
+                            <p class="no-inter" t-if="test.refills">It must refill on <span t-field="test.refills" /> times</p>
+                        </div>
+                    </div>
+                    <t t-set="line_no" t-value="line_no+1" />
+                </t>
+                
+                <div class="row">
+                    <div class="col-xs-2">
+                        <p><strong>Notes:</strong></p>
+                    </div>
+                    <div class="col-xs-10">
+                        <p t-field="doc.notes"/>
+                    </div>
+                </div>
+                
+                <div class="row">
+                    <div class="col-xs-4 col-xs-offset-8 text-center">
+                        <hr style="margin-bottom:0px; margin-top:60px; background-color:black; padding:1px;"/>
+                        <p t-field="doc.doctor_id.partner_id.name"/>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer">
+                <div class="row">
+                    <div class="col-xs-12">
+                        <hr style="border-top:thick double #8c8b8b" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-3">
+                        <p t-field="company.name" />
+                    </div>
+                    <div class="col-xs-6 col-xs-offset-3">
+                        <p><span t-field="company.street" /> <span t-field="company.street2" />, <span t-field="company.city" />, 
+                            <span t-field="company.state_id.country_id.name" />. ZIP <span t-field="company.zip" /></p>
+                    </div>
+                </div>
+            </div>
+        </template>
+    
+        <template id="prescription_order_half_tmpt">
+            <t t-call="report.html_container">
+                <t t-foreach="docs" t-as="doc">
+                    <t t-call="hospital_management_prescription_sel.report_prescription_doc" t-lang="doc.doctor_id.partner_id.lang"/>
+                </t>
+            </t>
+        </template>
+        
+        <template id="prescription_order_letter_tmpt">
+            <t t-call="report.html_container">
+                <t t-foreach="docs" t-as="doc">
+                    <t t-call="hospital_management_prescription_sel.report_prescription_doc" t-lang="doc.doctor_id.partner_id.lang"/>
+                </t>
+            </t>
+        </template>
+    </data>
+</odoo>

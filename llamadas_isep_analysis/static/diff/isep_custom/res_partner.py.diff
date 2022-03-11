@@ -1,0 +1,38 @@
+--- a/models/res_partner.py	2018-08-15 17:12:47.045972000 -0500
++++ b/models/res_partner.py	2018-08-15 17:17:31.086936000 -0500
+@@ -39,10 +39,7 @@
+     x_ops_ids = fields.One2many('crm.lead', 'partner_id', string='Oportunidades', domain=[('type', '=', 'opportunity'), '|', ('active', '=', True), ('active', '=', False)])
+     ops_ids = fields.One2many('crm.lead', 'partner_id', string='Oportunidades', domain=[('type', '=', 'opportunity'), '|', ('active', '=', True), ('active', '=', False)])
+     x_message_ids = fields.One2many('mail.message', 'res_id', string="Llamadas/Mensajes")
+-    llamadas_cliente = fields.One2many(
+-        comodel_name="llamadas.isep",
+-        inverse_name="llamadas_id",
+-        compute="_get_llamadas")
++    llamadas_cliente = fields.One2many(comodel_name="llamadas.isep", inverse_name="llamadas_id")
+ 
+     team_id = fields.Many2one('crm.team', string="Equipo de ventas")
+     email = fields.Char(index=True)
+@@ -59,23 +56,6 @@
+                 ('amount_residual', '>', 0.0),
+                 ]))
+ 
+-    @api.one
+-    @api.depends('phone', 'mobile')
+-    def _get_llamadas(self):
+-        call_ids = []
+-        calls_obj = self.env['llamadas.isep'].search(
+-            [('telefono', '=', self.phone)])
+-
+-        if len(calls_obj) < 1:
+-            calls_obj = self.env['llamadas.isep'].search(
+-                [('telefono', '=', self.mobile)])
+-
+-        for call in calls_obj:
+-            call_ids.append(call.id)
+-
+-        if len(call_ids) > 0:
+-            self.llamadas_cliente = [[6, 0, call_ids]]
+-
+     @api.multi
+     def correccion_paises(self):
+         self.env.cr.execute('UPDATE res_partner SET country_id=69 WHERE country_id=254')

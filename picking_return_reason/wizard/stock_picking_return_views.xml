@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_stock_return_picking_form_cstm" model="ir.ui.view">
+        <field name="name">Return lines plus reason</field>
+        <field name="model">stock.return.picking</field>
+        <field name="inherit_id" ref="stock.view_stock_return_picking_form" />
+        <field name="arch" type="xml">
+            <field name="location_id" position="after">
+                <field name="need_reason" invisible="1"/>
+                <field name="return_reason" attrs="{'invisible': [('need_reason', '=', False)], 'required': [('need_reason', '=', True)]}"/>
+            </field>
+        </field>
+    </record>
+</odoo>

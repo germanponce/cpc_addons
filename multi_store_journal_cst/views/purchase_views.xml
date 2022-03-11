@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<odoo>
+    <data>
+        <record id="purchase_order_ro_fp_form" model="ir.ui.view">
+            <field name="name">purchase.order.ro_fp.form</field>
+            <field name="model">purchase.order</field>
+            <field name="inherit_id" ref="purchase.purchase_order_form" />
+            <field name="arch" type="xml">
+                <field name="fiscal_position_id" position="attributes">
+                    <attribute name='class'>oe_read_only</attribute>
+                </field>
+                <xpath expr="//field[@name='order_line']/tree/field[@name='taxes_id']" position="attributes">
+                    <attribute name="widget" />
+                    <attribute name="context" />
+                    <attribute name="domain" />
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='order_line']/tree/field[@name='price_unit']" position="after">
+                    <field name="taxes_id_ro" widget="many2many_tags" />
+                </xpath>
+                <xpath expr="//field[@name='order_line']/form/sheet/group/group[2]/field[@name='taxes_id']" position="attributes">
+                    <attribute name="widget" />
+                    <attribute name="context" />
+                    <attribute name="domain" />
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='order_line']/form/sheet/group/group[2]" position="inside">
+                    <field name="taxes_id_ro" widget="many2many_tags" />
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

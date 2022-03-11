@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="orderpoint_form_view_inherit" model="ir.ui.view">
+            <field name="name">stock.warehouse.orderpoint.form.view.enhaced</field>
+            <field name="model">stock.warehouse.orderpoint</field>
+            <field name="inherit_id" ref="stock.view_warehouse_orderpoint_form" />
+            <field name="arch" type="xml">
+                <sheet position="after">
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers" groups="base.group_user" />
+                        <field name="message_ids" widget="mail_thread" />
+                    </div>
+                </sheet>
+            </field>
+        </record>
+
+        <record id="view_orderpoint_tree_enhaced" model="ir.ui.view">
+            <field name="name">orderpoint.report.tree</field>
+            <field name="model">stock.warehouse.orderpoint.report</field>
+            <field name="priority" eval="100"/>
+            <field name="arch" type="xml">
+                <tree create="false" delete="false" edit="false" string="Reordering Rules Detail">
+                    <field name="product_id"/>
+                    <field name="uom_id"/>
+                    <field name="package_type" />
+                    <field name="categ_id"/>
+                    <field name="sum_qty"/>
+                    <button name="button_view_stat_moves" icon="fa-list" type="object" />
+                    <field name="prom_qty"/>
+                    <field name="supplier_info_id"/>
+                    <field name="min_qty"/>
+                    <field name="delay"/>
+                    <field name="delay_x_cpd"/>
+                    <field name="res_min"/>
+                    <field name="res_max"/>
+                    <field name="qty_req" />
+                    <button name="button_view_level_detail" icon="fa-file-text" type="object" attrs="{'invisible':[('qty_req','&lt;=',0)]}"/>
+                    <field name="qty_available"/>
+                    <field name="qty_in"/>
+                    <button name="button_view_in_moves" icon="fa-truck" type="object" attrs="{'invisible':[('qty_in','&lt;=',0)]}"/>
+                    <field name="qty_sugg"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="orderpoint_search_enhaced">
+            <field name="name">orderpoint.report.search</field>
+            <field name="model">stock.warehouse.orderpoint.report</field>
+            <field name="arch" type="xml">
+                <search string="Reordering Rules Search">
+                    <field name="product_id"/>
+                    <field name="categ_id"/>
+                    <field name="uom_id"/>
+                    <field name="prom_qty"/>
+                    <group expand="0" string="Group By">
+                        <filter string="Category" domain="[]" name="groupby_categ_id" context="{'group_by':'categ_id'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <record id="action_orderpoint_report_tree" model="ir.actions.act_window">
+            <field name="name">Reordering Rules Detail</field>
+            <field name="res_model">stock.warehouse.orderpoint.report</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_mode">tree</field>
+            <field name="view_type">form</field>
+            <field name="view_id" ref="view_orderpoint_tree_enhaced"/>
+            <field name="search_view_id" ref="orderpoint_search_enhaced" />
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                Click to add a reordering rule.
+              </p><p>You can define your minimum stock rules, so that Odoo will automatically create draft manufacturing orders or request for quotations according to the stock level. Once the virtual stock of a product (= stock on hand minus all confirmed orders and reservations) is below the minimum quantity, Odoo will generate a procurement request to increase the stock up to the maximum quantity.</p>
+            </field>
+        </record>
+
+        <menuitem
+            id="menu_reordering_rules_enhaced"
+            action="action_orderpoint_report_tree"
+            name="Reordering Rules Detail" parent="stock.menu_stock_inventory_control" sequence="15"/>
+    </data>
+</odoo>

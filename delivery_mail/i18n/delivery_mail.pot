@@ -1,0 +1,173 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* delivery_mail
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 10.0-20171030\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2018-04-17 20:08+0000\n"
+"PO-Revision-Date: 2018-04-17 20:08+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: delivery_mail
+#: model:mail.template,body_html:delivery_mail.mail_delivery_template_customer_default
+msgid " \n"
+"<div>\n"
+"<p>Dear customer:</p>\n"
+"<p>Your order ${object.sale_id.name} has been shipped${object.partial_msg}.</p>\n"
+"<p>Here are shipment details:</p>\n"
+"<p>Carrier: ${object.carrier_id.name}</p>\n"
+"<p>Tracking number: ${object.carrier_tracking_ref}</p>\n"
+"<p>Products:</p>\n"
+"<div>${object.products_table | safe}</div>\n"
+"<p>Thank you!</p>\n"
+"<p>${user.company_id.name}</p>\n"
+"</div>"
+msgstr ""
+
+#. module: delivery_mail
+#: model:mail.template,body_html:delivery_mail.mail_delivery_template_agent_default
+msgid " \n"
+"<div>\n"
+"<p>Hi ${object.sale_id.user_id.name}:</p>\n"
+"<p>Order ${object.sale_id.name} has been shipped${object.partial_msg}.</p>\n"
+"<p>Here are shipment details:</p>\n"
+"<p>Carrier: ${object.carrier_id.name}</p>\n"
+"<p>Tracking number: ${object.carrier_tracking_ref}</p>\n"
+"<p>Products:</p>\n"
+"<div>${object.products_table | safe}</div>\n"
+"<p>Thank you!</p>\n"
+"<p>${user.company_id.name}</p>\n"
+"</div>"
+msgstr ""
+
+#. module: delivery_mail
+#: code:addons/delivery_mail/models/stock_picking.py:27
+#, python-format
+msgid " partially"
+msgstr ""
+
+#. module: delivery_mail
+#: model:ir.ui.view,arch_db:delivery_mail.delivery_mail_config_form_view
+msgid "Apply"
+msgstr ""
+
+#. module: delivery_mail
+#: model:ir.ui.view,arch_db:delivery_mail.delivery_mail_config_form_view
+msgid "Cancel"
+msgstr ""
+
+#. module: delivery_mail
+#: model:ir.ui.view,arch_db:delivery_mail.delivery_mail_config_form_view
+msgid "Configure Delivery Mail Template"
+msgstr ""
+
+#. module: delivery_mail
+#: model:ir.model.fields,field_description:delivery_mail.field_delivery_mail_settings_create_uid
+msgid "Created by"
+msgstr ""
+
+#. module: delivery_mail
+#: model:ir.model.fields,field_description:delivery_mail.field_delivery_mail_settings_create_date
+msgid "Created on"
+msgstr ""
+
+#. module: delivery_mail
+#: model:ir.ui.view,arch_db:delivery_mail.delivery_mail_config_form_view
+msgid "Customer Delivery Mail notification template"
+msgstr ""
+
+#. module: delivery_mail
+#: model:ir.model.fields,field_description:delivery_mail.field_delivery_mail_settings_customer_template
+msgid "Customer Delivery Template"
+msgstr ""
+
+#. module: delivery_mail
+#: model:ir.model.fields,field_description:delivery_mail.field_delivery_mail_settings_display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: delivery_mail
+#: model:ir.model.fields,field_description:delivery_mail.field_delivery_mail_settings_id
+msgid "ID"
+msgstr ""
+
+#. module: delivery_mail
+#: model:ir.model.fields,field_description:delivery_mail.field_delivery_mail_settings___last_update
+msgid "Last Modified on"
+msgstr ""
+
+#. module: delivery_mail
+#: model:ir.model.fields,field_description:delivery_mail.field_delivery_mail_settings_write_uid
+msgid "Last Updated by"
+msgstr ""
+
+#. module: delivery_mail
+#: model:ir.model.fields,field_description:delivery_mail.field_delivery_mail_settings_write_date
+msgid "Last Updated on"
+msgstr ""
+
+#. module: delivery_mail
+#: model:ir.actions.act_window,name:delivery_mail.action_dm_config
+#: model:ir.ui.menu,name:delivery_mail.menu_delivery_config
+msgid "Mail Configuration"
+msgstr ""
+
+#. module: delivery_mail
+#: model:mail.template,subject:delivery_mail.mail_delivery_template_agent_default
+msgid "Order ${object.sale_id.name} has been shipped"
+msgstr ""
+
+#. module: delivery_mail
+#: code:addons/delivery_mail/models/stock_picking.py:14
+#, python-format
+msgid "Product"
+msgstr ""
+
+#. module: delivery_mail
+#: code:addons/delivery_mail/models/stock_picking.py:14
+#, python-format
+msgid "Quantity"
+msgstr ""
+
+#. module: delivery_mail
+#: model:ir.model.fields,field_description:delivery_mail.field_delivery_mail_settings_agent_template
+msgid "Sales Agent Delivery Template"
+msgstr ""
+
+#. module: delivery_mail
+#: model:ir.ui.view,arch_db:delivery_mail.delivery_mail_config_form_view
+msgid "Sales agent Delivery Mail notification template"
+msgstr ""
+
+#. module: delivery_mail
+#: model:ir.model.fields,help:delivery_mail.field_delivery_mail_settings_customer_template
+msgid "Specify Mail Template to use on customer notification."
+msgstr ""
+
+#. module: delivery_mail
+#: model:ir.model.fields,help:delivery_mail.field_delivery_mail_settings_agent_template
+msgid "Specify Mail Template to use on sales agent notification."
+msgstr ""
+
+#. module: delivery_mail
+#: model:ir.model,name:delivery_mail.model_stock_picking
+msgid "Transfer"
+msgstr ""
+
+#. module: delivery_mail
+#: model:mail.template,subject:delivery_mail.mail_delivery_template_customer_default
+msgid "Your Order ${object.sale_id.name} has been shipped"
+msgstr ""
+
+#. module: delivery_mail
+#: model:ir.model,name:delivery_mail.model_delivery_mail_settings
+msgid "delivery.mail.settings"
+msgstr ""
+

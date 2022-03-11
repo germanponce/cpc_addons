@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="account_supplier_invoice_payment_order_wizard" model="ir.ui.view">
+			<field name="name">Wizard para Imprimir la Orden de Pago</field>
+			<field name="model">account.invoice.payment_order.wizard</field>
+			<field name="arch" type="xml">
+				<form string="Ordenes de Pago">
+                                    <field name="id" invisible="1"/>
+					<group string="Este asistente le permite mandar a imprimir las Ordenes de Pago según Facturas de proveedor haya seleccionado" col="4" colspan="4">
+						<field name="lines" colspan="4" nolabel="1">
+                            <tree create="false" editable="bottom">
+                                <field name="partner_id" />
+                                <field name="concept" />
+                                <field name="amount_inv" />
+                                <field name="currency_id" />
+                                <field name="rate" attrs="{'readonly': [('payment_journal', '=', False)]}" />
+                                <field name="amount" />
+                                <field name="notes" />
+                                <field name="payment_journal" />
+                                <field name="invoice_ids" invisible="1" />
+                                <field name="suppliers_extras" invisible="1" />
+                                <field name="supplier_bank_id" attrs="{'readonly': [('suppliers_extras', '=', True)],'required':[('suppliers_extras', '=', False)] }"/>
+                                <field name="supplier_name" attrs="{'readonly': [('suppliers_extras', '=', False)],'required':[('suppliers_extras', '=', True)] }" />
+                                <field name="supplier_bank" attrs="{'readonly': [('suppliers_extras', '=', False)],'required':[('suppliers_extras', '=', True)] }" />
+                                <field name="supplier_sucursal" attrs="{'readonly': [('suppliers_extras', '=', False)],'required':[('suppliers_extras', '=', True)] }" />
+                                <field name="supplier_account" attrs="{'readonly': [('suppliers_extras', '=', False)],'required':[('suppliers_extras', '=', True)] }" />
+                            </tree>
+                        </field>
+					</group>
+					<footer>
+						<button name="action_get_report" string="Imprimir" type="object" class="oe_highlight" attrs="{'invisible': [('id', '!=', False)]}"/>
+						or
+						<button string="Cancel" class="oe_link" special="cancel" attrs="{'invisible': [('id', '!=', False)]}"/>
+						<button string="Close" class="oe_link" special="cancel" attrs="{'invisible': [('id', '=', False)]}"/>
+					</footer>
+				</form>
+			</field>
+		</record>
+
+		
+        <act_window name="Reporte de Orden de Pago"
+            res_model="account.invoice.payment_order.wizard"
+            src_model="account.invoice.supplier_collection_projection"
+            key2="client_action_multi"
+            multi="True"
+            view_mode="form"
+            view_type="form"
+            target="new"
+            id="action_account_supplier_payment_order_wizard"/>
+    </data>
+</odoo>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="view_account_settings_inherit_po">
+            <field name="name">Sale Settings View inherits PO</field>
+            <field name="model">account.config.settings</field>
+            <field name="type">form</field>
+            <field name="inherit_id" ref="account.view_account_config_settings"/>
+            <field name="arch" type="xml">
+                <group name="followup" position="after">
+                    <group string="Payment Order">
+                        <field name="po_customer_accnt" />
+                        <field name="po_supplier_accnt" />
+                        <field name="po_offsetting_accnt" />
+                        <field name="po_journal" />
+                    </group>
+                </group>
+            </field>
+        </record>
+    </data>
+</odoo>

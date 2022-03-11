@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>    
+        <act_window id="action_explode_so_bom_wiz" 
+            name="Purchase projection on materials" 
+            res_model="explode.so.bom.select" 
+            view_mode="form" 
+            target="new" />
+    
+        <menuitem id="menu_purchase_reports" 
+            name="Reports" 
+            parent="purchase.menu_purchase_root" 
+            sequence="99" />
+            
+        <record model="ir.ui.menu" id="purchase.purchase_report">
+            <field name="parent_id" ref="menu_purchase_reports"/>
+        </record>
+            
+        <menuitem action="action_explode_so_bom_wiz" 
+            id="menu_purchase_explode_so_bom_wiz" 
+            parent="menu_purchase_reports" 
+            sequence="30" />
+            
+        <record model="ir.ui.view" id="view_explode_so_bom_search">
+            <field name="name">explode.so.bom.search</field>
+             <field name="model">explode.so.bom</field>
+             <field name="type">search</field>
+             <field name="arch" type="xml">
+                <search string="Material Purchase Projection Search" >
+                    <field name="product_id"/>
+                    <field name="categ_id"/>
+                    <field name="uom_id"/>
+                    <field name="qty"/>
+                    <group expand="0" string="Group By...">
+                        <filter string="Category" domain="[]" name="groupby_categ_id" context="{'group_by':'categ_id'}"/>
+                    </group>
+                </search>
+             </field>
+        </record>
+            
+        <record model="ir.ui.view" id="view_explode_so_bom_tree">
+            <field name="name">explode.so.bom.tree</field>
+             <field name="model">explode.so.bom</field>
+             <field name="type">tree</field>
+             <field name="arch" type="xml">
+                <tree create="false" delete="false" string="Material Purchase Projection" colors="red:qty_diff &lt;= 0;orange:qty_diff_vrt &lt;= 0;">
+                    <field name="product_id"/>
+                    <field name="categ_id"/>
+                    <field name="uom_id"/>
+                    <field name="qty"/>
+                    <button name="button_view_sale_order_lines" icon="fa-file-text" type="object"/>
+                    <field name="qty_available"/>
+                    <field name="qty_virtual"/>
+                    <field name="qty_in"/>
+                    <button name="button_view_in_moves" icon="fa-truck" type="object" attrs="{'invisible':[('qty_in','&lt;=',0)]}"/>
+                    <field name="qty_out"/>
+                    <field name="qty_diff"/>
+                    <field name="qty_diff_vrt"/>
+                </tree>
+             </field>
+        </record>
+        
+        <!-- Para vistas personalizadas -->
+        
+        <record id="view_order_line_tree" model="ir.ui.view">
+            <field name="name">sale.order.line.diff.tree</field>
+            <field name="model">sale.order.line.diff</field>
+            <field name="arch" type="xml">
+                <tree string="Sales Order Lines" create="false" delete="false">
+                    <field name="product_id" invisible="1"/>
+                    <field name="order_id"/>
+                    <field name="order_partner_id"/>
+                    <field name="commitment_date2"/>
+                    <field name="name"/>
+                    <field name="salesman_id"/>
+                    <field name="product_uom_qty" string="Qty"/>
+                    <field name="qty_available"/>
+                    <field name="qty_delivered"/>
+                    <field name="qty_to_deliver" sum="Total" />
+                    <field name="product_uom" string="Unit of Measure" groups="product.group_uom"/>
+                </tree>
+            </field>
+        </record>
+        
+        <record id="view_sales_order_line_filter" model="ir.ui.view">
+            <field name="name">sale.order.line.diff.select</field>
+            <field name="model">sale.order.line.diff</field>
+            <field name="arch" type="xml">
+                <search string="Search Sales Order">
+                    <filter name="deliver_filter" string="To Deliver" domain="[('qty_to_deliver','&gt;', 0)]"  help="Sales Order Lines that need to be delivered"/>
+                    <separator/>
+                    <field name="order_id"/>
+                    <field name="order_partner_id" operator="child_of"/>
+                    <field name="product_id"/>
+                    <field name="salesman_id"/>
+                    <group expand="0" string="Group By">
+                        <filter name="groupby_product" string="Product" domain="[]" context="{'group_by':'product_id'}"/>
+                        <filter string="Order" domain="[]" context="{'group_by':'order_id'}"/>
+                        <filter string="Salesperson" domain="[]" context="{'group_by':'salesman_id'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+    </data>
+</odoo>

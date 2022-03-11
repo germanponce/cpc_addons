@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="supplier_projection_apo_search_view" model="ir.ui.view">
+            <field name="name">supplier_collection_projection plus PO</field>
+            <field name="model">account.invoice.supplier_collection_projection</field>
+            <field name="inherit_id" ref="argil_invoice_balance_analysis.view_account_invoice_supplier_collection_projection_search" />
+            <field name="arch" type="xml">
+                <filter name="no_overdue" position="after">
+                    <separator />
+                    <filter string="Without PO" name="no_apo" help="Without linked PO" domain="[('payment_ord_id','=',False)]" />
+                </filter>
+            </field>
+        </record>
+        
+        <record id="supplier_collection_apo_tree_view" model="ir.ui.view">
+            <field name="name">supplier_collection_projection plus PO</field>
+            <field name="model">account.invoice.supplier_collection_projection</field>
+            <field name="inherit_id" ref="argil_invoice_balance_analysis.view_account_invoice_supplier_collection_projection_tree" />
+            <field name="arch" type="xml">
+                <field name="date_due" position="after">
+                    <field name="payment_ord_id" />
+                </field>
+            </field>
+        </record>
+    </data>
+</odoo>

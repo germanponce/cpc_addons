@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_partner_property_form_clear" model="ir.ui.view">
+            <field name="name">Partner property form clear field</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="account.view_partner_property_form" />
+            <field name="arch" type="xml">
+                <field name="property_supplier_payment_term_id" position="replace"/>
+            </field>
+        </record>
+        
+        <record id="purchase_view_partner_property_form_clear" model="ir.ui.view">
+            <field name="name">Partner property form clear field</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="purchase.view_partner_property_form" />
+            <field name="arch" type="xml">
+                <field name="property_purchase_currency_id" position="replace"/>
+            </field>
+        </record>
+        
+        <record id="asipo_view_partner_property_form_inherit_clear" model="ir.ui.view">
+            <field name="name">Partner property form clear field</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="account_supplier_invoice_payment_order.view_partner_property_form_inherit" />
+            <field name="arch" type="xml">
+                <field name="payment_journal" position="replace" />
+            </field>
+        </record>
+        
+        <record id="partner_form_view_inherit" model="ir.ui.view">
+            <field name="name">Partner Form View Quick Access</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form" />
+            <field name="arch" type="xml">
+                <xpath expr="//sheet/notebook/page[1]" position="before">
+                    <page string="Main Information" attrs="{'invisible':[('supplier','=', False)]}" autofocus="autofocus">
+                        <group>
+                            <group>
+                                <field name="x_ref_prov" />
+                                <field name="property_supplier_payment_term_id" widget="selection"/>
+                                <field name="property_purchase_currency_id" options="{'no_create': True, 'no_open': True}"/>
+                            </group>
+                            <div>
+                                <field name="journal_ids">
+                                    <tree>
+                                        <field name="journal_id" />
+                                        <field name="currency_id" />
+                                        <field name="bank_acc_number" />
+                                    </tree>
+                                    <form>
+                                        <sheet>
+                                            <group>
+                                                <field name="journal_id" />
+                                                <field name="currency_id" />
+                                                <field name="bank_acc_number" />
+                                            </group>
+                                        </sheet>
+                                    </form>
+                                </field>
+                            </div>
+                        </group>
+                        <separator string="Bank Accounts" />
+                        <field name="partner_bank_ids">
+                            <tree>
+                                <field name="acc_number" />
+                                <field name="bank_id" />
+                                <field name="currency_id" />
+                            </tree>
+                            <form>
+                                <sheet>
+                                    <group>
+                                        <group>
+                                            <field name="acc_number" />
+                                            <field name="bank_id" />
+                                        </group>
+                                        <group>
+                                            <field name="currency_id" />
+                                        </group>
+                                    </group>
+                                </sheet>
+                            </form>
+                        </field>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

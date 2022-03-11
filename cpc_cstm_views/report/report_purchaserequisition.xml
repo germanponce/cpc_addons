@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="report_picking_customer" model="ir.ui.view">
+            <field name="name">purchase.requisition.report</field>
+            <field name="model">purchase.requisition</field>
+            <field name="inherit_id" ref="purchase_requisition.report_purchaserequisitions" />
+            <field name="arch" type="xml">
+                <xpath expr="(//div/div)[last()]" position="after">
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <h3>Terms and Conditions</h3>
+                            <p t-field="o.description" />
+                        </div>
+                    </div>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

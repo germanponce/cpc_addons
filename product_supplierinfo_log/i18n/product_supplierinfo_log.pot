@@ -1,0 +1,206 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* product_supplierinfo_log
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 10.0-20170508\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-10-25 16:24+0000\n"
+"PO-Revision-Date: 2017-10-25 16:24+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: product_supplierinfo_log
+#: model:ir.ui.view,arch_db:product_supplierinfo_log.product_supplierinfo_form_view_enhaced
+msgid "Additional information"
+msgstr ""
+
+#. module: product_supplierinfo_log
+#: model:ir.model.fields,field_description:product_supplierinfo_log.field_product_supplierinfo_reason_price_chg
+msgid "Change reason"
+msgstr ""
+
+#. module: product_supplierinfo_log
+#: model:ir.ui.view,arch_db:product_supplierinfo_log.product_supplierinfo_log_tree_view
+msgid "Changes Log"
+msgstr ""
+
+#. module: product_supplierinfo_log
+#: model:ir.model.fields,field_description:product_supplierinfo_log.field_product_supplierinfo_log_create_uid
+msgid "Created by"
+msgstr ""
+
+#. module: product_supplierinfo_log
+#: model:ir.model.fields,field_description:product_supplierinfo_log.field_product_supplierinfo_log_create_date
+msgid "Created on"
+msgstr ""
+
+#. module: product_supplierinfo_log
+#: model:ir.model.fields,field_description:product_supplierinfo_log.field_product_supplierinfo_log_date
+msgid "Date"
+msgstr ""
+
+#. module: product_supplierinfo_log
+#: model:ir.model.fields,field_description:product_supplierinfo_log.field_product_supplierinfo_log_display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: product_supplierinfo_log
+#: model:ir.model.fields,field_description:product_supplierinfo_log.field_product_supplierinfo_log_field
+msgid "Field"
+msgstr ""
+
+#. module: product_supplierinfo_log
+#: model:ir.ui.view,arch_db:product_supplierinfo_log.product_supplierinfo_form_view_enhaced
+msgid "General information"
+msgstr ""
+
+#. module: product_supplierinfo_log
+#: model:ir.model.fields,field_description:product_supplierinfo_log.field_product_supplierinfo_log_id
+msgid "ID"
+msgstr ""
+
+#. module: product_supplierinfo_log
+#: model:ir.model,name:product_supplierinfo_log.model_product_supplierinfo
+msgid "Information about a product vendor"
+msgstr ""
+
+#. module: product_supplierinfo_log
+#: model:ir.model.fields,field_description:product_supplierinfo_log.field_product_supplierinfo_log___last_update
+msgid "Last Modified on"
+msgstr ""
+
+#. module: product_supplierinfo_log
+#: model:ir.model.fields,field_description:product_supplierinfo_log.field_product_supplierinfo_log_write_uid
+msgid "Last Updated by"
+msgstr ""
+
+#. module: product_supplierinfo_log
+#: model:ir.model.fields,field_description:product_supplierinfo_log.field_product_supplierinfo_log_write_date
+msgid "Last Updated on"
+msgstr ""
+
+#. module: product_supplierinfo_log
+#: model:ir.ui.view,arch_db:product_supplierinfo_log.product_supplierinfo_form_view_enhaced
+msgid "Log"
+msgstr ""
+
+#. module: product_supplierinfo_log
+#: model:ir.model.fields,field_description:product_supplierinfo_log.field_product_supplierinfo_log_ids
+msgid "Log ids"
+msgstr ""
+
+#. module: product_supplierinfo_log
+#: model:ir.model.fields,field_description:product_supplierinfo_log.field_product_supplierinfo_log_new_value
+msgid "New Value"
+msgstr ""
+
+#. module: product_supplierinfo_log
+#: model:ir.model.fields,field_description:product_supplierinfo_log.field_product_supplierinfo_log_old_value
+msgid "Old Value"
+msgstr ""
+
+#. module: product_supplierinfo_log
+#: model:ir.ui.view,arch_db:product_supplierinfo_log.product_supplierinfo_form_view_enhaced
+msgid "Other Information"
+msgstr ""
+
+#. module: product_supplierinfo_log
+#: code:addons/product_supplierinfo_log/models/product.py:59
+#, python-format
+msgid "Price"
+msgstr ""
+
+#. module: product_supplierinfo_log
+#: model:ir.ui.view,arch_db:product_supplierinfo_log.product_supplierinfo_form_view_enhaced
+msgid "Price List"
+msgstr ""
+
+#. module: product_supplierinfo_log
+#: model:mail.message.subtype,description:product_supplierinfo_log.mt_price_log
+msgid "Price modification"
+msgstr ""
+
+#. module: product_supplierinfo_log
+#: model:ir.model.fields,field_description:product_supplierinfo_log.field_product_supplierinfo_price_need_reason
+msgid "Price need reason"
+msgstr ""
+
+#. module: product_supplierinfo_log
+#: model:ir.ui.view,arch_db:product_supplierinfo_log.product_supplierinfo_form_view_enhaced
+msgid "Product"
+msgstr ""
+
+#. module: product_supplierinfo_log
+#: model:mail.message.subtype,name:product_supplierinfo_log.mt_price_log
+msgid "Product Supplier Information Log"
+msgstr ""
+
+#. module: product_supplierinfo_log
+#: model:ir.model.fields,field_description:product_supplierinfo_log.field_product_supplierinfo_log_reason
+msgid "Reason"
+msgstr ""
+
+#. module: product_supplierinfo_log
+#: code:addons/product_supplierinfo_log/models/product.py:40
+#, python-format
+msgid "Supplier Information Created"
+msgstr ""
+
+#. module: product_supplierinfo_log
+#: code:addons/product_supplierinfo_log/models/product.py:44
+#, python-format
+msgid "Supplier information created by <a href=# data-oe-model=res.users data-oe-id=%d>%s</a> on %s :<br /><b>Supplier:</b> %s<br /><b>Product:</b> %s<br /><b>Price:</b> %s"
+msgstr ""
+
+#. module: product_supplierinfo_log
+#: model:ir.model.fields,field_description:product_supplierinfo_log.field_product_supplierinfo_log_supplierinfo_id
+msgid "Supplierinfo id"
+msgstr ""
+
+#. module: product_supplierinfo_log
+#: code:addons/product_supplierinfo_log/models/product.py:89
+#, python-format
+msgid "The user <a href=# data-oe-model=res.users data-oe-id=%d>%s</a> on %s made this modification:<br />%s</br><b>Reason:</b> %s"
+msgstr ""
+
+#. module: product_supplierinfo_log
+#: model:ir.model.fields,field_description:product_supplierinfo_log.field_product_supplierinfo_log_user_id
+msgid "User"
+msgstr ""
+
+#. module: product_supplierinfo_log
+#: model:ir.ui.view,arch_db:product_supplierinfo_log.product_supplierinfo_form_view_enhaced
+msgid "Validity"
+msgstr ""
+
+#. module: product_supplierinfo_log
+#: model:ir.ui.view,arch_db:product_supplierinfo_log.product_supplierinfo_form_view_enhaced
+msgid "Vendor"
+msgstr ""
+
+#. module: product_supplierinfo_log
+#: model:ir.ui.view,arch_db:product_supplierinfo_log.product_supplierinfo_form_view_enhaced
+msgid "Vendor Information"
+msgstr ""
+
+#. module: product_supplierinfo_log
+#: model:ir.ui.view,arch_db:product_supplierinfo_log.product_supplierinfo_form_view_enhaced
+msgid "days"
+msgstr ""
+
+#. module: product_supplierinfo_log
+#: model:ir.model,name:product_supplierinfo_log.model_product_supplierinfo_log
+msgid "product.supplierinfo.log"
+msgstr ""
+
+#. module: product_supplierinfo_log
+#: model:ir.ui.view,arch_db:product_supplierinfo_log.product_supplierinfo_form_view_enhaced
+msgid "to"
+msgstr ""
+

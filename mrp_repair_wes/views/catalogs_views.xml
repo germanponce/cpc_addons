@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+		<record id="partnum_form_view" model="ir.ui.view">
+			<field name="name">mrp.repair.wes.partnum</field>
+			<field name="model">mrp.repair.wes.partnum</field>
+			<field name="arch" type="xml">
+				<form string="Part Number">
+					<sheet>
+						<group>
+							<group>
+								<field name="name" />
+								<field name="description" />
+								<field name="type_id" />
+								<field name="subtype_id" domain="[('type_id', '=', type_id)]" />
+							</group>
+							<group>
+								<field name="serialized" />
+								<field name="rohs" />
+								<field name="cosmetic_stage" />
+								<field name="is_hdd" />
+								<field name="brand_id" />
+								<field name="client" />
+							</group>
+							<field name="comments" />
+						</group>
+					</sheet>
+				</form>
+			</field>
+		</record>
+		
+		<record id="activity_form_view" model="ir.ui.view">
+			<field name="name">mrp.repair.wes.activity.form</field>
+			<field name="model">mrp.repair.wes.activity</field>
+			<field name="arch" type="xml">
+				<form string="Activity">
+					<sheet>
+						<group>
+							<field name="name" />
+							<field name="description" />
+							<field name="planned_hours" />
+							<field name="tag_ids" widget="many2many_tags" />
+						</group>
+					</sheet>
+				</form>
+			</field>
+		</record>
+		
+		<record id="tags_form_view" model="ir.ui.view">
+			<field name="name">mrp.repair.wes.tags.form</field>
+			<field name="model">mrp.repair.wes.tags</field>
+			<field name="arch" type="xml">
+				<form string="Repair Tags">
+					<group>
+						<field name="name" />
+					</group>
+				</form>
+			</field>
+		</record>
+		
+		<record id="tags_tree_view" model="ir.ui.view">
+			<field name="name">mrp.repair.wes.tags.tree</field>
+			<field name="model">mrp.repair.wes.tags</field>
+			<field name="arch" type="xml">
+				<tree string="Repair Tags">
+					<field name="name" />
+				</tree>
+			</field>
+		</record>
+		
+		<record id="route_form_view" model="ir.ui.view">
+			<field name="name">mrp.repair.wes.route.form</field>
+			<field name="model">mrp.repair.wes.route</field>
+			<field name="arch" type="xml">
+				<form>
+					<sheet>
+						<div class="oe_title">
+							<h1>
+								<field name="name" placeholder="Route Name"/>
+							</h1>
+						</div>
+						<group>
+							<field name="type_id" />
+							<field name="activities_ids" />
+						</group>
+					</sheet>
+				</form>
+			</field>
+		</record>
+		
+		<record id="partslist_form_view" model="ir.ui.view">
+			<field name="name">mrp.repair.wes.partstlist.form</field>
+			<field name="model">mrp.repair.wes.partslist</field>
+			<field name="arch" type="xml">
+				<form string="Parts List">
+					<sheet>
+						<div class="oe_title">
+							<h1>
+								<field name="name" placeholder="Parts List Name"/>
+							</h1>
+							<group>
+								<field name="cause_id" />
+							</group>
+							<separator string="Partes"/>
+							<field name="operations">
+								<tree string="Parts" editable="bottom">
+									<field name="type" />
+									<field name="product_id" />
+									<field name="name" />
+									<field name="location_id" />
+									<field name="location_dest_id" />
+									<field name="product_uom_qty" />
+									<field name="price_unit" />
+									<field name="to_invoice" />
+									<field name="tax_id" widget="many2many_tags" />
+								</tree>
+							</field>
+						</div>
+					</sheet>
+				</form>
+			</field>
+		</record>
+		
+		<record id="state_tree_view" model="ir.ui.view">
+			<field name="name">mrp.repair.wes.state.tree</field>
+			<field name="model">mrp.repair.wes.state</field>
+			<field name="arch" type="xml">
+				<tree string="Activity State" editable="bottom">
+					<field name="sequence" widget="handle" />
+					<field name="name" />
+					<field name="comments" />
+				</tree>
+			</field>
+		</record>
+		
+		<record id="stage_tree_view" model="ir.ui.view">
+			<field name="name">mrp.repair.wes.stages.tree</field>
+			<field name="model">mrp.repair.wes.stages</field>
+			<field name="arch" type="xml">
+				<tree string="Repairing Stages" editable="bottom">
+					<field name="sequence" widget="handle" />
+					<field name="name" />
+					<field name="comments" />
+				</tree>
+			</field>
+		</record>
+		
+		<record id="activity_line_form_view" model="ir.ui.view">
+			<field name="name">mrp.repair.wes.activity.line.form</field>
+			<field name="model">mrp.repair.wes.activity.line</field>
+			<field name="arch" type="xml">
+				<form>
+					<sheet>
+						<div class="oe_title">
+							<h1>
+								<field name="name" readonly="1" />
+							</h1>
+						</div>
+						<group>
+							<group>
+								<field name="activity_id" />
+								<field name="description" />
+								<field name="user_id" />
+								<field name="repair_id" readonly="1" />
+							</group>
+							<group>
+								<field name="planned_hours" />
+								<field name="required_hours" />
+								<field name="state_id" attrs="{'readonly': [('repair_state','not in','under_repair')]}" />
+								<field name="repair_state" invisible="1" />
+								<field name="date_end" />
+							</group>
+						</group>
+						<separator string="Timesheet" />
+						<field name="timesheet_ids" readonly="1">
+							<tree>
+								<field name="state_id" />
+								<field name="date" />
+							</tree>
+						</field>
+					</sheet>
+				</form>
+			</field>
+		</record>
+	</data>
+</odoo>

@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+		<record id="product_supplierinfo_form_view_enhaced" model="ir.ui.view">
+			<field name="name">product.supplierinfo.form.view.enhaced</field>
+			<field name="model">product.supplierinfo</field>
+			<field name="priority" eval="10" />
+			<field name="arch" type="xml">
+				<form string="Vendor Information">
+					<sheet>
+						<notebook>
+							<page string="General information">
+								<group>
+									<group string="Vendor">
+										<field name="name" context="{'default_customer': 0, 'search_default_supplier': 1, 'default_supplier': 1}"/>
+										<field name="product_name"/>
+										<field name="product_code"/>
+										<field name="product_id" domain="[('product_tmpl_id', '=', product_tmpl_id)]" invisible="1"/>
+										<label for="delay"/>
+										<div>
+											<field name="delay" class="oe_inline"/> days
+										</div>
+									</group>
+									<group string="Price List">
+										<field name="product_tmpl_id" string="Product" invisible="context.get('visible_product_tmpl_id', True)"/>
+										<label for="min_qty"/>
+										<div>
+											<field name="min_qty" class="oe_inline"/>
+											<field name="product_uom" class="oe_inline" groups="product.group_uom"/>
+										</div>
+										<label for="price"/>
+										<div>
+											<field name="price" class="oe_inline"/><field name="currency_id" class="oe_inline" groups="base.group_multi_currency"/>
+										</div>
+										<field name="price_need_reason" invisible="True" />
+										<field name="id" invisible="True" />
+										<label for="date_start" string="Validity"/>
+										<div><field name="date_start" class="oe_inline"/> to <field name="date_end" class="oe_inline"/></div>
+										<label for="reason_price_chg" attrs="{'invisible': ['|', ('price_need_reason', '=', False),('id','=',False)]}" />
+										<div>
+											<field name="reason_price_chg" class="oe_inline" 
+												attrs="{'invisible': ['|', ('price_need_reason', '=', False), ('id','=',False)], 'required': [('price_need_reason', '=', True), ('id','!=',False)]}" />
+										</div>
+									</group>
+									<group string="Other Information" groups="base.group_multi_company">
+										<field name="company_id" options="{'no_create': True}"/>
+									</group>
+								</group>
+							</page>
+							<page string="Additional information">
+								<separator string="Log" />
+								<field name="log_ids" />
+							</page>
+						</notebook>
+					</sheet>
+					<div class="oe_chatter">
+						<field name="message_follower_ids" widget="mail_followers" groups="base.group_user" />
+						<field name="message_ids" widget="mail_thread" />
+					</div>
+				</form>
+			</field>
+		</record>
+		
+		<record id="product_supplierinfo_log_tree_view" model="ir.ui.view">
+			<field name="name">product.supplierinfo.log.tree.view</field>
+			<field name="model">product.supplierinfo.log</field>
+			<field name="arch" type="xml">
+				<tree string="Changes Log" create="false" delete="false" edit="false">
+					<field name="date" />
+					<field name="user_id" />
+					<field name="field" />
+					<field name="old_value" />
+					<field name="new_value" />
+					<field name="reason" />
+				</tree>
+			</field>
+		</record>
+	</data>
+</odoo>

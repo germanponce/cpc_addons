@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<odoo>
+    <data>
+        <record id="invoice_supplier_plus_ro_form" model="ir.ui.view">
+            <field name="name">account.invoice.supplier.plus_ro.form</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account.invoice_supplier_form" />
+            <field name="arch" type="xml">
+                <field name="journal_id" position="attributes">
+                    <attribute name="class">oe_read_only</attribute>
+                </field>
+                <field name="fiscal_position_id" position="attributes">
+                    <attribute name="class">oe_read_only</attribute>
+                </field>
+                <field name="invoice_line_tax_ids" position="attributes">
+                    <attribute name="widget" />
+                    <attribute name="context" />
+                    <attribute name="domain" />
+                    <attribute name="invisible">1</attribute>
+                </field>
+                <field name="discount" position="after">
+                    <field name="invoice_line_tax_ids_ro" widget="many2many_tags" context="{'type':parent.type}" />
+                </field>
+            </field>
+        </record>
+    </data>
+</odoo>

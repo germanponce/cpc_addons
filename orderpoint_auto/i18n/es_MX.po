@@ -1,0 +1,166 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* orderpoint_auto
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 10.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-01-10 17:25+0000\n"
+"PO-Revision-Date: 2019-01-10 11:51-0600\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: \n"
+"Language: es_MX\n"
+"X-Generator: Poedit 1.8.11\n"
+
+#. module: orderpoint_auto
+#: code:addons/orderpoint_auto/models/stock_warehouse.py:55
+#, python-format
+msgid "<p>Orderpoint automatically created, it is based on this data:<p/><p><strong>Initial date for statistics:</strong>%s<br /><strong>Average consumption:</strong>%s<br /><strong>Supplier:</strong>%s<br /><strong>Delay:</strong>%s<br /><strong>Minimal Supplier Quantity:</strong>%s</p>"
+msgstr "<p>Regla de Reabastecimiento creada, basándose en los datos siguientes:<p/><p><strong>Fecha de estadística inicial: </strong>%s<br /><strong>Consumo Promedio: </strong>%s<br /><strong>Proveedor: </strong>%s<br /><strong>Días para entrega: </strong>%s<br /><strong>Cantidad mínima a surtir: </strong>%s</p>"
+
+#. module: orderpoint_auto
+#: model:ir.model.fields,field_description:orderpoint_auto.field_stock_warehouse_orderpoint_report_qty_available
+msgid "Available Quantity"
+msgstr "Stock M.P."
+
+#. module: orderpoint_auto
+#: model:ir.model.fields,field_description:orderpoint_auto.field_stock_warehouse_orderpoint_report_categ_id
+msgid "Categ id"
+msgstr "ID Categoría"
+
+#. module: orderpoint_auto
+#: model:ir.ui.view,arch_db:orderpoint_auto.orderpoint_search_enhaced
+msgid "Category"
+msgstr "Categoría"
+
+#. module: orderpoint_auto
+#: model:ir.actions.act_window,help:orderpoint_auto.action_orderpoint_report_tree
+msgid "Click to add a reordering rule."
+msgstr "Presione para crear una regla de reabastecimiento."
+
+#. module: orderpoint_auto
+#: model:ir.model.fields,field_description:orderpoint_auto.field_stock_warehouse_orderpoint_report_prom_qty
+msgid "Daily Average Consumption"
+msgstr "Consumo Promedio Diario"
+
+#. module: orderpoint_auto
+#: model:ir.model.fields,field_description:orderpoint_auto.field_stock_warehouse_orderpoint_report_delay
+msgid "Delay"
+msgstr "Días de Entrega"
+
+#. module: orderpoint_auto
+#: model:ir.model.fields,field_description:orderpoint_auto.field_stock_warehouse_orderpoint_report_delay_x_cpd
+msgid "Delay X DAC"
+msgstr "Mínimo"
+
+#. module: orderpoint_auto
+#: model:ir.model.fields,field_description:orderpoint_auto.field_stock_warehouse_orderpoint_report_display_name
+msgid "Display Name"
+msgstr "Nombre para mostrar"
+
+#. module: orderpoint_auto
+#: model:ir.ui.view,arch_db:orderpoint_auto.orderpoint_search_enhaced
+msgid "Group By"
+msgstr "Agrupar Por"
+
+#. module: orderpoint_auto
+#: model:ir.model.fields,field_description:orderpoint_auto.field_stock_warehouse_orderpoint_report_id
+msgid "ID"
+msgstr ""
+
+#. module: orderpoint_auto
+#: model:ir.model.fields,field_description:orderpoint_auto.field_stock_warehouse_orderpoint_report_qty_in
+msgid "Incoming Quantity"
+msgstr "Tránsito"
+
+#. module: orderpoint_auto
+#: model:ir.model.fields,field_description:orderpoint_auto.field_stock_warehouse_orderpoint_report___last_update
+msgid "Last Modified on"
+msgstr "Última Modificación en"
+
+#. module: orderpoint_auto
+#: model:ir.model.fields,field_description:orderpoint_auto.field_stock_warehouse_orderpoint_report_res_max
+msgid "Maximum"
+msgstr "Máximo"
+
+#. module: orderpoint_auto
+#: model:ir.model.fields,field_description:orderpoint_auto.field_stock_warehouse_orderpoint_report_min_qty
+msgid "Min. Qty"
+msgstr "Cant. Mínima Prov."
+
+#. module: orderpoint_auto
+#: model:ir.model.fields,field_description:orderpoint_auto.field_stock_warehouse_orderpoint_report_res_min
+msgid "Minimum"
+msgstr "P. Reorden"
+
+#. module: orderpoint_auto
+#: model:ir.model,name:orderpoint_auto.model_stock_warehouse_orderpoint
+msgid "Minimum Inventory Rule"
+msgstr "Regla mínima de Inventario"
+
+#. module: orderpoint_auto
+#: model:ir.model.fields,field_description:orderpoint_auto.field_stock_warehouse_orderpoint_report_qty_out
+msgid "Outgoing Quantity"
+msgstr "Cantidad por consumir"
+
+#. module: orderpoint_auto
+#: model:ir.model.fields,field_description:orderpoint_auto.field_stock_warehouse_orderpoint_report_qty_req
+msgid "Required"
+msgstr "Nivelación P.T."
+
+#. module: orderpoint_auto
+#: model:ir.model.fields,field_description:orderpoint_auto.field_stock_warehouse_orderpoint_report_qty_sugg
+msgid "Purchase Sugg. Qty"
+msgstr "Compra sugerida"
+
+#. module: orderpoint_auto
+#: model:ir.model.fields,field_description:orderpoint_auto.field_stock_warehouse_orderpoint_report_product_id
+msgid "Product"
+msgstr "Producto"
+
+#. module: orderpoint_auto
+#: model:ir.actions.act_window,name:orderpoint_auto.action_orderpoint_report_tree
+#: model:ir.ui.menu,name:orderpoint_auto.menu_reordering_rules_enhaced
+#: model:ir.ui.view,arch_db:orderpoint_auto.view_orderpoint_tree_enhaced
+msgid "Reordering Rules Detail"
+msgstr "Detalle de Reglas de Reabastecimiento"
+
+#. module: orderpoint_auto
+#: model:ir.ui.view,arch_db:orderpoint_auto.orderpoint_search_enhaced
+msgid "Reordering Rules Search"
+msgstr "Búsqueda de Reglas de Abastecimiento"
+
+#. module: orderpoint_auto
+#: model:ir.model.fields,field_description:orderpoint_auto.field_stock_warehouse_orderpoint_report_supplier_info_id
+msgid "Supplier Information"
+msgstr "Inf. Proveedor"
+
+#. module: orderpoint_auto
+#: model:ir.model.fields,field_description:orderpoint_auto.field_stock_warehouse_orderpoint_report_sum_qty
+msgid "Total consumption"
+msgstr "Consumo total"
+
+#. module: orderpoint_auto
+#: model:ir.model.fields,field_description:orderpoint_auto.field_stock_warehouse_orderpoint_report_uom_id
+msgid "UoM"
+msgstr "UdM"
+
+#. module: orderpoint_auto
+#: model:ir.model.fields,field_description:orderpoint_auto.field_stock_warehouse_orderpoint_report_qty_virtual
+msgid "Virtual Quantity"
+msgstr "Cantidad Virtual"
+
+#. module: orderpoint_auto
+#: model:ir.actions.act_window,help:orderpoint_auto.action_orderpoint_report_tree
+msgid "You can define your minimum stock rules, so that Odoo will automatically create draft manufacturing orders or request for quotations according to the stock level. Once the virtual stock of a product (= stock on hand minus all confirmed orders and reservations) is below the minimum quantity, Odoo will generate a procurement request to increase the stock up to the maximum quantity."
+msgstr "Puedes definir tus reglas de existencias mínimas, de tal manera que Odoo creé una órden de manufactura o cotización de acuerdo a tu nivel de existencias. Una vez que las existencias virtuales(= existencias a mano menos todas las órdenes confirmadas y reservaciones) están debajo de la cantidad mínima, Odoo odoo generará una órden de reabastecimiento para incrementar las existencias hasta la cantidad máxima."
+
+#. module: orderpoint_auto
+#: model:ir.model,name:orderpoint_auto.model_stock_warehouse_orderpoint_report
+msgid "stock.warehouse.orderpoint.report"
+msgstr ""

@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+		<record id="view_repair_order_form_inherit" model="ir.ui.view">
+			<field name="name">view.repair.order.form.inherit</field>
+			<field name="model">mrp.repair</field>
+			<field name="inherit_id" ref="mrp_repair.view_repair_order_form"/>
+			<field name="arch" type="xml">
+				<!-- VSGTN: Corroborar cuando provino de albarán -->
+				<field name="product_id" position="attributes" >
+					<attribute name="domain">[('categ_id.repairable_prod','=',True)]</attribute>
+					<attribute name="attrs">{'readonly': ['|',('picking_id','!=',False),('state','!=','draft')]}</attribute>
+				</field>
+				<field name="product_qty" position="attributes">
+					<attribute name="attrs">{'readonly': ['|',('picking_id','!=',False),('state','!=','draft')]}</attribute>
+				</field>
+				<field name="location_id" position="attributes">
+					<attribute name="domain" />
+					<attribute name="readonly">1</attribute>
+				</field>
+				<field name="product_uom" position="attributes" >
+					<attribute name="invisible">1</attribute>
+				</field>
+				<field name="lot_id" position="replace" />
+				<field name="address_id" position="after">
+					<field name="partslist_id" domain="[('cause_id', '=', repcause_id)]" />
+					<field name="next_item" invisible="1" />
+				</field>
+				<field name="guarantee_limit" position="after">
+					<field name="route_id" domain="[('type_id', '=', reptype_id)]" />
+				</field>
+				<xpath expr="//page[3]/group/group/field[@name='move_id']" position="after">
+					<field name="picking_id" readonly="1" />
+				</xpath>
+				<xpath expr="//page[3]" position="after">
+					<page string="Additional information">
+						<group>
+							<group>
+								<field name="partnum_id" />
+								<field name="parttype_id" readonly="1" />
+								<field name="partsubt_id" readonly="1"/>
+								<field name="is_hdd" invisible="1" />
+							</group>
+							<group>
+								<field name="repcause_id" />
+								<field name="reptype_id" domain="[('cause_id', '=', repcause_id)]" />
+								<field name="observations" />
+							</group>
+						</group>
+						<group attrs="{'invisible':[('is_hdd','=',False)]}">
+							<group>
+								<field name="description" />
+								<field name="on_document" />
+								<field name="rosh" />
+								<field name="serialized" />
+								<field name="serial" />
+								<field name="mroc" />
+								<field name="assigned_user" />
+								<field name="track_label" />
+								<field name="fault_tag" />
+								<field name="assembly_no" />
+								<field name="site_code" />
+								<field name="log_no" />
+								<field name="eng_badge_no" />
+							</group>
+							<group>
+								<field name="swap_date" />
+								<field name="fab_rev" />
+								<field name="rev_in" />
+								<field name="rev_out" />
+								<field name="provider" />
+								<field name="hdd_serial" />
+								<field name="hp_pn" />
+								<field name="ct_num" />
+								<field name="hp_sec_label" />
+								<field name="firmware_in" />
+								<field name="hp_model" />
+								<field name="capacity" />
+								<field name="restrictions" />
+							</group>
+						</group>
+					</page>
+				</xpath>
+				<xpath expr="(//page)[last()]" position="after">
+					<page string="Repairing Tasks">
+						<field name="activities_lines" context="{'default_repair_id': active_id}">
+							<tree editable="bottom">
+								<field name="activity_id" />
+								<field name="repair_id" invisible="1" />
+								<field name="repair_state" invisible="1" />
+								<field name="date_end" invisible="1" />
+								<field name="user_id" />
+								<field name="description" />
+								<field name="required_hours" />
+								<field name="state_id" />
+								<button string="Next Step" name="action_next" type="object" class="oe_highlight" confirm="Do you want to step next state?" attrs="{'invisible':['|', ('repair_state','not in','under_repair'), ('date_end','!=','')]}" icon="fa-arrow-circle-right" />
+							</tree>
+						</field>
+					</page>
+				</xpath>
+				<!-- 
+				<xpath expr="//field[@name='operations']/form/notebook/page[1]/group/field[@name='product_id']" position="attributes">
+					<attribute name="domain">[('categ_id.part_prod','=',True)]</attribute>
+				</xpath>
+				 -->
+				 <xpath expr="//field[@name='operations']/tree/field[@name='product_id']" position="attributes">
+					<attribute name="domain">[('categ_id.part_prod','=',True)]</attribute>
+				</xpath>
+				<sheet position="after">
+					<footer invisible="not context.get('from_picking',False)">
+						<button type="object" name="done_edit" string="Done" class="oe_highlight" />
+						<button special="cancel" string="Cancel"/>
+					</footer>
+				</sheet>
+			</field>
+		</record>
+	</data>
+</odoo>

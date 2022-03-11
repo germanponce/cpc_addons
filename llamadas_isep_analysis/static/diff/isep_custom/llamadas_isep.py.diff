@@ -1,0 +1,31 @@
+--- a/models/llamadas_isep.py	2018-08-15 17:12:47.045972000 -0500
++++ b/models/llamadas_isep.py	2018-08-15 17:32:27.453586276 -0500
+@@ -7,7 +7,7 @@
+ class llamadas_isep(models.Model):
+     _name = 'llamadas.isep'
+     _description = "Llamadas Centralita"
+-    name = fields.Char(string='Nombre')
++    name = fields.Char(string='Nombre', help="Nombre de este registro")
+     extension = fields.Char(string='Extension')
+     telefono = fields.Char(string='Telefono')
+     date_ini = fields.Datetime(string='Inicio')
+@@ -15,9 +15,8 @@
+     note = fields.Text(string='Notas')
+     duracion = fields.Float(string='Duración')
+     #user_id = fields.Many2one('res.users', string="Usuario")
+-    name = fields.Many2one('res.partner', string="Cliente")
+     employee = fields.Many2one('hr.employee', string="Empleado")
+-    opportunity_id = fields.Many2one('crm.lead')
++    opportunity_id = fields.Many2one('crm.lead', string="Iniciativa")
+     entidad = fields.Char(string="Entidad")
+     empleado = fields.Many2one('hr.employee', string="Empleado")
+     recuento_llamadas = fields.Integer(
+@@ -29,7 +28,7 @@
+     check_employee = fields.Boolean(string="Empleado", default=False)
+     llamadas_id = fields.Many2one(
+         comodel_name="res.partner",
+-        string="Llamadas a cliente")
++        string="Cliente")
+ 
+     @api.multi
+     def _count_calls(self):

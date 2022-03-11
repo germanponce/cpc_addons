@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_purchase_category_tree" model="ir.ui.view">
+            <field name="name">view.purchase.category.tree</field>
+            <field name="model">purchase.category</field>
+            <field name="arch" type="xml">
+                <tree string="Purchase Products Category" editable="top">
+                    <field name="name" />
+                </tree>
+            </field>
+        </record>
+        
+        <record id="action_purchase_category" model="ir.actions.act_window">
+            <field name="name">Purchase Category</field>
+            <field name="res_model">purchase.category</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                  Click to register a purchase category
+                </p><p>
+                  Purchase category enhace product information on orderpoint report.
+                </p>
+            </field>
+        </record>
+        
+        <menuitem action="action_purchase_category" id="menu_action_purchase_category" parent="purchase.menu_product_in_config_purchase" sequence="20" groups="__export__.res_groups_126,base.group_system"/>
+        
+        <record id="product_tmpl_form_inherit_pcat" model="ir.ui.view">
+            <field name="name">product.template.form inherit purchase_cat</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="product.product_template_form_view" />
+            <field name="arch" type="xml">
+                <field name="categ_id" position="after">
+                    <field name="purchase_clasif" groups="__export__.res_groups_126,base.group_system" />
+                </field>
+            </field>
+        </record>
+    </data>
+</odoo>

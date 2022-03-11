@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="view_purchase_requisition_form_cstms">
+            <field name="name">purchase.requisition.form plus customizations</field>
+            <field name="model">purchase.requisition</field>
+            <field name="inherit_id" ref="purchase_requisition.view_purchase_requisition_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='line_ids']/tree/field[@name='product_uom_id']" position="after">
+                    <field name="product_type" invisible="1" />
+                </xpath>
+                <xpath expr="//field[@name='line_ids']/tree/field[@name='account_analytic_id']" position="attributes">
+                    <attribute name="attrs">{'required': [('product_type', '!=', 'product')]}</attribute>
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='line_ids']/tree/field[@name='account_analytic_id']" position="after">
+                    <field name="account_analytic_id_sel" options="{'no_create': True}" attrs="{'required': [('product_type', '!=', 'product')]}" 
+                        context="{'use_up_option':True, 'use_ignore_domain': True}" />
+                    <field name="last_parent" invisible="1" />
+                </xpath>
+                <field name="account_analytic_id" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                    <attribute name="attrs">{'readonly': [('state','not in',('draft'))]}</attribute>
+                    <attribute name="options">{'no_create': True,'no_create_edit':True}</attribute>
+                </field>
+                <field name="account_analytic_id" position="after">
+                    <field name="account_analytic_id_sel" options="{'no_create': True}" context="{'use_up_option':True, 'use_ignore_domain': True}" />
+                    <field name="last_parent" invisible="1" />
+                </field>
+            </field>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+		<record id="view_account_analytic_account_form_inherit" model="ir.ui.view">
+			<field name="name">analytic.analytic.account.form plus account</field>
+			<field name="model">account.analytic.account</field>
+			<field name="inherit_id" ref="analytic.view_account_analytic_account_form"/>
+			<field name="arch" type="xml">
+				<field name="tag_ids" position="after">
+					<field name="account_id" />
+				</field>
+                <xpath expr="//group[@name='main']" position="after">
+				    <group name="extra" string="Extra">
+				        <field name="child_id" readonly="1" />
+				    </group>
+                </xpath>
+			</field>
+		</record>
+	</data>
+</odoo>

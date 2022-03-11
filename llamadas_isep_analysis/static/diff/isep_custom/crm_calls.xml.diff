@@ -1,0 +1,33 @@
+--- a/views/crm_calls.xml	2018-08-15 17:12:47.045972000 -0500
++++ b/views/crm_calls.xml	2018-08-15 17:38:16.009951941 -0500
+@@ -22,6 +22,9 @@
+                         <!--<field string="Llamadas" name="recuento_llamadas" widget="statinfo"/>-->
+                     </button>
+                 </div>
++                <group col="4">
++                    <field name="name" colspan="2"/>
++                </group>
+                 <group>
+                     <group string="Información de la llamada">
+                         <field name="date_ini"/>
+@@ -34,9 +37,9 @@
+                     <group string="Información del cliente">
+                         <field name="telefono"/>
+                         <field name="entidad"/>
+-                        <field name="name"/>
++                        <field name="llamadas_id"/>
+                         <field name="employee"/>
+-                        <field name="opportunity_id" invisible="1"/>
++                        <field name="opportunity_id"/>
+                     </group>
+                 </group>
+                 <group string="Detalles">
+@@ -51,7 +54,7 @@
+         <field name="model">llamadas.isep</field>
+         <field name="arch" type="xml">
+             <tree string="Llamadas entrantes">
+-                <field name="name"/>
++                <field name="llamadas_id"/>
+                 <field name="empleado"/>
+                 <field name="date_ini"/>
+                 <field name="duracion" widget="float_time"/>

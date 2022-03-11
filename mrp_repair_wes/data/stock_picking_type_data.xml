@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+		<record id="stock_picking_type_repair_seq" model="ir.sequence">
+			<field name="name">REPARACIÓN</field>
+			<field name="padding" eval="0" />
+			<field name="implementation">standard</field>
+			<field name="prefix">INREP/</field>
+			<field name="number_increment" eval="1" />
+		</record>
+		
+		<record id="stock_location_repair" model="stock.location">
+			<field name="name">Reparación</field>
+			<field name="location_id" ref="stock.stock_location_locations_partner"/>
+			<field name="usage">supplier</field>
+		</record>
+		
+		<record id="stock_picking_type_repair" model="stock.picking.type">
+			<field name="name">Recepciones – Reparación</field>
+			<field name="code">incoming</field>
+			<field name="sequence_id" ref="stock_picking_type_repair_seq" />
+			<field name="default_location_src_id" ref="stock_location_repair" />
+		</record>
+	</data>
+</odoo>

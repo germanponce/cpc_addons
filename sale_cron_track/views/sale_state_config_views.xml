@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="sale_state_config_form_view" model="ir.ui.view">
+            <field name="name">sale.state.config.view.form</field>
+            <field name="model">sale.state.config</field>
+            <field name="arch" type="xml">
+                <form string="Configure Sale State Tracking" class="oe_form_configuration">
+                    <header>
+                        <button string="Apply" type="object" name="execute" class="oe_highlight"/>
+                        <button string="Cancel" type="object" name="cancel" class="oe_link"/>
+                    </header>
+                    <separator string="First Tracking Notification" />
+                    <div>
+                        <label for="days_notif"/>
+                        <field name="days_notif" />
+                    </div>
+                    <div>
+                        <label for="customer_template" />
+                        <field name="customer_template" />
+                    </div>
+                    <div>
+                        <label for="agent_template"/>
+                        <field name="agent_template" />
+                    </div>
+                    <separator string="Late Tracking Notification" />
+                    <div>
+                        <label for="days_late"/>
+                        <field name="days_late" />
+                    </div>
+                    <div>
+                        <label for="agent_late_template"/>
+                        <field name="agent_late_template" />
+                    </div>
+                </form>
+            </field>
+        </record>
+        
+        <record id="action_ss_config" model="ir.actions.act_window">
+            <field name="name">Sale Tracking Configuration</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">sale.state.config</field>
+            <field name="view_mode">form</field>
+            <field name="target">inline</field>
+        </record>
+        
+        <menuitem id="menu_state_track_config" action="action_ss_config" name="State Tracking Configuration" parent="sales_team.menu_sale_config" sequence="50" groups="sales_team.group_sale_manager"/>
+    </data>
+</odoo>
